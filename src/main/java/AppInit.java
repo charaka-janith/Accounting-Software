@@ -16,7 +16,7 @@ public class AppInit extends Application {
 
     public void start(Stage primaryStage) {
         try {
-            System.out.println("sample log");
+            System.out.println("test");
             Parent root = FXMLLoader.load(this.getClass().getResource("front_end/login/Login.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
