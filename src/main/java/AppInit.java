@@ -15,7 +15,7 @@ public class AppInit extends Application {
     }
 
     public void start(Stage primaryStage) {
-        try {
+        /*try {
             System.out.println("test");
             Parent root = FXMLLoader.load(this.getClass().getResource("front_end/login/Login.fxml"));
             Scene scene = new Scene(root);
@@ -28,6 +28,8 @@ public class AppInit extends Application {
             primaryStage.show();
         } catch (Exception e) {
             System.out.println("AppInit.start : error : " + e.getMessage());
-        }
+        }*/
+
+        CustomerBO bo = (CustomerBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.CUSTOMER);
     }
 }

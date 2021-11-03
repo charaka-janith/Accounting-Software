@@ -1,6 +1,5 @@
 package front_end.login;
 
-import back_end.DBConnector;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXToggleButton;
@@ -139,6 +138,6 @@ public class LoginController implements Initializable {
   }
 
   private void login(Event event) {
-    DBConnector.getData("test", "password");
+
   }
 }
