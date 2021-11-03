@@ -1,7 +1,6 @@
 package back_end.db;
 
-import back_end.config.temp;
-
+import back_end.config.DontPush;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,7 +11,7 @@ public class DBConnector {
 
     private void DBConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/accountingSoftware", temp.userName, temp.password);
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/accountingSoftware", DontPush.userName, DontPush.password);
     }
 
     public static DBConnector getInstance() {
