@@ -1,5 +1,8 @@
 package front_end.login;
 
+import back_end.bo.BOFacory;
+import back_end.bo.custom.UserBO;
+import back_end.dto.UserDTO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXToggleButton;
@@ -21,6 +24,8 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
+  public Label lbl_shortcuts;
+  UserBO bo = (UserBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.USER);
   public static Stage stage;
 
   @FXML
@@ -34,9 +39,6 @@ public class LoginController implements Initializable {
 
   @FXML
   private Label lblTabMode;
-
-  @FXML
-  private Label lblRL;
 
   @FXML
   private TextField txtUserName;
@@ -54,12 +56,6 @@ public class LoginController implements Initializable {
   private JFXButton btnExit;
 
   @FXML
-  private Hyperlink linkForgetPassword;
-
-  @FXML
-  private JFXToggleButton btnDesktopMode;
-
-  @FXML
   private JFXSpinner loaderAnim;
 
   @FXML
@@ -67,7 +63,7 @@ public class LoginController implements Initializable {
     if (event.getCode().equals(KeyCode.ENTER)) {
       txtUserName.requestFocus();
     } else if (event.getCode().equals(KeyCode.ESCAPE)) {
-      linkForgetPassword.requestFocus();
+
     }
   }
 
@@ -81,7 +77,7 @@ public class LoginController implements Initializable {
     if (event.getCode().equals(KeyCode.ENTER)) {
       System.exit(0);
     } else if (event.getCode().equals(KeyCode.ESCAPE)) {
-      linkForgetPassword.requestFocus();
+
     }
   }
 
@@ -128,7 +124,7 @@ public class LoginController implements Initializable {
     if (event.getCode().equals(KeyCode.ENTER)) {
       txtPassword.requestFocus();
     } else if (event.getCode().equals(KeyCode.ESCAPE)) {
-      btnDesktopMode.requestFocus();
+
     }
   }
 
@@ -138,6 +134,12 @@ public class LoginController implements Initializable {
   }
 
   private void login(Event event) {
-
+    System.out.println("LoginController.login");
+    UserDTO user = new UserDTO(txtUserName.getText(), txtPassword.getText());
+    try {
+      bo.addUser(user);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }

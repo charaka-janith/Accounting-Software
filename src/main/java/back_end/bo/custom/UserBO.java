@@ -4,5 +4,5 @@ import back_end.bo.SuperBO;
 import back_end.dto.UserDTO;
 
 public interface UserBO extends SuperBO {
-    public boolean addUser(UserDTO user);
+    public boolean addUser(UserDTO user) throws Exception;
 }
