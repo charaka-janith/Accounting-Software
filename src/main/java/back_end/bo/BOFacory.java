@@ -1,6 +1,6 @@
 package back_end.bo;
 
-import back_end.bo.custom.impl.CustomerBOImpl;
+import back_end.bo.custom.impl.UserBOImpl;
 
 public class BOFacory {
 
@@ -18,13 +18,13 @@ public class BOFacory {
 
     public enum BOTypes {
 
-        CUSTOMER, ITEM, PO;
+        USER;
     }
 
     public SuperBO getBO(BOTypes types) {
         switch (types) {
-            case CUSTOMER:
-                return new CustomerBOImpl();
+            case USER:
+                return new UserBOImpl();
             default:
                 return null;
 

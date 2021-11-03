@@ -1,10 +1,5 @@
-import back_end.bo.BOFacory;
-import back_end.bo.custom.CustomerBO;
-import back_end.dto.UserDTO;
 import front_end.login.LoginController;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,15 +7,14 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class AppInit extends Application {
-    CustomerBO bo = (CustomerBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.CUSTOMER);
 
     public static void main(String[] args) {
         launch(args);
     }
 
     public void start(Stage primaryStage) {
-        /*try {
-            System.out.println("test");
+        try {
+            System.out.println("AppInit.start");
             Parent root = FXMLLoader.load(this.getClass().getResource("front_end/login/Login.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
@@ -32,8 +26,6 @@ public class AppInit extends Application {
             primaryStage.show();
         } catch (Exception e) {
             System.out.println("AppInit.start : error : " + e.getMessage());
-        }*/
-        UserDTO user = new UserDTO("shashika", "password");
-        bo.addUser(user);
+        }
     }
 }

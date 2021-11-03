@@ -1,5 +1,7 @@
 package back_end.dao;
 
+import back_end.dao.custom.impl.UserDAOImpl;
+
 public class DAOFactory {
 
     private static DAOFactory daoFactory;
@@ -7,7 +9,7 @@ public class DAOFactory {
     private DAOFactory() {
     }
 
-    public static DAOFactory getInstace() {
+    public static DAOFactory getInstance() {
         if (daoFactory == null) {
             daoFactory = new DAOFactory();
         }
@@ -16,13 +18,13 @@ public class DAOFactory {
 
     public enum DAOFactoryTypes {
 
-        CUSTOMER, ITEM, ORDER, ORDERDETAILS,QUERY;
+        USER;
     }
 
     public SuperDAO getDAO(DAOFactoryTypes types) {
         switch (types) {
-            case CUSTOMER:
-//                return new CustomerDAOImpl();
+            case USER:
+                return new UserDAOImpl();
             default:
                 return null;
 

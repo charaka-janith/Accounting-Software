@@ -1,0 +1,10 @@
+DROP DATABASE IF EXISTS accountingSoftware;
+CREATE DATABASE accountingSoftware;
+USE accountingSoftware;
+
+DROP TABLE IF EXISTS user;
+CREATE TABLE user (
+userName VARCHAR ( 20 ) NOT NULL,
+password VARCHAR ( 20 ) NOT NULL,
+CONSTRAINT PRIMARY KEY(userName)
+);

@@ -9,12 +9,12 @@ public class DBConnector {
     private static DBConnector dbConnection;
     private Connection connection;
 
-    private void DBConnection() throws ClassNotFoundException, SQLException {
+    private DBConnector() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/accountingSoftware", DontPush.userName, DontPush.password);
     }
 
-    public static DBConnector getInstance() {
+    public static DBConnector getInstance() throws SQLException, ClassNotFoundException {
         if (dbConnection == null) {
             dbConnection = new DBConnector();
         }
