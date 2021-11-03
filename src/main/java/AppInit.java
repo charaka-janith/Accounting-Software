@@ -1,5 +1,6 @@
 import back_end.bo.BOFacory;
 import back_end.bo.custom.CustomerBO;
+import back_end.dto.UserDTO;
 import front_end.login.LoginController;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -11,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class AppInit extends Application {
+    CustomerBO bo = (CustomerBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.CUSTOMER);
 
     public static void main(String[] args) {
         launch(args);
@@ -31,7 +33,7 @@ public class AppInit extends Application {
         } catch (Exception e) {
             System.out.println("AppInit.start : error : " + e.getMessage());
         }*/
-
-        CustomerBO bo = (CustomerBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.CUSTOMER);
+        UserDTO user = new UserDTO("shashika", "password");
+        bo.addUser(user);
     }
 }

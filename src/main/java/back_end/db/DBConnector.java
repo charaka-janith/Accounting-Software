@@ -1,5 +1,7 @@
 package back_end.db;
 
+import back_end.config.temp;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,7 +12,7 @@ public class DBConnector {
 
     private void DBConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/accountingSoftware", "charaka", "");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/accountingSoftware", "charaka", temp.password);
     }
 
     public static DBConnector getInstance() {

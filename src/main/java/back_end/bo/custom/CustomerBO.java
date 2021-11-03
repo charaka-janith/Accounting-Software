@@ -5,7 +5,6 @@
  */
 package back_end.bo.custom;
 import back_end.bo.SuperBO;
-import back_end.dto.CustomerDTO;
 
 import java.util.ArrayList;
 

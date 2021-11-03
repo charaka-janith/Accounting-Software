@@ -8,7 +8,6 @@ package back_end.bo.custom.impl;
 import back_end.bo.custom.CustomerBO;
 import back_end.dao.DAOFactory;
 import back_end.dao.custom.CustomerDAO;
-import back_end.dto.CustomerDTO;
 import back_end.entity.Customer;
 
 import java.util.ArrayList;
