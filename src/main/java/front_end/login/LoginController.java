@@ -124,6 +124,7 @@ public class LoginController implements Initializable {
       login(event);
     } else if (event.getCode().equals(KeyCode.ESCAPE)) {
       txtUserName.requestFocus();
+      System.out.println("LoginController.txtPasswordKeyReleased");
     }
   }
 
