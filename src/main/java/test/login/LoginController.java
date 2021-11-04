@@ -1,4 +1,4 @@
-package front_end.login;
+package test.login;
 
 import back_end.bo.BOFacory;
 import back_end.bo.custom.UserBO;

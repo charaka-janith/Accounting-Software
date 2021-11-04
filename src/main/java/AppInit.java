@@ -1,4 +1,4 @@
-import front_end.login.LoginController;
+import test.login.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,8 +16,7 @@ public class AppInit extends Application {
 
     public void start(Stage primaryStage) {
         try {
-            System.out.println("AppInit.start");
-            Parent root = FXMLLoader.load(Objects.requireNonNull(this.getClass().getResource("front_end/login/Login.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(this.getClass().getResource("front_end/ui/login/Login.fxml")));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.initStyle(StageStyle.UNDECORATED);
