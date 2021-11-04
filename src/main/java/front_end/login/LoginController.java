@@ -142,6 +142,12 @@ public class LoginController implements Initializable {
   }
 
   private void login(Event event) {
-    System.out.print(1);
+    System.out.println("LoginController.login");
+    UserDTO user = new UserDTO(txtUserName.getText(), txtPassword.getText());
+    try {
+      bo.addUser(user);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }
