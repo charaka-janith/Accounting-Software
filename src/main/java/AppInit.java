@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.util.Objects;
+
 public class AppInit extends Application {
 
     public static void main(String[] args) {
@@ -13,10 +15,8 @@ public class AppInit extends Application {
     }
 
     public void start(Stage primaryStage) {
-        System.out.println("AppInit.start");
         try {
-            System.out.println("AppInit.start");
-            Parent root = FXMLLoader.load(this.getClass().getResource("front_end/login/Login.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(this.getClass().getResource("front_end/login/Login.fxml")));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.initStyle(StageStyle.UNDECORATED);

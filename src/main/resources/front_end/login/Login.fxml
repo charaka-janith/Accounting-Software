@@ -12,7 +12,7 @@
             fx:controller="front_end.login.LoginController">
     <children>
         <Label fx:id="lblMain" alignment="CENTER" layoutY="10.0" prefHeight="16.0" prefWidth="300.0"
-               style="-fx-background-color: #4cd137;" text="Welcome !" textFill="#2f3640">
+               style="-fx-background-color: #4cd137;" text="සිංහල !" textFill="#2f3640">
             <font>
                 <Font name="System Bold" size="13.0"/>
             </font>
