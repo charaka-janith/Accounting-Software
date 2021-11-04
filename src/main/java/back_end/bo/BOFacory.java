@@ -17,7 +17,6 @@ public class BOFacory {
     }
 
     public enum BOTypes {
-
         USER;
     }
 

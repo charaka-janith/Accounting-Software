@@ -47,7 +47,7 @@
                    onMouseClicked="#btnExitMouseClicked" prefWidth="125.0" style="-fx-border-color: #c23616;"
                    text="Exit" textFill="#c23616">
             <font>
-                <Font name="System Bold" size="13.0" />
+                <Font name="System Bold" size="13.0"/>
             </font>
             <cursor>
                 <Cursor fx:constant="HAND"/>
