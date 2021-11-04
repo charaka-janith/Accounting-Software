@@ -1,4 +1,3 @@
-DROP DATABASE IF EXISTS accountingSoftware
 DROP DATABASE IF EXISTS accountingSoftware;
 CREATE DATABASE accountingSoftware;
 USE accountingSoftware;
