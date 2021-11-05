@@ -1,6 +1,6 @@
 # Accounting Software
 
-This is a Standalone Software for dealing with cash flow in your business.
+This Standalone Software is for dealing with cash flow in your business. 🕊
 
 ## Installation
 
