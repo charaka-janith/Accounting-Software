@@ -8,3 +8,6 @@ userName VARCHAR ( 20 ) NOT NULL,
 password VARCHAR ( 50 ) NOT NULL,
 CONSTRAINT PRIMARY KEY(userName)
 );
+
+INSERT INTO user(userName, password) VALUES('charaka','');
+INSERT INTO user(userName, password) VALUES('lini','linilini');

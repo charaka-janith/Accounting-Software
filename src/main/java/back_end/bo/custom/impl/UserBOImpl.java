@@ -12,4 +12,9 @@ public class UserBOImpl implements UserBO {
     public boolean addUser(UserDTO user) throws Exception {
         return dao.add(new User(user.getName(),user.getPassword()));
     }
+
+    @Override
+    public UserDTO getUser() throws Exception {
+        return null;
+    }
 }
