@@ -4,8 +4,12 @@
 
 package front_end.ui.login;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
+import front_end.anim.Theme;
+import front_end.sessions.DataHolder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,14 +18,18 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
     public static Stage stage;
+    private final String window_name = "Welcome !";
 
     @FXML // fx:id="btn_exit"
     private JFXButton btn_exit; // Value injected by FXMLLoader
@@ -105,6 +113,36 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setColors();
+    }
 
+    private void setColors() {
+        /*try {
+            JsonParser parser = new JsonParser();
+            JsonElement parse = parser.parse(new FileReader(Theme.class.getResource("theme.json").getFile()));
+            Theme.colorBG = parse.getAsJsonObject().get("color_BG").getAsString();
+            Theme.color1 = parse.getAsJsonObject().get("color_1").getAsString();
+        } catch (FileNotFoundException e) {
+      Theme.giveAWarning(lblMain, e.getMessage(), "Welcome !");
+        }
+        Theme.setBackgroundColor("BG", pane);
+        Theme.setBackgroundColor("1", lblMain);
+        Theme.setTextFill("BG", lblMain);
+        Theme.setTextFill("1"
+                , lblRL
+                , lblTabMode
+                , btnDesktopMode
+                , lblUserName
+                , lblPassword
+                , linkForgetPassword
+                , btnSignIn
+        );
+        btnDesktopMode.setToggleColor(Paint.valueOf("white"));
+        btnDesktopMode.setUnToggleColor(Paint.valueOf("white"));
+        btnDesktopMode.setToggleLineColor(Paint.valueOf(Theme.color1));
+        btnDesktopMode.setUnToggleLineColor(Paint.valueOf(Theme.color1));
+        Theme.setTextFill("Warning", btnExit);
+        Theme.setBorderColor("1", btnSignIn);
+        Theme.setBorderColor("Warning", btnExit);*/
     }
 }
