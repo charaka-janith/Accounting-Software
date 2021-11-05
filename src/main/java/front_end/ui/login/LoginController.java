@@ -1,5 +1,8 @@
 package front_end.ui.login;
 
+import back_end.bo.BOFacory;
+import back_end.bo.custom.UserBO;
+import back_end.dto.UserDTO;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.jfoenix.controls.JFXButton;
@@ -30,6 +33,7 @@ public class LoginController implements Initializable {
     public static Stage stage;
     private final String window_name = "Welcome !";
     private String language = "off";
+    UserBO bo = (UserBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.USER);
 
     @FXML // fx:id="btn_exit"
     private JFXButton btn_exit; // Value injected by FXMLLoader
@@ -92,7 +96,7 @@ public class LoginController implements Initializable {
 
     @FXML
     void btn_login_onAction(ActionEvent event) {
-        Theme.giveAWarning("Invalid Username", window_name, lbl_main, region_left, region_right, region_bottom);
+        login();
     }
 
     @FXML
@@ -193,5 +197,15 @@ public class LoginController implements Initializable {
         Theme.setTextFill("Warning", btnExit);
         Theme.setBorderColor("1", btnSignIn);
         Theme.setBorderColor("Warning", btnExit);*/
+    }
+
+    private void login () {
+        try {
+            UserDTO user = bo.searchUser(txt_userName.getText());
+            System.out.println(user);
+            Theme.giveAWarning("user logged in", window_name, lbl_main, region_left, region_right, region_bottom);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
