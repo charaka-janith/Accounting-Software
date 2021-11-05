@@ -17,8 +17,6 @@ public class CrudUtil {
     private static PreparedStatement getPreparedStatement(String sql, Object... parms) throws ClassNotFoundException, SQLException {
         //creating connection with mysql server
         Connection connection = DBConnector.getInstance().getConnection();
-        System.out.println("CrudUtil.getPreparedStatement");
-        System.out.println(connection);
         PreparedStatement pstm = connection.prepareStatement(sql);
         for (int i = 0; i < parms.length; i++) {
             pstm.setObject(i + 1, parms[i]);
