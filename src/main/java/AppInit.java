@@ -16,7 +16,7 @@ public class AppInit extends Application {
 
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(this.getClass().getResource("front_end/ui/login/Login.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(this.getClass().getResource("front_end/ui/login/login.fxml")));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -26,6 +26,7 @@ public class AppInit extends Application {
             primaryStage.requestFocus();
             primaryStage.show();
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("AppInit.start : error : " + e.getMessage());
         }
     }

@@ -1,4 +1,4 @@
-package front_end.ui;
+package front_end.ui.login;
 
 public class LoginController {
 }
