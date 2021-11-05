@@ -35,7 +35,7 @@
             <Font size="14.0" />
          </font>
       </PasswordField>
-      <Label fx:id="lbl_shortcuts" alignment="CENTER" layoutX="3.0" layoutY="410.0" prefHeight="38.0" prefWidth="382.0" text="Shortcuts" />
+      <Label fx:id="lbl_shortcuts" alignment="CENTER" layoutX="3.0" layoutY="410.0" prefHeight="38.0" prefWidth="382.0" text="Next=Enter  Back=Esc  Exit=F5" />
       <JFXToggleButton fx:id="toggleBtn_language" layoutX="237.0" layoutY="71.0" onAction="#toggleBtn_language_onAction" onKeyReleased="#toggleBtn_language_keyReleased" prefHeight="58.0" prefWidth="151.0" size="9.0" text="සිංහල" toggleColor="#96ca00" toggleLineColor="#352785">
          <font>
             <Font name="System Bold" size="12.0" />
