@@ -5,5 +5,5 @@ import back_end.dto.UserDTO;
 
 public interface UserBO extends SuperBO {
     public boolean addUser(UserDTO user) throws Exception;
-    public UserDTO getUser() throws Exception;
+    public UserDTO searchUser(String userName) throws Exception ;
 }

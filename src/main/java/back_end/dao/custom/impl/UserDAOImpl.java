@@ -4,6 +4,7 @@ import back_end.dao.CrudUtil;
 import back_end.dao.custom.UserDAO;
 import back_end.entity.User;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class UserDAOImpl implements UserDAO {
@@ -24,8 +25,13 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User search(String s) throws Exception {
-        return null;
+    public User search(String userName) throws Exception {
+        ResultSet rst = CrudUtil.executeQuery("select * from user where userName=?", userName);
+        User user = null;
+        while (rst.next()) {
+            user = new User(rst.getString(1), rst.getString(2));
+        }
+        return user;
     }
 
     @Override
