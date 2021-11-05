@@ -87,9 +87,7 @@ public class LoginController implements Initializable {
 
     @FXML
     void btn_login_keyReleased(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.ENTER)) {
-            System.out.println("User Loged");
-        } else if (event.getCode().equals(KeyCode.ESCAPE)) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
             txt_pass.requestFocus();
         }
     }
@@ -151,16 +149,14 @@ public class LoginController implements Initializable {
 
     @FXML
     void txt_userName_keyReleased(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.ENTER)) {
-            txt_pass.requestFocus();
-        } else if (event.getCode().equals(KeyCode.ESCAPE)) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
             toggleBtn_language.requestFocus();
         }
     }
 
     @FXML
     void txt_userName_onAction(ActionEvent event) {
-
+        txt_pass.requestFocus();
     }
 
     @Override
