@@ -21,13 +21,11 @@ public class AppInit extends Application {
             primaryStage.setScene(scene);
             primaryStage.initStyle(StageStyle.UNDECORATED);
             primaryStage.setResizable(false);
-            primaryStage.setAlwaysOnTop(true);
             LoginController.stage = primaryStage;
             primaryStage.requestFocus();
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("AppInit.start : error : " + e.getMessage());
         }
     }
 }

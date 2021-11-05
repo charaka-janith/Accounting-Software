@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
@@ -45,8 +46,8 @@ public class LoginController implements Initializable {
     @FXML // fx:id="lbl_userName"
     private Label lbl_userName; // Value injected by FXMLLoader
 
-    @FXML // fx:id="lbl_welcome"
-    private Label lbl_welcome; // Value injected by FXMLLoader
+    @FXML // fx:id="lbl_main"
+    private Label lbl_main; // Value injected by FXMLLoader
 
     @FXML // fx:id="pane"
     private AnchorPane pane; // Value injected by FXMLLoader
@@ -56,6 +57,15 @@ public class LoginController implements Initializable {
 
     @FXML // fx:id="txt_pass"
     private PasswordField txt_pass; // Value injected by FXMLLoader
+
+    @FXML // fx:id="region_left"
+    public Region region_left;
+
+    @FXML // fx:id="region_right"
+    public Region region_right;
+
+    @FXML // fx:id="region_bottom"
+    public Region region_bottom;
 
     @FXML // fx:id="txt_userName"
     private TextField txt_userName; // Value injected by FXMLLoader
@@ -82,7 +92,7 @@ public class LoginController implements Initializable {
 
     @FXML
     void btn_login_onAction(ActionEvent event) {
-
+        Theme.giveAWarning("Invalid Username", window_name, lbl_main, region_left, region_right, region_bottom);
     }
 
     @FXML
@@ -99,7 +109,7 @@ public class LoginController implements Initializable {
     void toggleBtn_language_onAction(ActionEvent event) {
         if(Objects.equals(language, "off")){
         language="on";
-            lbl_welcome.setText("සාදරයෙන් පිළිගනිමු!");
+            lbl_main.setText("සාදරයෙන් පිළිගනිමු!");
             lbl_userName.setText("පරිශීලක නාමය");
             txt_userName.setPromptText("පරිශීලක නාමය ඇතුළත් කරන්න");
             lbl_pass.setText("රහස් පදය");
@@ -109,7 +119,7 @@ public class LoginController implements Initializable {
             lbl_shortcuts.setText("ඊළඟ=Enter  ආපසු=Esc  පිටවීම=F5");
         }else{
             language="off";
-            lbl_welcome.setText("Welcome !");
+            lbl_main.setText("Welcome !");
             lbl_userName.setText("User Name");
             txt_userName.setPromptText("Enter User Name");
             lbl_pass.setText("Password");
@@ -117,7 +127,6 @@ public class LoginController implements Initializable {
             btn_exit.setText("Exit");
             btn_login.setText("Login");
             lbl_shortcuts.setText("Next=Enter  Back=Esc  Exit=F5");
-
         }
     }
 
@@ -156,15 +165,16 @@ public class LoginController implements Initializable {
     }
 
     private void setColors() {
-        /*try {
+        try {
             JsonParser parser = new JsonParser();
             JsonElement parse = parser.parse(new FileReader(Theme.class.getResource("theme.json").getFile()));
             Theme.colorBG = parse.getAsJsonObject().get("color_BG").getAsString();
             Theme.color1 = parse.getAsJsonObject().get("color_1").getAsString();
+            Theme.colorWarning = parse.getAsJsonObject().get("color_warning").getAsString();
         } catch (FileNotFoundException e) {
-      Theme.giveAWarning(lblMain, e.getMessage(), "Welcome !");
+//            Theme.giveAWarning(pane, lbl_main, e.getMessage(), window_name);
         }
-        Theme.setBackgroundColor("BG", pane);
+        /*Theme.setBackgroundColor("BG", pane);
         Theme.setBackgroundColor("1", lblMain);
         Theme.setTextFill("BG", lblMain);
         Theme.setTextFill("1"
