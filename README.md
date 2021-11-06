@@ -17,6 +17,18 @@ resources -> db.txt
 compile exec:java -f pom.xml
 ```
 
+## Usage
+
+####integrated with jira
+Syntax
+```bash
+<ignored text> <ISSUE_KEY> <ignored text> #comment <comment_string>
+```
+Example
+```bash
+JRA-34 #comment corrected indent issue
+```
+
 ## Technologies
 
 * IDE - Intellij Ultimate
