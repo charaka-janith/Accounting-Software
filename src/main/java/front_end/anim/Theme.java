@@ -14,7 +14,7 @@ public class Theme {
 //    base colors
     public static String colorBG;
     public static String color1;
-    public static String colorWarning;
+    public static String colorWarning = "#c23616";
 
     private static Thread errorThread = null;
 
