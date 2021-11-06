@@ -26,7 +26,7 @@ Syntax
 ```
 Example
 ```bash
-JRA-34 #comment corrected indent issue
+AS-34 #comment corrected indent issue
 ```
 
 ## Technologies
