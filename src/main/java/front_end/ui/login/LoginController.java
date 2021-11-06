@@ -226,7 +226,7 @@ public class LoginController implements Initializable {
         txt_pass.setText("");
         if (text.equals("")) {
             Theme.giveBorderWarning(txt_userName);
-            Theme.giveAWarning(Session.isSinhala() ? "sinhala error" : "Invalid Username", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+            Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය වලංගු නොවේ" : "Invalid Username", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
             btn_login.setDisable(true);
         } else {
             new Thread(() -> {
@@ -245,7 +245,7 @@ public class LoginController implements Initializable {
                         @Override
                         public void run() {
                             Theme.giveBorderWarning(txt_userName);
-                            Theme.giveAWarning("Username not found", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+                            Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හමු නොවීය" : "Username not found", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
                             btn_login.setDisable(true);
                         }
                     });
@@ -260,7 +260,7 @@ public class LoginController implements Initializable {
         try {
             UserDTO user = bo.searchUser(txt_userName.getText());
             System.out.println(user);
-            Theme.giveAWarning("user logged in", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+            Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක පුරනය වී ඇත" : "user logged in", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
         } catch (Exception e) {
             e.printStackTrace();
         }
