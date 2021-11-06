@@ -62,9 +62,7 @@ public class Theme {
         Platform.runLater(() -> {
             for (TextField textField :
                     textFields) {
-                textField.textProperty().addListener((observableValue, s, t1) -> {
-                    textField.setStyle("-fx-border-color: transparent");
-                });
+                textField.textProperty().addListener((observableValue, s, t1) -> textField.setStyle("-fx-border-color: transparent"));
             }
         });
     }
