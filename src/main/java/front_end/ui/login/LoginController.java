@@ -192,6 +192,8 @@ public class LoginController implements Initializable {
         } catch (FileNotFoundException e) {
 //            Theme.giveAWarning(pane, lbl_main, e.getMessage(), window_name);
         }
+        Theme.setBorderColor("1", btn_login);
+        Theme.setBorderColor("warning", btn_exit);
         /*Theme.setBackgroundColor("BG", pane);
         Theme.setBackgroundColor("1", lblMain);
         Theme.setTextFill("BG", lblMain);

@@ -1,5 +1,6 @@
 package front_end.anim;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -64,6 +65,29 @@ public class Theme {
                     textFields) {
                 textField.textProperty().addListener((observableValue, s, t1) -> textField.setStyle("-fx-border-color: transparent"));
             }
+        });
+    }
+
+    public static void setBorderColor(String code, JFXButton... list) {
+        String color = null;
+        switch (code) {
+            case "1":
+                color = color1;
+                break;
+            case "warning":
+                color = colorWarning;
+                break;
+        }
+        for (JFXButton node :
+                list) {
+            node.setStyle("-fx-border-color: " + color);
+            setOnMouseMoveFocus(node);
+        }
+    }
+
+    public static void setOnMouseMoveFocus(JFXButton btn) {
+        btn.setOnMouseMoved(mouseEvent -> {
+            btn.arm();
         });
     }
 
