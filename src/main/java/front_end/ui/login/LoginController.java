@@ -7,14 +7,24 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
+import com.sun.javafx.scene.ParentHelper;
+import com.sun.javafx.scene.traversal.Algorithm;
+import com.sun.javafx.scene.traversal.Direction;
+import com.sun.javafx.scene.traversal.ParentTraversalEngine;
+import com.sun.javafx.scene.traversal.TraversalContext;
 import front_end.anim.PaneOpenAnim;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
+import front_end.ui.dashboard.AdminDashboardController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -22,11 +32,16 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -138,6 +153,10 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setLanguage();
         setColors();
+        if (null != Session.getUser()) {
+            txt_userName.setText(Session.getUser().getName());
+            Session.setUser(null);
+        }
         Theme.setChangeListeners(txt_userName, txt_pass);
         Theme.scale(pane, false);
         new RunLater(txt_userName);
@@ -146,7 +165,7 @@ public class LoginController implements Initializable {
     }
 
     private void setLanguage() {
-        if(Session.isSinhala()){
+        if (Session.isSinhala()) {
             lbl_userName.setText("පරිශීලක නාමය");
             txt_userName.setPromptText("පරිශීලක නාමය ඇතුළත් කරන්න");
             lbl_pass.setText("මුරපදය");
@@ -157,12 +176,13 @@ public class LoginController implements Initializable {
             try {
                 Thread.sleep(2000);
                 Platform.runLater(() -> {
-                    windowName = "ආයුබෝවන්!";
+                    windowName = "ආයුබෝවන් !";
                     lbl_main.setText(windowName);
                 });
             } catch (InterruptedException ignored) {
             }
-        }else{
+            toggleBtn_language.setSelected(true);
+        } else {
             lbl_userName.setText("User Name");
             txt_userName.setPromptText("Enter User Name");
             lbl_pass.setText("Password");
@@ -178,6 +198,7 @@ public class LoginController implements Initializable {
                 });
             } catch (InterruptedException ignored) {
             }
+            toggleBtn_language.setSelected(false);
         }
     }
 
@@ -226,21 +247,20 @@ public class LoginController implements Initializable {
         String text = txt_userName.getText();
         txt_pass.setText("");
         if (text.equals("")) {
+            Session.setUser(null);
             Theme.giveBorderWarning(txt_userName);
             Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය වලංගු නොවේ" : "Invalid Username", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
-            btn_login.setDisable(true);
         } else {
             new Thread(() -> {
                 try {
                     Session.setUser(bo.searchUser(txt_userName.getText()));
-                    btn_login.setDisable(false);
                     assert Session.getUser() != null;
                     Platform.runLater(() -> lbl_main.setText(Session.isSinhala() ? "ආයුබෝවන් " + Session.getUser().getName() + " !" : "Welcome " + Session.getUser().getName() + " !"));
                 } catch (NullPointerException e) {
                     Platform.runLater(() -> {
+                        Session.setUser(null);
                         Theme.giveBorderWarning(txt_userName);
                         Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හමු නොවීය" : "Username not found", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
-                        btn_login.setDisable(true);
                     });
                 } catch (Exception e) {
                     Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
@@ -250,12 +270,44 @@ public class LoginController implements Initializable {
     }
 
     private void login() {
-        try {
-            UserDTO user = bo.searchUser(txt_userName.getText());
-            System.out.println(user);
-            Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක පුරනය වී ඇත" : "user logged in", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (null == Session.getUser()) {
+            Platform.runLater(() -> {
+                Theme.giveBorderWarning(txt_userName);
+                Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හමු නොවීය" : "Username not found", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+            });
+        } else {
+            if (txt_pass.getText().equals(Session.getUser().getPassword())) {
+                try {
+                    Parent root = FXMLLoader.load(Objects.requireNonNull(AdminDashboardController.class.getResource("AdminDashboard.fxml")));
+                    Scene scene = new Scene(root);
+                    AdminDashboardController.stage = new Stage();
+                    AdminDashboardController.stage.setScene(scene);
+                    AdminDashboardController.stage.setMaximized(true);
+                    AdminDashboardController.stage.setResizable(false);
+                    AdminDashboardController.stage.initStyle(StageStyle.UNDECORATED);
+                    AdminDashboardController.stage.show();
+                    Theme.setShade(AdminDashboardController.stage);
+                    stage.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Theme.giveBorderWarning(txt_pass);
+                Theme.giveAWarning(Session.isSinhala() ? "මුරපදය වලංගු නොවේ" : "Invalid Password", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+            }
         }
+    }
+
+    public static void backToLogin (Stage primaryStage) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(LoginController.class.getResource("Login.fxml")));
+        Scene scene = new Scene(root);
+        stage = new Stage();
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setResizable(false);
+        stage.requestFocus();
+        stage.show();
+        Theme.setShade(stage);
+        primaryStage.close();
     }
 }
