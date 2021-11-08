@@ -17,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -139,8 +138,8 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setLanguage();
         setColors();
-        Theme.scale(pane, false);
         Theme.setChangeListeners(txt_userName, txt_pass);
+        Theme.scale(pane, false);
         new RunLater(txt_userName);
         new PaneOpenAnim(pane);
         setFocusListeners();
@@ -192,7 +191,7 @@ public class LoginController implements Initializable {
         } catch (FileNotFoundException e) {
 //            Theme.giveAWarning(pane, lbl_main, e.getMessage(), window_name);
         }
-        Theme.setBorderColor("1", btn_login);
+        Theme.setBackgroundColor("1", btn_login);
         Theme.setBorderColor("warning", btn_exit);
         /*Theme.setBackgroundColor("BG", pane);
         Theme.setBackgroundColor("1", lblMain);
@@ -236,20 +235,12 @@ public class LoginController implements Initializable {
                     Session.setUser(bo.searchUser(txt_userName.getText()));
                     btn_login.setDisable(false);
                     assert Session.getUser() != null;
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            lbl_main.setText(Session.isSinhala() ? "ආයුබෝවන් " + Session.getUser().getName() + " !" : "Welcome " + Session.getUser().getName() + " !");
-                        }
-                    });
+                    Platform.runLater(() -> lbl_main.setText(Session.isSinhala() ? "ආයුබෝවන් " + Session.getUser().getName() + " !" : "Welcome " + Session.getUser().getName() + " !"));
                 } catch (NullPointerException e) {
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            Theme.giveBorderWarning(txt_userName);
-                            Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හමු නොවීය" : "Username not found", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
-                            btn_login.setDisable(true);
-                        }
+                    Platform.runLater(() -> {
+                        Theme.giveBorderWarning(txt_userName);
+                        Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හමු නොවීය" : "Username not found", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+                        btn_login.setDisable(true);
                     });
                 } catch (Exception e) {
                     Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);

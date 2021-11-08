@@ -2,14 +2,17 @@ package front_end.anim;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.transform.Scale;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 public class Theme {
 //    base colors
@@ -85,6 +88,23 @@ public class Theme {
         }
     }
 
+    public static void setBackgroundColor(String code, JFXButton... list) {
+        String color = null;
+        switch (code) {
+            case "1":
+                color = color1;
+                break;
+            case "warning":
+                color = colorWarning;
+                break;
+        }
+        for (JFXButton node :
+                list) {
+            node.setStyle("-fx-background-color: " + color);
+            setOnMouseMoveFocus(node);
+        }
+    }
+
     public static void setOnMouseMoveFocus(JFXButton btn) {
         btn.setOnMouseMoved(mouseEvent -> {
             btn.arm();
@@ -111,5 +131,19 @@ public class Theme {
             node.setLayoutY(node.getLayoutY() * ratioY);
         }
         node.getTransforms().add(scale);
+    }
+
+    public static void setShade(Stage stage) {
+        ColorAdjust inactiveColorAdjust = new ColorAdjust();
+        ColorAdjust standardColorAdjust = new ColorAdjust();
+        final ChangeListener<? super Boolean> FocusHandel = (__, ___, isFocused) ->
+        {
+            if (isFocused) {
+                stage.getScene().getRoot().setEffect(standardColorAdjust);
+            } else {
+                stage.getScene().getRoot().setEffect(inactiveColorAdjust);
+            }
+        };
+        stage.focusedProperty().addListener(FocusHandel);
     }
 }

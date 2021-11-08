@@ -37,6 +37,7 @@ public class AppInit extends Application {
             LoginController.stage = primaryStage;
             primaryStage.requestFocus();
             primaryStage.show();
+            Theme.setShade(primaryStage);
         } catch (Exception e) {
             e.printStackTrace();
         }
