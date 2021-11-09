@@ -256,7 +256,7 @@ public class LoginController implements Initializable {
             Platform.runLater(() -> {
                 Theme.giveBorderWarning(txt_userName);
                 Theme.giveBorderWarning(txt_pass);
-                Theme.giveAWarning(Session.isSinhala() ? "Invalid Credentials" : "Invalid Credentials", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+                Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Username or Password is invalid", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
             });
         } else {
             if (txt_pass.getText().equals(Session.getUser().getPassword())) {
