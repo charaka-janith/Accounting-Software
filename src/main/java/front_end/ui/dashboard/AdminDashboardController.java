@@ -4,11 +4,17 @@ import com.jfoenix.controls.JFXButton;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
 import front_end.ui.login.LoginController;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
@@ -113,5 +119,25 @@ public class AdminDashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         windowName = "Welcome " + Session.getUser().getName() + " !";
         lbl_main.setText(windowName);
+        runLater();
+    }
+
+    private void runLater() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                btn_createCompany.requestFocus();
+                pane.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(javafx.scene.input.KeyEvent event) {
+                        if (event.getCode().equals(KeyCode.F1)) {
+                            // TODO dilini -> create company
+                        } else if (event.getCode().equals(KeyCode.F2)) {
+                            // TODO dilini
+                        }
+                    }
+                });
+            }
+        });
     }
 }
