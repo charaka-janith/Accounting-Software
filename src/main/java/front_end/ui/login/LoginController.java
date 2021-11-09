@@ -252,25 +252,33 @@ public class LoginController implements Initializable {
     }
 
     private void login() {
-        if (txt_pass.getText().equals(Session.getUser().getPassword())) {
-            try {
-                Parent root = FXMLLoader.load(Objects.requireNonNull(AdminDashboardController.class.getResource("AdminDashboard.fxml")));
-                Scene scene = new Scene(root);
-                AdminDashboardController.stage = new Stage();
-                AdminDashboardController.stage.setScene(scene);
-                AdminDashboardController.stage.setMaximized(true);
-                AdminDashboardController.stage.setResizable(false);
-                AdminDashboardController.stage.initStyle(StageStyle.UNDECORATED);
-                AdminDashboardController.stage.show();
-                Theme.setShade(AdminDashboardController.stage);
-                stage.close();
-            } catch (IOException e) {
-                Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
-            }
+        if (null == Session.getUser()) {
+            Platform.runLater(() -> {
+                Theme.giveBorderWarning(txt_userName);
+                Theme.giveBorderWarning(txt_pass);
+                Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+            });
         } else {
-            Theme.giveBorderWarning(txt_userName);
-            Theme.giveBorderWarning(txt_pass);
-            Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Username or Password is invalid", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+            if (txt_pass.getText().equals(Session.getUser().getPassword())) {
+                try {
+                    Parent root = FXMLLoader.load(Objects.requireNonNull(AdminDashboardController.class.getResource("AdminDashboard.fxml")));
+                    Scene scene = new Scene(root);
+                    AdminDashboardController.stage = new Stage();
+                    AdminDashboardController.stage.setScene(scene);
+                    AdminDashboardController.stage.setMaximized(true);
+                    AdminDashboardController.stage.setResizable(false);
+                    AdminDashboardController.stage.initStyle(StageStyle.UNDECORATED);
+                    AdminDashboardController.stage.show();
+                    Theme.setShade(AdminDashboardController.stage);
+                    stage.close();
+                } catch (IOException e) {
+                    Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+                }
+            } else {
+                Theme.giveBorderWarning(txt_userName);
+                Theme.giveBorderWarning(txt_pass);
+                Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+            }
         }
     }
 
