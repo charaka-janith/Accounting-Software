@@ -166,38 +166,42 @@ public class LoginController implements Initializable {
 
     private void setLanguage() {
         if (Session.isSinhala()) {
-            lbl_userName.setText("පරිශීලක නාමය");
-            txt_userName.setPromptText("පරිශීලක නාමය ඇතුළත් කරන්න");
-            lbl_pass.setText("මුරපදය");
-            txt_pass.setPromptText("මුරපදය ඇතුළත් කරන්න");
-            btn_exit.setText("අවලංගු කරන්න");
-            btn_login.setText("පුරන්න");
-            lbl_shortcuts.setText("ඊළඟ = Enter / ආපසු = Esc / පිටවීම = F5");
-            try {
-                Thread.sleep(2000);
-                Platform.runLater(() -> {
-                    windowName = "ආයුබෝවන් !";
-                    lbl_main.setText(windowName);
-                });
-            } catch (InterruptedException ignored) {
-            }
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000);
+                    Platform.runLater(() -> {
+                        windowName = "ආයුබෝවන් !";
+                        lbl_main.setText(windowName);
+                        lbl_userName.setText("පරිශීලක නාමය");
+                        txt_userName.setPromptText("පරිශීලක නාමය ඇතුළත් කරන්න");
+                        lbl_pass.setText("මුරපදය");
+                        txt_pass.setPromptText("මුරපදය ඇතුළත් කරන්න");
+                        btn_exit.setText("අවලංගු කරන්න");
+                        btn_login.setText("පුරන්න");
+                        lbl_shortcuts.setText("ඊළඟ = Enter / ආපසු = Esc / පිටවීම = F5");
+                    });
+                } catch (InterruptedException ignored) {
+                }
+            }).start();
             toggleBtn_language.setSelected(true);
         } else {
-            lbl_userName.setText("User Name");
-            txt_userName.setPromptText("Enter User Name");
-            lbl_pass.setText("Password");
-            txt_pass.setPromptText("Enter Password");
-            btn_exit.setText("Exit");
-            btn_login.setText("Login");
-            lbl_shortcuts.setText("Next = Enter / Back = Esc / Exit = F5");
-            try {
-                Thread.sleep(2000);
-                Platform.runLater(() -> {
-                    windowName = "Welcome !";
-                    lbl_main.setText(windowName);
-                });
-            } catch (InterruptedException ignored) {
-            }
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000);
+                    Platform.runLater(() -> {
+                        windowName = "Welcome !";
+                        lbl_main.setText(windowName);
+                        lbl_userName.setText("User Name");
+                        txt_userName.setPromptText("Enter User Name");
+                        lbl_pass.setText("Password");
+                        txt_pass.setPromptText("Enter Password");
+                        btn_exit.setText("Exit");
+                        btn_login.setText("Login");
+                        lbl_shortcuts.setText("Next = Enter / Back = Esc / Exit = F5");
+                    });
+                } catch (InterruptedException ignored) {
+                }
+            }).start();
             toggleBtn_language.setSelected(false);
         }
     }
@@ -244,36 +248,26 @@ public class LoginController implements Initializable {
     }
 
     private void checkUserId() {
-        String text = txt_userName.getText();
         txt_pass.setText("");
-        if (text.equals("")) {
-            Session.setUser(null);
-            Theme.giveBorderWarning(txt_userName);
-            Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය වලංගු නොවේ" : "Invalid Username", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
-        } else {
-            new Thread(() -> {
-                try {
-                    Session.setUser(bo.searchUser(txt_userName.getText()));
-                    assert Session.getUser() != null;
-                    Platform.runLater(() -> lbl_main.setText(Session.isSinhala() ? "ආයුබෝවන් " + Session.getUser().getName() + " !" : "Welcome " + Session.getUser().getName() + " !"));
-                } catch (NullPointerException e) {
-                    Platform.runLater(() -> {
-                        Session.setUser(null);
-                        Theme.giveBorderWarning(txt_userName);
-                        Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හමු නොවීය" : "Username not found", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
-                    });
-                } catch (Exception e) {
-                    Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
-                }
-            }).start();
-        }
+        new Thread(() -> {
+            try {
+                Session.setUser(bo.searchUser(txt_userName.getText()));
+                assert Session.getUser() != null;
+                Platform.runLater(() -> lbl_main.setText(Session.isSinhala() ? "ආයුබෝවන් " + Session.getUser().getName() + " !" : "Welcome " + Session.getUser().getName() + " !"));
+            } catch (NullPointerException e) {
+                Session.setUser(null);
+            } catch (Exception e) {
+                Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+            }
+        }).start();
     }
 
     private void login() {
         if (null == Session.getUser()) {
             Platform.runLater(() -> {
                 Theme.giveBorderWarning(txt_userName);
-                Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හමු නොවීය" : "Username not found", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+                Theme.giveBorderWarning(txt_pass);
+                Theme.giveAWarning(Session.isSinhala() ? "Invalid Credentials" : "Invalid Credentials", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
             });
         } else {
             if (txt_pass.getText().equals(Session.getUser().getPassword())) {
@@ -289,16 +283,17 @@ public class LoginController implements Initializable {
                     Theme.setShade(AdminDashboardController.stage);
                     stage.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
                 }
             } else {
+                Theme.giveBorderWarning(txt_userName);
                 Theme.giveBorderWarning(txt_pass);
-                Theme.giveAWarning(Session.isSinhala() ? "මුරපදය වලංගු නොවේ" : "Invalid Password", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+                Theme.giveAWarning(Session.isSinhala() ? "Invalid Credentials" : "Invalid Credentials", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
             }
         }
     }
 
-    public static void backToLogin (Stage primaryStage) throws IOException {
+    public static void backToLogin(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(LoginController.class.getResource("Login.fxml")));
         Scene scene = new Scene(root);
         stage = new Stage();

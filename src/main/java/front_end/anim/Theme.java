@@ -20,7 +20,7 @@ public class Theme {
     public static String color1;
     public static String colorWarning = "#c23616";
 
-    private static Thread errorThread = null;
+    public static Thread errorThread = null;
 
     public static void giveAWarning(String warning_text, String after_text, Label label, Region... regions) {
         Platform.runLater(() -> {
