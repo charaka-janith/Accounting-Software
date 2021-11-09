@@ -10,6 +10,6 @@ userType VARCHAR ( 20 ) NOT NULL,
 CONSTRAINT PRIMARY KEY(userName)
 );
 
-INSERT INTO user(userName, password, userType) VALUES('චරක','','admin');
+INSERT INTO user(userName, password, userType) VALUES('චරක','0','admin');
 INSERT INTO user(userName, password, userType) VALUES('lini','linilini','admin');
 INSERT INTO user(userName, password, userType) VALUES('mahesh','','admin');

@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="pane" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.dashboard.AdminDashboardController">
     <children>
-        <JFXButton fx:id="btn_createCompany" layoutX="990.0" layoutY="55.0" onAction="#btn_createCompany_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #96ca00;" text="Create Company [F1]" textFill="#96ca00">
+        <JFXButton fx:id="btn_createCompany" layoutX="990.0" layoutY="55.0" onAction="#btn_createCompany_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #96ca00; -fx-border-radius: 5; -fx-background-radius: 5;" text="Create Company [F1]" textFill="#96ca00">
             <font>
                 <Font name="System Bold" size="13.0" />
             </font>
@@ -20,7 +20,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </JFXButton>
-        <JFXButton fx:id="btn_lock" layoutX="990.0" layoutY="613.0" onAction="#btn_lock_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #c23616;" text="Lock [F7]" textFill="#c23616">
+        <JFXButton fx:id="btn_lock" layoutX="990.0" layoutY="613.0" onAction="#btn_lock_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #c23616; -fx-background-radius: 5; -fx-border-radius: 5;" text="Lock [F7]" textFill="#c23616">
             <font>
                 <Font name="System Bold" size="13.0" />
             </font>
@@ -28,7 +28,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </JFXButton>
-        <JFXButton fx:id="btn_exit" layoutX="990.0" layoutY="673.0" onAction="#btn_exit_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #c23616;" text="Exit [F4]" textFill="#c23616">
+        <JFXButton fx:id="btn_exit" layoutX="990.0" layoutY="673.0" onAction="#btn_exit_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #c23616; -fx-background-radius: 5; -fx-border-radius: 5;" text="Exit [F4]" textFill="#c23616">
             <font>
                 <Font name="System Bold" size="13.0" />
             </font>
@@ -56,7 +56,7 @@
       <Region fx:id="region_left" prefHeight="768.0" prefWidth="5.0" style="-fx-background-color: #96CA00;" />
       <Region fx:id="region_right" layoutX="1361.0" prefHeight="768.0" prefWidth="5.0" style="-fx-background-color: #96CA00;" />
       <Label fx:id="lbl_shortcuts" alignment="CENTER" layoutY="723.0" prefHeight="40.0" prefWidth="1366.0" text="no shortcuts here" />
-      <JFXButton fx:id="btn_editCompany" layoutX="990.0" layoutY="115.0" onAction="#btn_editCompany_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #96ca00;" text="Edit Company [F2]" textFill="#96ca00">
+      <JFXButton fx:id="btn_editCompany" layoutX="990.0" layoutY="115.0" onAction="#btn_editCompany_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #96ca00; -fx-border-radius: 5; -fx-background-radius: 5;" text="Edit Company [F2]" textFill="#96ca00">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -64,7 +64,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="btn_manageAdmins" layoutX="990.0" layoutY="175.0" onAction="#btn_manageAdmins_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #96ca00;" text="Manage Admins [F3]" textFill="#96ca00">
+      <JFXButton fx:id="btn_manageAdmins" layoutX="990.0" layoutY="175.0" onAction="#btn_manageAdmins_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #96ca00; -fx-border-radius: 5; -fx-background-radius: 5;" text="Manage Admins [F3]" textFill="#96ca00">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -72,7 +72,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="btn_changeTheme" layoutX="990.0" layoutY="235.0" onAction="#btn_changeTheme_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #96ca00;" text="Change Theme [F5]" textFill="#96ca00">
+      <JFXButton fx:id="btn_changeTheme" layoutX="990.0" layoutY="235.0" onAction="#btn_changeTheme_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #96ca00; -fx-border-radius: 5; -fx-background-radius: 5;" text="Change Theme [F5]" textFill="#96ca00">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -80,7 +80,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="btn_changePass" layoutX="990.0" layoutY="295.0" onAction="#btn_changePass_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #96ca00;" text="Change Password [F6]" textFill="#96ca00">
+      <JFXButton fx:id="btn_changePass" layoutX="990.0" layoutY="295.0" onAction="#btn_changePass_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #96ca00; -fx-border-radius: 5; -fx-background-radius: 5;" text="Change Password [F6]" textFill="#96ca00">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

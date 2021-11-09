@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="668.0" prefWidth="965.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.admin.CreateCompanyController">
+    <children>
+        <JFXButton fx:id="btn_goBack" layoutX="79.5" layoutY="604.0" onAction="#btn_goBack_onAction" onMouseClicked="#btnExitMouseClicked" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #c23616; -fx-background-radius: 5; -fx-border-radius: 5;" text="Go Back [F4]" textFill="#c23616">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </JFXButton>
+        <JFXButton fx:id="btn_create" layoutX="524.5" layoutY="604.0" onAction="#btn_create_onAction" onKeyReleased="#btn_create_keyReleased" onMouseClicked="#btnSaveMouseClicked" prefHeight="50.0" prefWidth="361.0" style="-fx-background-color: #96ca00; -fx-background-radius: 5; -fx-border-radius: 5;" text="Create [F1]" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </JFXButton>
+      <Label fx:id="lbl_main" alignment="CENTER" layoutX="5.0" layoutY="5.0" prefHeight="50.0" prefWidth="955.0" text="Create Company" textAlignment="CENTER" textFill="#96ca00">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_name" layoutX="50.0" layoutY="65.0" prefHeight="25.0" text="Name of the Enterprise / Person">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_name" layoutX="50.0" layoutY="95.0" onAction="#txt_name_onAction" onKeyReleased="#txt_name_keyReleased" prefHeight="30.0" prefWidth="500.0" promptText="Enter Name of the Enterprise / Person" style="-fx-border-radius: 2;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lbl_address" layoutX="50.0" layoutY="135.0" prefHeight="25.0" text="Address of the Enterprise / Person">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_address" layoutX="50.0" layoutY="165.0" onAction="#txt_address_onAction" onKeyReleased="#txt_address_keyReleased" prefHeight="30.0" prefWidth="865.0" promptText="Enter Address of the Enterprise / Person" style="-fx-border-radius: 2;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lbl_phoneNumber" layoutX="50.0" layoutY="205.0" prefHeight="25.0" text="Phone Number">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_phoneNumber" layoutX="50.0" layoutY="235.0" onAction="#txt_phoneNumber_onAction" onKeyReleased="#txt_phoneNumber_keyReleased" prefHeight="30.0" prefWidth="200.0" promptText="Enter Phone Number" style="-fx-border-radius: 2;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lbl_email" layoutX="50.0" layoutY="275.0" prefHeight="25.0" text="Email">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_email" layoutX="50.0" layoutY="305.0" onAction="#txt_email_onAction" onKeyReleased="#txt_email_keyReleased" prefHeight="30.0" prefWidth="700.0" promptText="Enter Email" style="-fx-border-radius: 2;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lbl_website" layoutX="50.0" layoutY="345.0" prefHeight="25.0" text="Website">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_website" layoutX="50.0" layoutY="375.0" onAction="#txt_website_onAction" onKeyReleased="#txt_website_keyReleased" prefHeight="30.0" prefWidth="500.0" promptText="Enter Website" style="-fx-border-radius: 2;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lbl_businessRegistrationNumber" layoutX="50.0" layoutY="415.0" prefHeight="25.0" text="Business Registration Number">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_businessRegistrationNumber" layoutX="50.0" layoutY="445.0" onAction="#txt_businessRegistrationNumber_onAction" onKeyReleased="#txt_businessRegistrationNumber_keyReleased" prefHeight="30.0" prefWidth="300.0" promptText="Enter Business Registration Number" style="-fx-border-radius: 2;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+    </children>
+</AnchorPane>

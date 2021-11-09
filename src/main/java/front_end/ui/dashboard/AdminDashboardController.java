@@ -3,6 +3,7 @@ package front_end.ui.dashboard;
 import com.jfoenix.controls.JFXButton;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
+import front_end.ui.admin.CreateCompanyController;
 import front_end.ui.login.LoginController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AdminDashboardController implements Initializable {
@@ -88,7 +90,17 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     void btn_createCompany_onAction(ActionEvent event) {
+goToCreateCompany();
+    }
 
+    public void goToCreateCompany() {
+        try {
+                Parent root = FXMLLoader.load(Objects.requireNonNull(CreateCompanyController.class.getResource("CreateCompany.fxml")));
+                subPane.getChildren().clear();
+                subPane.getChildren().add(root);
+        } catch (IOException e) {
+            Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+        }
     }
 
     @FXML
