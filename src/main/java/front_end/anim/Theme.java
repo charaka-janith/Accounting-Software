@@ -113,7 +113,6 @@ public class Theme {
 
     public static void scale(Node node, boolean isFullScreen) {
         Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-        System.out.println(screenBounds);
         double x = screenBounds.getWidth();
         double y = screenBounds.getHeight();
         double ratioX = (x / 1366);
@@ -131,7 +130,6 @@ public class Theme {
             node.setLayoutX(node.getLayoutX() * ratioX);
             node.setLayoutY(node.getLayoutY() * ratioY);
         }
-        System.out.println(scale);
         node.getTransforms().add(scale);
     }
 
