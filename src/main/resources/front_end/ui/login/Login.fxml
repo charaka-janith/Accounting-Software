@@ -11,9 +11,9 @@
 
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.login.LoginController">
    <children>
-      <Region fx:id="region_mainTop" prefHeight="384.0" prefWidth="1366.0" style="-fx-background-color: #44bd32;" />
-      <Region layoutX="200.0" layoutY="100.0" prefHeight="568.0" prefWidth="966.0" style="-fx-background-color: #1B1464;" />
-      <Region layoutX="205.0" layoutY="105.0" prefHeight="558.0" prefWidth="478.0" style="-fx-background-color: #ffffff;" />
+      <Region fx:id="region_back" prefHeight="384.0" prefWidth="1366.0" style="-fx-background-color: #44bd32;" />
+      <Region fx:id="region_front" layoutX="200.0" layoutY="100.0" prefHeight="568.0" prefWidth="966.0" style="-fx-background-color: #1B1464;" />
+      <Region fx:id="region_ui" layoutX="205.0" layoutY="105.0" prefHeight="558.0" prefWidth="478.0" style="-fx-background-color: #ffffff;" />
       <Label fx:id="lbl_main" alignment="CENTER" layoutX="683.0" layoutY="359.0" prefHeight="50.0" prefWidth="483.0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Arial" size="15.0" />
@@ -54,12 +54,12 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <Label alignment="CENTER" layoutX="242.0" layoutY="172.0" prefHeight="50.0" prefWidth="400.0" text="Login" textAlignment="CENTER" textFill="#1b1464">
+      <Label fx:id="lbl_login" alignment="CENTER" layoutX="242.0" layoutY="172.0" prefHeight="50.0" prefWidth="400.0" text="Login" textAlignment="CENTER" textFill="#1b1464">
          <font>
             <Font name="System Bold" size="35.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="725.0" layoutY="292.0" prefHeight="50.0" prefWidth="400.0" text="Welcome !" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="lbl_welcome" alignment="CENTER" layoutX="725.0" layoutY="292.0" prefHeight="50.0" prefWidth="400.0" text="Welcome !" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="35.0" />
          </font>
