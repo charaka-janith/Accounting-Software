@@ -27,6 +27,9 @@ CONSTRAINT PRIMARY KEY(id)
 INSERT INTO config(id, language) VALUES(0,'english');
 
 
+DROP TABLE IF EXISTS colors;
+CREATE TABLE colors(
+
 
 
 
