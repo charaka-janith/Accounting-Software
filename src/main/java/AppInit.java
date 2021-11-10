@@ -2,6 +2,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
+import front_end.ui.dashboard.AdminDashboardController;
 import front_end.ui.login.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -34,6 +35,7 @@ public class AppInit extends Application {
             primaryStage.setScene(scene);
             primaryStage.initStyle(StageStyle.UNDECORATED);
             primaryStage.setResizable(false);
+            primaryStage.setMaximized(true);
             LoginController.stage = primaryStage;
             primaryStage.requestFocus();
             primaryStage.show();

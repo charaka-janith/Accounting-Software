@@ -289,6 +289,7 @@ public class LoginController implements Initializable {
         stage.setScene(scene);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(false);
+        stage.setMaximized(true);
         stage.requestFocus();
         stage.show();
         Theme.setShade(stage);
