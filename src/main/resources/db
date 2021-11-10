@@ -13,3 +13,21 @@ CONSTRAINT PRIMARY KEY(userName)
 INSERT INTO user(userName, password, userType) VALUES('චරක','0','admin');
 INSERT INTO user(userName, password, userType) VALUES('lini','linilini','admin');
 INSERT INTO user(userName, password, userType) VALUES('mahesh','','admin');
+INSERT INTO user(userName, password, userType) VALUES('shashika','','admin');
+
+DROP TABLE IF EXISTS config;
+CREATE TABLE config(
+id INT NOT NULL,
+language VARCHAR ( 20 ) NOT NULL,
+CONSTRAINT PRIMARY KEY(id)
+);
+
+INSERT INTO config(id, language) VALUES(0,'english');
+
+
+
+
+
+
+
+
