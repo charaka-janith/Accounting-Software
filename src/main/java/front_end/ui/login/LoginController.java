@@ -1,20 +1,48 @@
 package front_end.ui.login;
 
+import back_end.bo.BOFacory;
+import back_end.bo.custom.UserBO;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
+import front_end.anim.PaneOpenAnim;
+import front_end.anim.RunLater;
+import front_end.anim.Theme;
+import front_end.sessions.Session;
+import front_end.ui.dashboard.AdminDashboardController;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-public class LoginController {
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
-    @FXML
-    private JFXButton btn_exit;
+public class LoginController implements Initializable {
+
+    public static Stage stage;
+    private String windowName;
+    UserBO bo = (UserBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.USER);
+
+    @FXML 
+    private JFXButton btn_exit; 
 
     @FXML
     private JFXButton btn_login;
@@ -60,104 +88,7 @@ public class LoginController {
 
     @FXML
     void btn_exit_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btn_login_keyReleased(KeyEvent event) {
-
-    }
-
-    @FXML
-    void btn_login_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void toggleBtn_language_keyReleased(KeyEvent event) {
-
-    }
-
-    @FXML
-    void toggleBtn_language_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void txt_pass_keyReleased(KeyEvent event) {
-
-    }
-
-    @FXML
-    void txt_pass_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void txt_userName_keyReleased(KeyEvent event) {
-
-    }
-
-    @FXML
-    void txt_userName_onAction(ActionEvent event) {
-
-    }
-
-}
-
----------------------------------------------------------------------------
-
-public class LoginController implements Initializable {
-
-    public static Stage stage;
-    private String windowName;
-    UserBO bo = (UserBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.USER);
-
-    @FXML // fx:id="btn_exit"
-    private JFXButton btn_exit; // Value injected by FXMLLoader
-
-    @FXML // fx:id="btn_login"
-    private JFXButton btn_login; // Value injected by FXMLLoader
-
-    @FXML // fx:id="lbl_pass"
-    private Label lbl_pass; // Value injected by FXMLLoader
-
-    @FXML // fx:id="lbl_shortcuts"
-    private Label lbl_shortcuts; // Value injected by FXMLLoader
-
-    @FXML // fx:id="lbl_userName"
-    private Label lbl_userName; // Value injected by FXMLLoader
-
-    @FXML // fx:id="lbl_main"
-    private Label lbl_main; // Value injected by FXMLLoader
-
-    @FXML // fx:id="pane"
-    private AnchorPane pane; // Value injected by FXMLLoader
-
-    @FXML // fx:id="toggleBtn_language"
-    private JFXToggleButton toggleBtn_language; // Value injected by FXMLLoader
-
-    @FXML // fx:id="txt_pass"
-    private PasswordField txt_pass; // Value injected by FXMLLoader
-
-    @FXML // fx:id="region_left"
-    public Region region_left; // Value injected by FXMLLoader
-
-    @FXML // fx:id="region_right"
-    public Region region_right; // Value injected by FXMLLoader
-
-    @FXML // fx:id="region_bottom"
-    public Region region_bottom; // Value injected by FXMLLoader
-
-    @FXML // fx:id="region_top"
-    public Region region_top; // Value injected by FXMLLoader
-
-    @FXML // fx:id="txt_userName"
-    private TextField txt_userName; // Value injected by FXMLLoader
-
-    @FXML
-    void btn_exit_onAction(ActionEvent event) {
-        System.exit(0);
+System.exit(0);
     }
 
     @FXML
@@ -165,11 +96,44 @@ public class LoginController implements Initializable {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
             txt_pass.requestFocus();
         }
-    }
 
+    }
+ 
     @FXML
     void btn_login_onAction(ActionEvent event) {
         login();
+
+    }
+
+    private void login() {
+        if (null == Session.getUser()) {
+            Platform.runLater(() -> {
+                Theme.giveBorderWarning(txt_userName);
+                Theme.giveBorderWarning(txt_pass);
+                Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", windowName, lbl_main, region_front);
+            });
+        } else {
+            if (txt_pass.getText().equals(Session.getUser().getPassword())) {
+                try {
+                    Parent root = FXMLLoader.load(Objects.requireNonNull(AdminDashboardController.class.getResource("AdminDashboard.fxml")));
+                    Scene scene = new Scene(root);
+                    AdminDashboardController.stage = new Stage();
+                    AdminDashboardController.stage.setScene(scene);
+                    AdminDashboardController.stage.setMaximized(true);
+                    AdminDashboardController.stage.setResizable(false);
+                    AdminDashboardController.stage.initStyle(StageStyle.UNDECORATED);
+                    AdminDashboardController.stage.show();
+                    Theme.setShade(AdminDashboardController.stage);
+                    stage.close();
+                } catch (IOException e) {
+                    Theme.giveAWarning(e.getMessage(), windowName, lbl_main,region_front);
+                }
+            } else {
+                Theme.giveBorderWarning(txt_userName);
+                Theme.giveBorderWarning(txt_pass);
+                Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", windowName, lbl_main,region_front);
+            }
+        }
     }
 
     @FXML
@@ -179,51 +143,14 @@ public class LoginController implements Initializable {
         } else if (event.getCode().equals(KeyCode.ENTER)) {
             txt_userName.requestFocus();
         }
+
     }
 
     @FXML
     void toggleBtn_language_onAction(ActionEvent event) {
         Session.setSinhala(!Session.isSinhala());
         setLanguage();
-    }
-
-    @FXML
-    void txt_pass_keyReleased(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.ESCAPE)) {
-            txt_userName.requestFocus();
-        }
-    }
-
-    @FXML
-    void txt_pass_onAction(ActionEvent event) {
-        login();
-    }
-
-    @FXML
-    void txt_userName_keyReleased(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.ESCAPE)) {
-            toggleBtn_language.requestFocus();
-        }
-    }
-
-    @FXML
-    void txt_userName_onAction(ActionEvent event) {
-        txt_pass.requestFocus();
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        setLanguage();
-        setColors();
-        if (null != Session.getUser()) {
-            txt_userName.setText(Session.getUser().getName());
-            Session.setUser(null);
-        }
-        Theme.setChangeListeners(txt_userName, txt_pass);
-        Theme.scale(pane, true);
-        new RunLater(txt_userName);
-        new PaneOpenAnim(pane);
-        setFocusListeners();
+        
     }
 
     private void setLanguage() {
@@ -268,6 +195,69 @@ public class LoginController implements Initializable {
         }
     }
 
+    @FXML
+    void txt_pass_keyReleased(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            txt_userName.requestFocus();
+        }
+    }
+
+    @FXML
+    void txt_pass_onAction(ActionEvent event) {
+        login();
+    }
+
+    @FXML
+    void txt_userName_keyReleased(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            toggleBtn_language.requestFocus();
+        }
+    }
+
+    @FXML
+    void txt_userName_onAction(ActionEvent event) {
+        txt_pass.requestFocus();
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setLanguage();
+        setColors();
+        if (null != Session.getUser()) {
+            txt_userName.setText(Session.getUser().getName());
+            Session.setUser(null);
+        }
+        Theme.setChangeListeners(txt_userName, txt_pass);
+        Theme.scale(pane, true);
+        new RunLater(txt_userName);
+        new PaneOpenAnim(pane);
+        setFocusListeners();
+    }
+
+    private void setFocusListeners() {
+        txt_userName.focusedProperty().addListener((observableValue, aBoolean, focused) -> {
+            if (!focused) {
+                checkUserId();
+            }
+        });
+    }
+
+    private void checkUserId() {
+        txt_pass.setText("");
+        new Thread(() -> {
+            try {
+                Session.setUser(bo.searchUser(txt_userName.getText()));
+                assert Session.getUser() != null;
+                Platform.runLater(() -> lbl_main.setText(Session.isSinhala() ? "ආයුබෝවන් " + Session.getUser().getName() + " !" : "Welcome " + Session.getUser().getName() + " !"));
+            } catch (NullPointerException e) {
+                Session.setUser(null);
+            } catch (Exception e) {
+                Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_front);
+            }
+        }).start();
+    }
+
     private void setColors() {
         try {
             JsonParser parser = new JsonParser();
@@ -299,60 +289,6 @@ public class LoginController implements Initializable {
         Theme.setTextFill("Warning", btnExit);
         Theme.setBorderColor("1", btnSignIn);
         Theme.setBorderColor("Warning", btnExit);*/
-    }
-
-    private void setFocusListeners() {
-        txt_userName.focusedProperty().addListener((observableValue, aBoolean, focused) -> {
-            if (!focused) {
-                checkUserId();
-            }
-        });
-    }
-
-    private void checkUserId() {
-        txt_pass.setText("");
-        new Thread(() -> {
-            try {
-                Session.setUser(bo.searchUser(txt_userName.getText()));
-                assert Session.getUser() != null;
-                Platform.runLater(() -> lbl_main.setText(Session.isSinhala() ? "ආයුබෝවන් " + Session.getUser().getName() + " !" : "Welcome " + Session.getUser().getName() + " !"));
-            } catch (NullPointerException e) {
-                Session.setUser(null);
-            } catch (Exception e) {
-                Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
-            }
-        }).start();
-    }
-
-    private void login() {
-        if (null == Session.getUser()) {
-            Platform.runLater(() -> {
-                Theme.giveBorderWarning(txt_userName);
-                Theme.giveBorderWarning(txt_pass);
-                Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
-            });
-        } else {
-            if (txt_pass.getText().equals(Session.getUser().getPassword())) {
-                try {
-                    Parent root = FXMLLoader.load(Objects.requireNonNull(AdminDashboardController.class.getResource("AdminDashboard.fxml")));
-                    Scene scene = new Scene(root);
-                    AdminDashboardController.stage = new Stage();
-                    AdminDashboardController.stage.setScene(scene);
-                    AdminDashboardController.stage.setMaximized(true);
-                    AdminDashboardController.stage.setResizable(false);
-                    AdminDashboardController.stage.initStyle(StageStyle.UNDECORATED);
-                    AdminDashboardController.stage.show();
-                    Theme.setShade(AdminDashboardController.stage);
-                    stage.close();
-                } catch (IOException e) {
-                    Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
-                }
-            } else {
-                Theme.giveBorderWarning(txt_userName);
-                Theme.giveBorderWarning(txt_pass);
-                Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", windowName, lbl_main, region_left, region_right, region_bottom, region_top);
-            }
-        }
     }
 
     public static void backToLogin(Stage primaryStage) throws IOException {
