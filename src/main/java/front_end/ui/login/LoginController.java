@@ -147,7 +147,7 @@ public class LoginController implements Initializable {
             Session.setUser(null);
         }
         Theme.setChangeListeners(txt_userName, txt_pass);
-        Theme.scale(pane, false);
+        Theme.scale(pane, true);
         new RunLater(txt_userName);
         new PaneOpenAnim(pane);
         setFocusListeners();
