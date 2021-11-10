@@ -1,38 +1,111 @@
 package front_end.ui.login;
 
-import back_end.bo.BOFacory;
-import back_end.bo.custom.UserBO;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
-import front_end.anim.PaneOpenAnim;
-import front_end.anim.RunLater;
-import front_end.anim.Theme;
-import front_end.sessions.Session;
-import front_end.ui.dashboard.AdminDashboardController;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Objects;
-import java.util.ResourceBundle;
+
+public class LoginController {
+
+    @FXML
+    private JFXButton btn_exit;
+
+    @FXML
+    private JFXButton btn_login;
+
+    @FXML
+    private Label lbl_login;
+
+    @FXML
+    private Label lbl_main;
+
+    @FXML
+    private Label lbl_pass;
+
+    @FXML
+    private Label lbl_shortcuts;
+
+    @FXML
+    private Label lbl_userName;
+
+    @FXML
+    private Label lbl_welcome;
+
+    @FXML
+    private AnchorPane pane;
+
+    @FXML
+    private Region region_back;
+
+    @FXML
+    private Region region_front;
+
+    @FXML
+    private Region region_ui;
+
+    @FXML
+    private JFXToggleButton toggleBtn_language;
+
+    @FXML
+    private PasswordField txt_pass;
+
+    @FXML
+    private TextField txt_userName;
+
+    @FXML
+    void btn_exit_onAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btn_login_keyReleased(KeyEvent event) {
+
+    }
+
+    @FXML
+    void btn_login_onAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void toggleBtn_language_keyReleased(KeyEvent event) {
+
+    }
+
+    @FXML
+    void toggleBtn_language_onAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void txt_pass_keyReleased(KeyEvent event) {
+
+    }
+
+    @FXML
+    void txt_pass_onAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void txt_userName_keyReleased(KeyEvent event) {
+
+    }
+
+    @FXML
+    void txt_userName_onAction(ActionEvent event) {
+
+    }
+
+}
+
+---------------------------------------------------------------------------
 
 public class LoginController implements Initializable {
 
