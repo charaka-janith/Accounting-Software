@@ -131,6 +131,7 @@ goToCreateCompany();
     public void initialize(URL url, ResourceBundle resourceBundle) {
         windowName = "Welcome " + Session.getUser().getName() + " !";
         lbl_main.setText(windowName);
+        Theme.scale(pane, true);
         runLater();
     }
 
