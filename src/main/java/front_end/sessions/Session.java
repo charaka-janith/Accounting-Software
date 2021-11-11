@@ -11,7 +11,7 @@ import static front_end.anim.Theme.errorThread;
 
 public class Session {
     private static UserDTO user;
-    private static boolean sinhala;
+    private static boolean sinhala = false;
    static ConfigBO bo = (ConfigBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.CONFIG);
 
     public static boolean isSinhala() {

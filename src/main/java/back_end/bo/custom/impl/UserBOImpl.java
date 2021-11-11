@@ -1,6 +1,7 @@
 package back_end.bo.custom.impl;
 
 import back_end.bo.custom.UserBO;
+import back_end.config.TrippleDes;
 import back_end.dao.DAOFactory;
 import back_end.dao.custom.UserDAO;
 import back_end.dto.UserDTO;
@@ -10,12 +11,12 @@ public class UserBOImpl implements UserBO {
     UserDAO dao = (UserDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOFactoryTypes.USER);
     @Override
     public boolean addUser(UserDTO user) throws Exception {
-        return dao.add(new User(user.getName(),user.getPassword()));
+        return dao.add(new User(user.getName(), new TrippleDes().encrypt(user.getPassword())));
     }
 
     @Override
     public UserDTO searchUser(String userName) throws Exception {
         User user = dao.search(userName);
-        return new UserDTO(user.getName(), user.getPassword());
+        return null == user ? null : new UserDTO(user.getName(), new TrippleDes().decrypt(user.getPassword()));
     }
 }

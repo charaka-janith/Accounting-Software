@@ -5,17 +5,14 @@ USE accountingSoftware;
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
 userName VARCHAR ( 20 ) NOT NULL,
-password VARCHAR ( 50 ) NOT NULL,
+password VARCHAR ( 100 ) NOT NULL,
 userType VARCHAR ( 20 ) NOT NULL,
 CONSTRAINT PRIMARY KEY(userName)
 );
 
-INSERT INTO user(userName, password, userType) VALUES('චරක','0','admin');
-INSERT INTO user(userName, password, userType) VALUES('lini','','admin');
-INSERT INTO user(userName, password, userType) VALUES('mahesh','ajksdfl972598kjf9t3hf#%$%^$#%&kfh98fdvn','admin');
-INSERT INTO user(userName, password, userType) VALUES('shashika','','admin');
-INSERT INTO user(userName, password, userType) VALUES('ayesh','','admin');
-
+INSERT INTO user(userName, password, userType) VALUES('චරක','iSUqUJfX1CY=','admin');
+INSERT INTO user(userName, password, userType) VALUES('charaka','g8jnkt0oArE=','admin');
+INSERT INTO user(userName, password, userType) VALUES('lini','LmQoge4J6N6JJSpQl9fUJg==','admin');
 
 DROP TABLE IF EXISTS config;
 CREATE TABLE config(
@@ -25,7 +22,6 @@ CONSTRAINT PRIMARY KEY(id)
 );
 
 INSERT INTO config(id, language) VALUES(0,'english');
-
 
 DROP TABLE IF EXISTS colors;
 CREATE TABLE colors(
@@ -40,7 +36,6 @@ INSERT INTO colors (color, colorCode) VALUES('border','#1B1464');
 INSERT INTO colors (color, colorCode) VALUES('font','#999999');
 INSERT INTO colors (color, colorCode) VALUES('warning','#a50000');
 
-
 DROP TABLE IF EXISTS company;
 CREATE TABLE company(
 name VARCHAR (50) NOT NULL,
@@ -53,4 +48,3 @@ CONSTRAINT PRIMARY KEY (name)
 );
 
 INSERT INTO company (name, address, phoneNumber, email, webSite, brn) VALUES ('gamageAppa','139,kanaththa,para','119','Appa2aiya@yahoh','WWW.APPA.COM','123123');
-
