@@ -24,11 +24,11 @@ import javafx.stage.Stage;
 public class Theme {
     static ColorBO bo = (ColorBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.COLOR);
     //    base colors
-    public static String background;
-    public static String success;
-    public static String border;
-    public static String font;
-    public static String warning;
+    public static String background = "#ffffff";
+    public static String success = "#44bd32";
+    public static String border = "#1B1464";
+    public static String font = "#999999";
+    public static String warning = "#a50000";
 
     public static Thread errorThread = null;
 

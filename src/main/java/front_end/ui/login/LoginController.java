@@ -30,6 +30,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -105,38 +106,40 @@ public class LoginController implements Initializable {
     private void login() {
         try {
             Session.setUser(userBO.searchUser(txt_userName.getText()));
+            if (null == Session.getUser()) {
+                Platform.runLater(() -> {
+                    Theme.giveBorderWarning(txt_userName);
+                    Theme.giveBorderWarning(txt_pass);
+                    Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_front);
+                });
+            } else {
+                if (txt_pass.getText().equals(Session.getUser().getPassword())) {
+                    try {
+                        Parent root = FXMLLoader.load(Objects.requireNonNull(AdminDashboardController.class.getResource("AdminDashboard.fxml")));
+                        Scene scene = new Scene(root);
+                        AdminDashboardController.stage = new Stage();
+                        AdminDashboardController.stage.setScene(scene);
+                        AdminDashboardController.stage.setMaximized(true);
+                        AdminDashboardController.stage.setResizable(false);
+                        AdminDashboardController.stage.initStyle(StageStyle.UNDECORATED);
+                        AdminDashboardController.stage.show();
+                        Theme.setShade(AdminDashboardController.stage);
+                        stage.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Theme.giveBorderWarning(txt_userName);
+                    Theme.giveBorderWarning(txt_pass);
+                    Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_front);
+                }
+            }
+        } catch (SQLException e){
+            Theme.giveAWarning("Database config invalid", "", lbl_main, region_front);
         } catch (NullPointerException e) {
             Session.setUser(null);
         } catch (Exception e) {
-            Theme.giveAWarning(e.getMessage(), "", lbl_main, region_front);
-        }
-        if (null == Session.getUser()) {
-            Platform.runLater(() -> {
-                Theme.giveBorderWarning(txt_userName);
-                Theme.giveBorderWarning(txt_pass);
-                Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_front);
-            });
-        } else {
-            if (txt_pass.getText().equals(Session.getUser().getPassword())) {
-                try {
-                    Parent root = FXMLLoader.load(Objects.requireNonNull(AdminDashboardController.class.getResource("AdminDashboard.fxml")));
-                    Scene scene = new Scene(root);
-                    AdminDashboardController.stage = new Stage();
-                    AdminDashboardController.stage.setScene(scene);
-                    AdminDashboardController.stage.setMaximized(true);
-                    AdminDashboardController.stage.setResizable(false);
-                    AdminDashboardController.stage.initStyle(StageStyle.UNDECORATED);
-                    AdminDashboardController.stage.show();
-                    Theme.setShade(AdminDashboardController.stage);
-                    stage.close();
-                } catch (IOException e) {
-                    Theme.giveAWarning(e.getMessage(), "", lbl_main, region_front);
-                }
-            } else {
-                Theme.giveBorderWarning(txt_userName);
-                Theme.giveBorderWarning(txt_pass);
-                Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_front);
-            }
+            e.printStackTrace();
         }
     }
 
@@ -156,8 +159,10 @@ public class LoginController implements Initializable {
             try {
                 Session.setSinhala(!Session.isSinhala());
                 setLanguage();
+            } catch (SQLException e){
+                Theme.giveAWarning("Database config invalid", "", lbl_main, region_front);
             } catch (Exception e) {
-                Theme.giveAWarning(e.getMessage(), "", lbl_main, region_front);
+                e.printStackTrace();
             }
         }).start();
     }
@@ -244,8 +249,10 @@ public class LoginController implements Initializable {
             try {
                 Session.setSinhala(configBO.searchConfig(0).getLanguage().equals("sinhala"));
                 setLanguage();
+            } catch (SQLException e){
+                Theme.giveAWarning("Database config invalid", "", lbl_main, region_front);
             } catch (Exception e) {
-                System.out.println(e);
+                e.printStackTrace();
             }
         }).start();
     }
@@ -272,15 +279,12 @@ public class LoginController implements Initializable {
                     Theme.setTextFill("border", lbl_login);
                     Theme.setToggleColor("success", "background", "border", "font", toggleBtn_language);
                 });
+            }catch (SQLException e){
+                Theme.giveAWarning("Database config invalid", "", lbl_main, region_front);
             } catch (Exception e) {
-                Theme.giveAWarning(e.getMessage(), "", lbl_main, region_front);
+                e.printStackTrace();
             }
         }).start();
-        /*
-        btnDesktopMode.setToggleColor(Paint.valueOf("white"));
-        btnDesktopMode.setUnToggleColor(Paint.valueOf("white"));
-        btnDesktopMode.setToggleLineColor(Paint.valueOf(Theme.color1));
-        btnDesktopMode.setUnToggleLineColor(Paint.valueOf(Theme.color1));*/
     }
 
     public static void backToLogin(Stage primaryStage) throws IOException {
