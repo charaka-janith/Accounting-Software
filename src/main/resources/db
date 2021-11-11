@@ -11,8 +11,8 @@ CONSTRAINT PRIMARY KEY(userName)
 );
 
 INSERT INTO user(userName, password, userType) VALUES('චරක','0','admin');
-INSERT INTO user(userName, password, userType) VALUES('lini','linilini','admin');
-INSERT INTO user(userName, password, userType) VALUES('mahesh','','admin');
+INSERT INTO user(userName, password, userType) VALUES('lini','','admin');
+INSERT INTO user(userName, password, userType) VALUES('mahesh','ajksdfl972598kjf9t3hf#%$%^$#%&kfh98fdvn','admin');
 INSERT INTO user(userName, password, userType) VALUES('shashika','','admin');
 INSERT INTO user(userName, password, userType) VALUES('ayesh','','admin');
 
@@ -41,6 +41,16 @@ INSERT INTO colors (color, colorCode) VALUES('font','#000000');
 INSERT INTO colors (color, colorCode) VALUES('warning','#a50000');
 
 
+DROP TABLE IF EXISTS company;
+CREATE TABLE company(
+name VARCHAR (50) NOT NULL,
+address VARCHAR (100) NULL,
+phoneNumber VARCHAR (20) NULL,
+email VARCHAR (50) NULL,
+webSite VARCHAR (60) NULL,
+brn VARCHAR (20) NULL,
+CONSTRAINT PRIMARY KEY (name)
+);
 
-
+INSERT INTO company (name, address, phoneNumber, email, webSite, brn) VALUES ('gamageAppa','139,kanaththa,para','119','Appa2aiya@yahoh','WWW.APPA.COM','123123');
 
