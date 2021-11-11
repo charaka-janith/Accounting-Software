@@ -6,9 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 
 public class CreateCompanyController {
 
@@ -61,23 +59,13 @@ public class CreateCompanyController {
     private TextField txt_website;
 
     @FXML
-    void btnExitMouseClicked(MouseEvent event) {
-
-    }
-
-    @FXML
-    void btnSaveMouseClicked(MouseEvent event) {
-
-    }
-
-    @FXML
     void btn_create_keyReleased(KeyEvent event) {
 
     }
 
     @FXML
     void btn_create_onAction(ActionEvent event) {
-
+        System.out.println("CreateCompanyController.btn_create_onAction");
     }
 
     @FXML

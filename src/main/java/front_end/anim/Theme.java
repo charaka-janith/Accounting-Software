@@ -3,22 +3,27 @@ package front_end.anim;
 import back_end.bo.BOFacory;
 import back_end.bo.custom.ColorBO;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Paint;
 import javafx.scene.transform.Scale;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Theme {
     static ColorBO bo = (ColorBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.COLOR);
-//    base colors
+    //    base colors
     public static String background;
     public static String success;
     public static String border;
@@ -27,7 +32,7 @@ public class Theme {
 
     public static Thread errorThread = null;
 
-    public static void initialize () throws Exception {
+    public static void initialize() throws Exception {
         background = bo.searchColor("background").getCode();
         success = bo.searchColor("success").getCode();
         border = bo.searchColor("border").getCode();
@@ -82,19 +87,56 @@ public class Theme {
         });
     }
 
-    public static void setBorderColor(String code, JFXButton... list) {
-        for (JFXButton node :
+    public static void setBorderColor(String code, Node... list) {
+        for (Node node :
                 list) {
-            node.setStyle("-fx-border-color: " + colorSwitch(code));
-            setOnMouseMoveFocus(node);
+            if (node instanceof JFXButton) {
+                node.setStyle("-fx-border-color: " + colorSwitch(code));
+                setOnMouseMoveFocus((JFXButton) node);
+            } else {
+                node.setStyle("-fx-border-color:" + colorSwitch(code));
+            }
         }
     }
 
-    public static void setBackgroundColor(String code, JFXButton... list) {
-        for (JFXButton node :
+    public static void setToggleColor(String toggleColor, String unToggleColor, String toggleLineColor, String unToggleLineColor, JFXToggleButton... list) {
+        for (JFXToggleButton node :
                 list) {
-            node.setStyle("-fx-background-color: " + colorSwitch(code));
-            setOnMouseMoveFocus(node);
+            node.setToggleColor(Paint.valueOf(colorSwitch(toggleColor)));
+            node.setUnToggleColor(Paint.valueOf(colorSwitch(unToggleColor)));
+            node.setToggleLineColor(Paint.valueOf(colorSwitch(toggleLineColor)));
+            node.setUnToggleLineColor(Paint.valueOf(colorSwitch(unToggleLineColor)));
+        }
+    }
+
+    public static void setBackgroundColor(String code, Node... list) {
+        for (Node node :
+                list) {
+            if (node instanceof JFXButton) {
+                node.setStyle("-fx-background-color: " + colorSwitch(code));
+                setOnMouseMoveFocus((JFXButton) node);
+            } else {
+                node.setStyle("-fx-background-color:" + colorSwitch(code));
+            }
+        }
+    }
+
+    public static void setTextFill(String code, Node... list) {
+        for (Node node :
+                list) {
+            if (node instanceof Label label) {
+                label.setTextFill(Paint.valueOf(colorSwitch(code)));
+            } else if (node instanceof JFXButton button) {
+                button.setTextFill(Paint.valueOf(colorSwitch(code)));
+            } else if (node instanceof Hyperlink link) {
+                link.setTextFill(Paint.valueOf(colorSwitch(code)));
+            } else if (node instanceof JFXToggleButton button) {
+                button.setTextFill(Paint.valueOf(colorSwitch(code)));
+            } else if (node instanceof JFXCheckBox comboBox) {
+                comboBox.setTextFill(Paint.valueOf(colorSwitch(code)));
+            } else if (node instanceof JFXRadioButton radioButton) {
+                radioButton.setTextFill(Paint.valueOf(colorSwitch(code)));
+            }
         }
     }
 

@@ -24,6 +24,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -262,33 +263,24 @@ public class LoginController implements Initializable {
             try {
                 Theme.initialize();
                 Platform.runLater(() -> {
-//                    Theme.setBackgroundColor("background", pane);
-                    Theme.setBackgroundColor("success", btn_login);
+                    Theme.setBackgroundColor("background", pane);
+                    Theme.setBackgroundColor("success", region_back, btn_login);
+                    Theme.setBackgroundColor("border", region_front);
                     Theme.setBackgroundColor("warning", btn_exit);
+                    Theme.setTextFill("font", toggleBtn_language, lbl_userName, lbl_pass, lbl_shortcuts);
+                    Theme.setTextFill("background", lbl_welcome, lbl_main, btn_login, btn_exit);
+                    Theme.setTextFill("border", lbl_login);
+                    Theme.setToggleColor("success", "background", "border", "font", toggleBtn_language);
                 });
             } catch (Exception e) {
                 Theme.giveAWarning(e.getMessage(), "", lbl_main, region_front);
             }
         }).start();
-        /*Theme.setBackgroundColor("BG", pane);
-        Theme.setBackgroundColor("1", lblMain);
-        Theme.setTextFill("BG", lblMain);
-        Theme.setTextFill("1"
-                , lblRL
-                , lblTabMode
-                , btnDesktopMode
-                , lblUserName
-                , lblPassword
-                , linkForgetPassword
-                , btnSignIn
-        );
+        /*
         btnDesktopMode.setToggleColor(Paint.valueOf("white"));
         btnDesktopMode.setUnToggleColor(Paint.valueOf("white"));
         btnDesktopMode.setToggleLineColor(Paint.valueOf(Theme.color1));
-        btnDesktopMode.setUnToggleLineColor(Paint.valueOf(Theme.color1));
-        Theme.setTextFill("Warning", btnExit);
-        Theme.setBorderColor("1", btnSignIn);
-        Theme.setBorderColor("Warning", btnExit);*/
+        btnDesktopMode.setUnToggleLineColor(Paint.valueOf(Theme.color1));*/
     }
 
     public static void backToLogin(Stage primaryStage) throws IOException {

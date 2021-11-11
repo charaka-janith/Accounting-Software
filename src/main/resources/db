@@ -37,7 +37,7 @@ CONSTRAINT PRIMARY KEY (color)
 INSERT INTO colors (color, colorCode) VALUES('background','#ffffff');
 INSERT INTO colors (color, colorCode) VALUES('success','#44bd32');
 INSERT INTO colors (color, colorCode) VALUES('border','#1B1464');
-INSERT INTO colors (color, colorCode) VALUES('font','#000000');
+INSERT INTO colors (color, colorCode) VALUES('font','#999999');
 INSERT INTO colors (color, colorCode) VALUES('warning','#a50000');
 
 
