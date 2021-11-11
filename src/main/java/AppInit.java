@@ -1,5 +1,3 @@
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
 import front_end.ui.dashboard.AdminDashboardController;
@@ -18,13 +16,6 @@ import java.util.Objects;
 public class AppInit extends Application {
 
     public static void main(String[] args) {
-        try {
-            JsonParser parser = new JsonParser();
-            JsonElement parse = parser.parse(new FileReader(Objects.requireNonNull(Theme.class.getResource("theme.json")).getFile()));
-            Session.setSinhala(parse.getAsJsonObject().get("sinhala").getAsBoolean());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
         launch(args);
     }
 

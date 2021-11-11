@@ -1,5 +1,7 @@
 package back_end.dao;
 
+import back_end.dao.custom.impl.ColorDAOImpl;
+import back_end.dao.custom.impl.ConfigDAOImpl;
 import back_end.dao.custom.impl.UserDAOImpl;
 
 public class DAOFactory {
@@ -17,18 +19,15 @@ public class DAOFactory {
     }
 
     public enum DAOFactoryTypes {
-
-        USER;
+        USER, CONFIG, COLORS;
     }
 
     public SuperDAO getDAO(DAOFactoryTypes types) {
-        switch (types) {
-            case USER:
-                return new UserDAOImpl();
-            default:
-                return null;
-
-        }
+        return switch (types) {
+            case USER -> new UserDAOImpl();
+            case CONFIG -> new ConfigDAOImpl();
+            case COLORS -> new ColorDAOImpl();
+        };
 
     }
 

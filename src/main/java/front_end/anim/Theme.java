@@ -1,5 +1,7 @@
 package front_end.anim;
 
+import back_end.bo.BOFacory;
+import back_end.bo.custom.ColorBO;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -15,21 +17,31 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Theme {
+    static ColorBO bo = (ColorBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.COLOR);
 //    base colors
-    public static String colorBG;
-    public static String color1;
-    public static String colorWarning = "#c23616";
+    public static String background;
+    public static String success;
+    public static String border;
+    public static String font;
+    public static String warning;
 
     public static Thread errorThread = null;
+
+    public static void initialize () throws Exception {
+        background = bo.searchColor("background").getCode();
+        success = bo.searchColor("success").getCode();
+        border = bo.searchColor("border").getCode();
+        font = bo.searchColor("font").getCode();
+        warning = bo.searchColor("warning").getCode();
+    }
 
     public static void giveAWarning(String warning_text, String after_text, Label label, Region... regions) {
         Platform.runLater(() -> {
             label.setText(warning_text);
             for (Region region :
                     regions) {
-                region.setStyle("-fx-background-color:" + colorWarning);
+                region.setStyle("-fx-background-color:" + warning);
             }
-            label.setStyle("-fx-text-fill:" + colorWarning);
         });
 
         if (null != errorThread) {
@@ -43,9 +55,8 @@ public class Theme {
                     label.setText(after_text);
                     for (Region region :
                             regions) {
-                        region.setStyle("-fx-background-color:" + color1);
+                        region.setStyle("-fx-background-color:" + border);
                     }
-                    label.setStyle("-fx-text-fill:" + color1);
                 });
             } catch (InterruptedException ignored) {
             }
@@ -57,7 +68,7 @@ public class Theme {
         Platform.runLater(() -> {
             for (Node node :
                     nodes) {
-                node.setStyle("-fx-border-color:" + colorWarning);
+                node.setStyle("-fx-border-color:" + warning);
             }
         });
     }
@@ -72,37 +83,30 @@ public class Theme {
     }
 
     public static void setBorderColor(String code, JFXButton... list) {
-        String color = null;
-        switch (code) {
-            case "1":
-                color = color1;
-                break;
-            case "warning":
-                color = colorWarning;
-                break;
-        }
         for (JFXButton node :
                 list) {
-            node.setStyle("-fx-border-color: " + color);
+            node.setStyle("-fx-border-color: " + colorSwitch(code));
             setOnMouseMoveFocus(node);
         }
     }
 
     public static void setBackgroundColor(String code, JFXButton... list) {
-        String color = null;
-        switch (code) {
-            case "1":
-                color = color1;
-                break;
-            case "warning":
-                color = colorWarning;
-                break;
-        }
         for (JFXButton node :
                 list) {
-            node.setStyle("-fx-background-color-color: " + color);
+            node.setStyle("-fx-background-color: " + colorSwitch(code));
             setOnMouseMoveFocus(node);
         }
+    }
+
+    private static String colorSwitch(String code) {
+        return switch (code) {
+            case "background" -> background;
+            case "success" -> success;
+            case "border" -> border;
+            case "font" -> font;
+            case "warning" -> warning;
+            default -> null;
+        };
     }
 
     public static void setOnMouseMoveFocus(JFXButton btn) {

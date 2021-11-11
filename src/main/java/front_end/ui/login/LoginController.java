@@ -1,9 +1,8 @@
 package front_end.ui.login;
 
 import back_end.bo.BOFacory;
+import back_end.bo.custom.ConfigBO;
 import back_end.bo.custom.UserBO;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 import front_end.anim.PaneOpenAnim;
@@ -28,8 +27,6 @@ import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -38,11 +35,11 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
 
     public static Stage stage;
-    private String windowName;
-    UserBO bo = (UserBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.USER);
+    UserBO userBO = (UserBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.USER);
+    ConfigBO configBO = (ConfigBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.CONFIG);
 
-    @FXML 
-    private JFXButton btn_exit; 
+    @FXML
+    private JFXButton btn_exit;
 
     @FXML
     private JFXButton btn_login;
@@ -88,7 +85,7 @@ public class LoginController implements Initializable {
 
     @FXML
     void btn_exit_onAction(ActionEvent event) {
-System.exit(0);
+        System.exit(0);
     }
 
     @FXML
@@ -98,19 +95,25 @@ System.exit(0);
         }
 
     }
- 
+
     @FXML
     void btn_login_onAction(ActionEvent event) {
         login();
-
     }
 
     private void login() {
+        try {
+            Session.setUser(userBO.searchUser(txt_userName.getText()));
+        } catch (NullPointerException e) {
+            Session.setUser(null);
+        } catch (Exception e) {
+            Theme.giveAWarning(e.getMessage(), "", lbl_main, region_front);
+        }
         if (null == Session.getUser()) {
             Platform.runLater(() -> {
                 Theme.giveBorderWarning(txt_userName);
                 Theme.giveBorderWarning(txt_pass);
-                Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", windowName, lbl_main, region_front);
+                Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_front);
             });
         } else {
             if (txt_pass.getText().equals(Session.getUser().getPassword())) {
@@ -126,12 +129,12 @@ System.exit(0);
                     Theme.setShade(AdminDashboardController.stage);
                     stage.close();
                 } catch (IOException e) {
-                    Theme.giveAWarning(e.getMessage(), windowName, lbl_main,region_front);
+                    Theme.giveAWarning(e.getMessage(), "", lbl_main, region_front);
                 }
             } else {
                 Theme.giveBorderWarning(txt_userName);
                 Theme.giveBorderWarning(txt_pass);
-                Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", windowName, lbl_main,region_front);
+                Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_front);
             }
         }
     }
@@ -148,9 +151,14 @@ System.exit(0);
 
     @FXML
     void toggleBtn_language_onAction(ActionEvent event) {
-        Session.setSinhala(!Session.isSinhala());
-        setLanguage();
-        
+        new Thread(() -> {
+            try {
+                Session.setSinhala(!Session.isSinhala());
+                setLanguage();
+            } catch (Exception e) {
+                Theme.giveAWarning(e.getMessage(), "", lbl_main, region_front);
+            }
+        }).start();
     }
 
     private void setLanguage() {
@@ -159,8 +167,7 @@ System.exit(0);
                 try {
                     Thread.sleep(2000);
                     Platform.runLater(() -> {
-                        windowName = "ආයුබෝවන් !";
-                        lbl_main.setText(windowName);
+                        lbl_welcome.setText("ආයුබෝවන් !");
                         lbl_userName.setText("පරිශීලක නාමය");
                         txt_userName.setPromptText("පරිශීලක නාමය ඇතුළත් කරන්න");
                         lbl_pass.setText("මුරපදය");
@@ -178,8 +185,7 @@ System.exit(0);
                 try {
                     Thread.sleep(2000);
                     Platform.runLater(() -> {
-                        windowName = "Welcome !";
-                        lbl_main.setText(windowName);
+                        lbl_welcome.setText("Welcome !");
                         lbl_userName.setText("User Name");
                         txt_userName.setPromptText("Enter User Name");
                         lbl_pass.setText("Password");
@@ -233,43 +239,37 @@ System.exit(0);
         new RunLater(txt_userName);
         new PaneOpenAnim(pane);
         setFocusListeners();
+        new Thread(() -> {
+            try {
+                Session.setSinhala(configBO.searchConfig(0).getLanguage().equals("sinhala"));
+                setLanguage();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }).start();
     }
 
     private void setFocusListeners() {
         txt_userName.focusedProperty().addListener((observableValue, aBoolean, focused) -> {
             if (!focused) {
-                checkUserId();
+                txt_pass.setText("");
             }
         });
     }
 
-    private void checkUserId() {
-        txt_pass.setText("");
+    private void setColors() {
         new Thread(() -> {
             try {
-                Session.setUser(bo.searchUser(txt_userName.getText()));
-                assert Session.getUser() != null;
-                Platform.runLater(() -> lbl_main.setText(Session.isSinhala() ? "ආයුබෝවන් " + Session.getUser().getName() + " !" : "Welcome " + Session.getUser().getName() + " !"));
-            } catch (NullPointerException e) {
-                Session.setUser(null);
+                Theme.initialize();
+                Platform.runLater(() -> {
+//                    Theme.setBackgroundColor("background", pane);
+                    Theme.setBackgroundColor("success", btn_login);
+                    Theme.setBackgroundColor("warning", btn_exit);
+                });
             } catch (Exception e) {
-                Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_front);
+                Theme.giveAWarning(e.getMessage(), "", lbl_main, region_front);
             }
         }).start();
-    }
-
-    private void setColors() {
-        try {
-            JsonParser parser = new JsonParser();
-            JsonElement parse = parser.parse(new FileReader(Objects.requireNonNull(Theme.class.getResource("theme.json")).getFile()));
-            Theme.colorBG = parse.getAsJsonObject().get("color_BG").getAsString();
-            Theme.color1 = parse.getAsJsonObject().get("color_1").getAsString();
-            Theme.colorWarning = parse.getAsJsonObject().get("color_warning").getAsString();
-        } catch (FileNotFoundException e) {
-//            Theme.giveAWarning(pane, lbl_main, e.getMessage(), window_name);
-        }
-        Theme.setBackgroundColor("1", btn_login);
-        Theme.setBackgroundColor("warning", btn_exit);
         /*Theme.setBackgroundColor("BG", pane);
         Theme.setBackgroundColor("1", lblMain);
         Theme.setTextFill("BG", lblMain);

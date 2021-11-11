@@ -1,5 +1,7 @@
 package back_end.bo;
 
+import back_end.bo.custom.impl.ColorBOImpl;
+import back_end.bo.custom.impl.ConfigBOImpl;
 import back_end.bo.custom.impl.UserBOImpl;
 
 public class BOFacory {
@@ -17,17 +19,15 @@ public class BOFacory {
     }
 
     public enum BOTypes {
-        USER;
+        USER, CONFIG, COLOR;
     }
 
     public SuperBO getBO(BOTypes types) {
-        switch (types) {
-            case USER:
-                return new UserBOImpl();
-            default:
-                return null;
-
-        }
+        return switch (types) {
+            case USER -> new UserBOImpl();
+            case CONFIG -> new ConfigBOImpl();
+            case COLOR -> new ColorBOImpl();
+        };
     }
 
 }
