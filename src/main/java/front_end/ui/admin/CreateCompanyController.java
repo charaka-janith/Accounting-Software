@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.net.Socket;
+
 public class CreateCompanyController {
 
     @FXML
