@@ -11,7 +11,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean add(User user) throws Exception {
-        return CrudUtil.executeUpdate("insert into user values(?,?)", user.getName(), user.getPassword());
+        return CrudUtil.executeUpdate("insert into user values(?,?,?)", user.getName(), user.getPassword(), "admin");
     }
 
     @Override
