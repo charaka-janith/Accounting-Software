@@ -100,7 +100,7 @@ public class Theme {
         }
         for (JFXButton node :
                 list) {
-            node.setStyle("-fx-background-color: " + color);
+            node.setStyle("-fx-background-color-color: " + color);
             setOnMouseMoveFocus(node);
         }
     }
