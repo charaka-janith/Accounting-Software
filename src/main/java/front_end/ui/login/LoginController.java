@@ -261,6 +261,7 @@ public class LoginController implements Initializable {
         txt_userName.focusedProperty().addListener((observableValue, aBoolean, focused) -> {
             if (!focused) {
                 txt_pass.setText("");
+                lbl_main.setText(txt_userName.getText());
             }
         });
     }
