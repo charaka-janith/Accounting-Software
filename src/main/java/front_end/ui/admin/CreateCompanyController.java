@@ -1,5 +1,6 @@
 package front_end.ui.admin;
 
+import back_end.bo.BOFacory;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -65,6 +66,7 @@ public class CreateCompanyController {
 
     @FXML
     void btn_create_onAction(ActionEvent event) {
+//        BOFacory.getInstance().getBO(BOFacory.BOTypes.COMPANY);
         System.out.println("CreateCompanyController.btn_create_onAction");
     }
 
