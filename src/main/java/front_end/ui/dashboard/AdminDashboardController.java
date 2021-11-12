@@ -168,7 +168,7 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     void btn_exit_onAction(ActionEvent event) {
-
+        System.exit(0);
     }
 
     @FXML
