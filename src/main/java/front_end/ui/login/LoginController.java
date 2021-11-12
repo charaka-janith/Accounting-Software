@@ -167,7 +167,8 @@ public class LoginController implements Initializable {
                 try {
                     Thread.sleep(2000);
                     Platform.runLater(() -> {
-                        lbl_welcome.setText("ආයුබෝවන් !");
+                        lbl_welcome.setText("ආයුබෝවන් !");
+//                        lbl_welcome.setText("සාදරයෙන් පිළිගනිමු !");
                         lbl_userName.setText("පරිශීලක නාමය");
                         txt_userName.setPromptText("පරිශීලක නාමය ඇතුළත් කරන්න");
                         lbl_pass.setText("මුරපදය");
