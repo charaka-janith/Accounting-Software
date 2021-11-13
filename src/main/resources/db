@@ -47,4 +47,4 @@ brn VARCHAR (20) NULL,
 CONSTRAINT PRIMARY KEY (name)
 );
 
-INSERT INTO company (name, address, phoneNumber, email, webSite, brn) VALUES ('gamageAppa','139,kanaththa,para','119','Appa2aiya@yahoh','WWW.APPA.COM','123123');
+INSERT INTO company (name, address, phoneNumber, email, webSite, brn) VALUES ('sample name','sample address','0123456789','samplemail@mail.samplesite','sample site','sample reg number');

@@ -1,6 +1,6 @@
 package front_end.ui.login;
 
-import back_end.bo.BOFacory;
+import back_end.bo.BOFactory;
 import back_end.bo.custom.ConfigBO;
 import back_end.bo.custom.UserBO;
 import com.jfoenix.controls.JFXButton;
@@ -24,7 +24,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -37,8 +36,8 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
 
     public static Stage stage;
-    UserBO userBO = (UserBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.USER);
-    ConfigBO configBO = (ConfigBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.CONFIG);
+    UserBO userBO = (UserBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.USER);
+    ConfigBO configBO = (ConfigBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.CONFIG);
 
     @FXML
     private JFXButton btn_exit;
@@ -95,7 +94,6 @@ public class LoginController implements Initializable {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
             txt_pass.requestFocus();
         }
-
     }
 
     @FXML
@@ -115,16 +113,20 @@ public class LoginController implements Initializable {
             } else {
                 if (txt_pass.getText().equals(Session.getUser().getPassword())) {
                     try {
-                        Parent root = FXMLLoader.load(Objects.requireNonNull(AdminDashboardController.class.getResource("AdminDashboard.fxml")));
-                        Scene scene = new Scene(root);
-                        AdminDashboardController.stage = new Stage();
-                        AdminDashboardController.stage.setScene(scene);
-                        AdminDashboardController.stage.setMaximized(true);
-                        AdminDashboardController.stage.setResizable(false);
-                        AdminDashboardController.stage.initStyle(StageStyle.UNDECORATED);
-                        AdminDashboardController.stage.show();
-                        Theme.setShade(AdminDashboardController.stage);
-                        stage.close();
+                        if (Session.getUser().getType().equals("admin")) {
+                            Parent root = FXMLLoader.load(Objects.requireNonNull(AdminDashboardController.class.getResource("AdminDashboard.fxml")));
+                            Scene scene = new Scene(root);
+                            AdminDashboardController.stage = new Stage();
+                            AdminDashboardController.stage.setScene(scene);
+                            AdminDashboardController.stage.setMaximized(true);
+                            AdminDashboardController.stage.setResizable(false);
+                            AdminDashboardController.stage.initStyle(StageStyle.UNDECORATED);
+                            AdminDashboardController.stage.show();
+                            Theme.setShade(AdminDashboardController.stage);
+                            stage.close();
+                        } else {
+                            Theme.giveAWarning("Company login success", "", lbl_main, region_front);
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -134,7 +136,7 @@ public class LoginController implements Initializable {
                     Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_front);
                 }
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             Theme.giveAWarning("Database config invalid", "", lbl_main, region_front);
         } catch (NullPointerException e) {
             Session.setUser(null);
@@ -147,19 +149,17 @@ public class LoginController implements Initializable {
     void toggleBtn_language_keyReleased(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
             btn_exit.requestFocus();
-        } else if (event.getCode().equals(KeyCode.ENTER)) {
-            txt_userName.requestFocus();
         }
-
     }
 
     @FXML
     void toggleBtn_language_onAction(ActionEvent event) {
+        txt_userName.requestFocus();
         new Thread(() -> {
             try {
                 Session.setSinhala(!Session.isSinhala());
                 setLanguage();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 Theme.giveAWarning("Database config invalid", "", lbl_main, region_front);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -170,38 +170,30 @@ public class LoginController implements Initializable {
     private void setLanguage() {
         if (Session.isSinhala()) {
             new Thread(() -> {
-                try {
-                    Thread.sleep(2000);
-                    Platform.runLater(() -> {
-                        lbl_welcome.setText("හුකහන්!");
-                        lbl_userName.setText("පරිශීලක නාමය");
-                        txt_userName.setPromptText("පරිශීලක නාමය ඇතුළත් කරන්න");
-                        lbl_pass.setText("මුරපදය");
-                        txt_pass.setPromptText("මුරපදය ඇතුළත් කරන්න");
-                        btn_exit.setText("අවලංගු කරන්න");
-                        btn_login.setText("පුරන්න");
-                        lbl_shortcuts.setText("ඊළඟ = Enter / ආපසු = Esc / පිටවීම = F5");
-                    });
-                } catch (InterruptedException ignored) {
-                }
+                Platform.runLater(() -> {
+                    lbl_welcome.setText("ආයුබෝවන් !");
+                    lbl_userName.setText("පරිශීලක නාමය");
+                    txt_userName.setPromptText("පරිශීලක නාමය ඇතුළත් කරන්න");
+                    lbl_pass.setText("මුරපදය");
+                    txt_pass.setPromptText("මුරපදය ඇතුළත් කරන්න");
+                    btn_exit.setText("අවලංගු කරන්න");
+                    btn_login.setText("පුරන්න");
+                    lbl_shortcuts.setText("ඊළඟ = Enter / ආපසු = Esc / පිටවීම = F5");
+                });
             }).start();
             toggleBtn_language.setSelected(true);
         } else {
             new Thread(() -> {
-                try {
-                    Thread.sleep(2000);
-                    Platform.runLater(() -> {
-                        lbl_welcome.setText("Welcome !");
-                        lbl_userName.setText("User Name");
-                        txt_userName.setPromptText("Enter User Name");
-                        lbl_pass.setText("Password");
-                        txt_pass.setPromptText("Enter Password");
-                        btn_exit.setText("Exit");
-                        btn_login.setText("Login");
-                        lbl_shortcuts.setText("Next = Enter / Back = Esc / Exit = F5");
-                    });
-                } catch (InterruptedException ignored) {
-                }
+                Platform.runLater(() -> {
+                    lbl_welcome.setText("Welcome !");
+                    lbl_userName.setText("User Name");
+                    txt_userName.setPromptText("Enter User Name");
+                    lbl_pass.setText("Password");
+                    txt_pass.setPromptText("Enter Password");
+                    btn_exit.setText("Exit");
+                    btn_login.setText("Login");
+                    lbl_shortcuts.setText("Next = Enter / Back = Esc / Exit = F5");
+                });
             }).start();
             toggleBtn_language.setSelected(false);
         }
@@ -249,7 +241,7 @@ public class LoginController implements Initializable {
             try {
                 Session.setSinhala(configBO.searchConfig(0).getLanguage().equals("sinhala"));
                 setLanguage();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 Theme.giveAWarning("Database config invalid", "", lbl_main, region_front);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -280,7 +272,7 @@ public class LoginController implements Initializable {
                     Theme.setTextFill("border", lbl_login);
                     Theme.setToggleColor("success", "background", "border", "font", toggleBtn_language);
                 });
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 Theme.giveAWarning("Database config invalid", "", lbl_main, region_front);
             } catch (Exception e) {
                 e.printStackTrace();

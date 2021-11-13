@@ -1,6 +1,6 @@
 package front_end.anim;
 
-import back_end.bo.BOFacory;
+import back_end.bo.BOFactory;
 import back_end.bo.custom.ColorBO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -22,7 +22,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Theme {
-    static ColorBO bo = (ColorBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.COLOR);
+    static ColorBO bo = (ColorBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.COLOR);
     //    base colors
     public static String background = "#ffffff";
     public static String success = "#44bd32";

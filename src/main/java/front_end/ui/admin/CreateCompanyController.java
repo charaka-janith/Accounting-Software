@@ -1,17 +1,24 @@
 package front_end.ui.admin;
 
-import back_end.bo.BOFacory;
+import back_end.bo.BOFactory;
+import back_end.bo.custom.CompanyBO;
+import back_end.dto.CompanyDTO;
 import com.jfoenix.controls.JFXButton;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
-import java.net.Socket;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class CreateCompanyController {
+public class CreateCompanyController implements Initializable {
+
+     CompanyBO bo = (CompanyBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.COMPANY);
 
     @FXML
     private JFXButton btn_create;
@@ -68,7 +75,6 @@ public class CreateCompanyController {
 
     @FXML
     void btn_create_onAction(ActionEvent event) {
-//        BOFacory.getInstance().getBO(BOFacory.BOTypes.COMPANY);
         System.out.println("CreateCompanyController.btn_create_onAction");
     }
 
@@ -137,4 +143,37 @@ public class CreateCompanyController {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        new Thread(() -> {
+            try {
+                CompanyDTO company = bo.getCompany();
+                if (null != company){
+                    Platform.runLater(() -> {
+                        lbl_main.setText("Update Company");
+                        btn_create.setText("Update [F1]");
+                        txt_name.setText(company.getName());
+                        txt_address.setText(company.getAddress());
+                        txt_phoneNumber.setText(company.getPhoneNumber());
+                        txt_email.setText(company.getEmail());
+                        txt_website.setText(company.getWebSite());
+                        txt_businessRegistrationNumber.setText(company.getBrn());
+                    });
+                } else {
+                    Platform.runLater(() -> {
+                        lbl_main.setText("Create Company");
+                        btn_create.setText("Create [F1]");
+                        txt_name.setText("");
+                        txt_address.setText("");
+                        txt_phoneNumber.setText("");
+                        txt_email.setText("");
+                        txt_website.setText("");
+                        txt_businessRegistrationNumber.setText("");
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
 }

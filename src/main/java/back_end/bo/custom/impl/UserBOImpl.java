@@ -11,12 +11,12 @@ public class UserBOImpl implements UserBO {
     UserDAO dao = (UserDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOFactoryTypes.USER);
     @Override
     public boolean addUser(UserDTO user) throws Exception {
-        return dao.add(new User(user.getName(), new TrippleDes().encrypt(user.getPassword())));
+        return dao.add(new User(user.getName(), new TrippleDes().encrypt(user.getPassword()), user.getType()));
     }
 
     @Override
     public UserDTO searchUser(String userName) throws Exception {
         User user = dao.search(userName);
-        return null == user ? null : new UserDTO(user.getName(), new TrippleDes().decrypt(user.getPassword()));
+        return null == user ? null : new UserDTO(user.getUserName(), new TrippleDes().decrypt(user.getPassword()), user.getUserType());
     }
 }
