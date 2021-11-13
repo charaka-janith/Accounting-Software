@@ -13,8 +13,8 @@ CONSTRAINT PRIMARY KEY(userName)
 INSERT INTO user(userName, password, userType) VALUES('චරක','0','admin');
 INSERT INTO user(userName, password, userType) VALUES('lini','linilini','admin');
 INSERT INTO user(userName, password, userType) VALUES('mahesh','','admin');
+INSERT INTO user(userName, password, userType) VALUES('ayesh','0','admin');
 INSERT INTO user(userName, password, userType) VALUES('shashika','','admin');
-INSERT INTO user(userName, password, userType) VALUES('ayesh','','admin');
 
 
 DROP TABLE IF EXISTS config;

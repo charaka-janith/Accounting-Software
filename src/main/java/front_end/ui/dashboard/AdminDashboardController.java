@@ -187,7 +187,7 @@ public class AdminDashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        windowName = "Welcome " + Session.getUser().getName() + " !";
+        windowName = "Welcome Back, " + Session.getUser().getName() + " !";
         lbl_main.setText(windowName);
         Theme.scale(pane, true);
         runLater();
