@@ -11,7 +11,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean add(User user) throws Exception {
-        return CrudUtil.executeUpdate("insert into user values(?,?)", user.getName(), user.getPassword());
+        return CrudUtil.executeUpdate("insert into user values(?,?,?)", user.getUserName(), user.getPassword(), user.getUserType());
     }
 
     @Override
@@ -29,7 +29,7 @@ public class UserDAOImpl implements UserDAO {
         ResultSet rst = CrudUtil.executeQuery("select * from user where userName=?", userName);
         User user = null;
         while (rst.next()) {
-            user = new User(rst.getString(1), rst.getString(2));
+            user = new User(rst.getString(1), rst.getString(2), rst.getString(3));
         }
         return user;
     }

@@ -1,18 +1,14 @@
 package front_end.sessions;
 
-import back_end.bo.BOFacory;
+import back_end.bo.BOFactory;
 import back_end.bo.custom.ConfigBO;
 import back_end.dto.ConfigDTO;
 import back_end.dto.UserDTO;
-import javafx.application.Platform;
-import javafx.scene.layout.Region;
-
-import static front_end.anim.Theme.errorThread;
 
 public class Session {
     private static UserDTO user;
-    private static boolean sinhala;
-   static ConfigBO bo = (ConfigBO) BOFacory.getInstance().getBO(BOFacory.BOTypes.CONFIG);
+    private static boolean sinhala = false;
+   static ConfigBO bo = (ConfigBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.CONFIG);
 
     public static boolean isSinhala() {
         return sinhala;
