@@ -114,6 +114,9 @@ public class LoginController implements Initializable {
                 Theme.giveBorderWarning(txt_userName);
                 Theme.giveBorderWarning(txt_pass);
                 Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_front);
+                txt_pass.setText("");
+                txt_userName.setText("");
+                txt_userName.requestFocus();
             });
         } else {
             if (txt_pass.getText().equals(Session.getUser().getPassword())) {
@@ -135,6 +138,9 @@ public class LoginController implements Initializable {
                 Theme.giveBorderWarning(txt_userName);
                 Theme.giveBorderWarning(txt_pass);
                 Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_front);
+                txt_pass.setText("");
+                txt_userName.setText("");
+                txt_userName.requestFocus();
             }
         }
     }
