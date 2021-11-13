@@ -7,8 +7,6 @@ import front_end.ui.admin.CreateCompanyController;
 import front_end.ui.login.LoginController;
 import javafx.animation.*;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,10 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -36,25 +32,25 @@ public class AdminDashboardController implements Initializable {
     private String windowName;
 
     @FXML
-    private JFXButton btn_changePass;
-
-    @FXML
-    private JFXButton btn_changeTheme;
-
-    @FXML
     private JFXButton btn_createCompany;
 
     @FXML
     private JFXButton btn_editCompany;
 
     @FXML
+    private JFXButton btn_manageAdmins;
+
+    @FXML
+    private JFXButton btn_changeTheme;
+
+    @FXML
+    private JFXButton btn_changePass;
+
+    @FXML
     private JFXButton btn_exit;
 
     @FXML
     private JFXButton btn_lock;
-
-    @FXML
-    private JFXButton btn_manageAdmins;
 
     @FXML
     private ImageView imageView;
@@ -83,6 +79,7 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private AnchorPane subPane;
 
+    Parent root;
     int count;
 
     public void slideShow() {
@@ -136,53 +133,88 @@ public class AdminDashboardController implements Initializable {
         slideshow.play();*/
     }
 
-    @FXML
-    void btn_changePass_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btn_changeTheme_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btn_createCompany_onAction(ActionEvent event) {
-        goToCreateCompany();
-    }
-
-    public void goToCreateCompany() {
-        try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(CreateCompanyController.class.getResource("CreateCompany.fxml")));
-            subPane.getChildren().clear();
-            subPane.getChildren().add(root);
-        } catch (IOException e) {
-            Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+    public void handleAllButtons(String btnName) {
+        switch (btnName) {
+            case "createCompany":
+                try {
+                    root = FXMLLoader.load(Objects.requireNonNull(CreateCompanyController.class.getResource("CreateCompany.fxml")));
+                } catch (IOException e) {
+                    Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+                }
+                break;
+            case "editCompany":
+                try {
+                    root = FXMLLoader.load(Objects.requireNonNull(CreateCompanyController.class.getResource("EditCompany.fxml")));
+                } catch (IOException e) {
+                    Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+                }
+                break;
+            case "manageAdmins":
+                try {
+                    root = FXMLLoader.load(Objects.requireNonNull(CreateCompanyController.class.getResource("ManageAdmins.fxml")));
+                } catch (IOException e) {
+                    Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+                }
+                break;
+            case "changeTheme":
+                try {
+                    root = FXMLLoader.load(Objects.requireNonNull(CreateCompanyController.class.getResource("ChangeTheme.fxml")));
+                } catch (IOException e) {
+                    Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+                }
+                break;
+            case "changePassword":
+                try {
+                    root = FXMLLoader.load(Objects.requireNonNull(CreateCompanyController.class.getResource("ChangePassword.fxml")));
+                } catch (IOException e) {
+                    Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+                }
+                break;
+            default:
+                System.out.println("............nothing");
+                break;
         }
+        subPane.getChildren().clear();
+        subPane.getChildren().add(root);
     }
 
     @FXML
-    void btn_editCompany_onAction(ActionEvent event) {
-
+    void btn_createCompany_onAction() {
+        handleAllButtons("createCompany");
     }
 
     @FXML
-    void btn_exit_onAction(ActionEvent event) {
+    void btn_editCompany_onAction() {
+        handleAllButtons("editCompany");
+    }
+
+    @FXML
+    void btn_manageAdmins_onAction() {
+        handleAllButtons("manageAdmins");
+    }
+
+    @FXML
+    void btn_changeTheme_onAction() {
+        handleAllButtons("changeTheme");
+    }
+
+    @FXML
+    void btn_changePass_onAction() {
+        handleAllButtons("changePassword");
+    }
+
+    @FXML
+    void btn_exit_onAction() {
         System.exit(0);
     }
 
     @FXML
-    void btn_lock_onAction(ActionEvent event) {
+    void btn_lock_onAction() {
         try {
             LoginController.backToLogin(stage);
         } catch (IOException e) {
             Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
         }
-    }
-
-    @FXML
-    void btn_manageAdmins_onAction(ActionEvent event) {
-
     }
 
     @Override
@@ -194,22 +226,22 @@ public class AdminDashboardController implements Initializable {
     }
 
     private void runLater() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                btn_createCompany.requestFocus();
-                slideShow();
-                pane.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(javafx.scene.input.KeyEvent event) {
-                        if (event.getCode().equals(KeyCode.F1)) {
-                            // TODO dilini -> create company
-                        } else if (event.getCode().equals(KeyCode.F2)) {
-                            // TODO dilini
-                        }
-                    }
-                });
-            }
+        Platform.runLater(() -> {
+            btn_createCompany.requestFocus();
+            slideShow();
+            pane.getScene().setOnKeyPressed(event -> {
+                if (event.getCode().equals(KeyCode.F1)) {
+                    handleAllButtons("createCompany");
+                } else if (event.getCode().equals(KeyCode.F2)) {
+                    handleAllButtons("editCompany");
+                } else if (event.getCode().equals(KeyCode.F3)) {
+                    handleAllButtons("manageAdmins");
+                } else if (event.getCode().equals(KeyCode.F5)) {
+                    handleAllButtons("changeTheme");
+                } else if (event.getCode().equals(KeyCode.F6)) {
+                    handleAllButtons("changePassword");
+                }
+            });
         });
     }
 }
