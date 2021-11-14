@@ -5,8 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
@@ -66,36 +64,12 @@
             <Font name="System Bold" size="35.0" />
          </font>
       </Label>
-      <Label layoutX="40.0" layoutY="30.0" text="Date :" textFill="WHITE">
-         <graphic>
-            <ImageView accessibleRole="TEXT" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/icons/calendar.png" />
-               </image>
-            </ImageView>
-         </graphic>
+      <Label fx:id="lbl_date" layoutX="40.0" layoutY="30.0" text="Date:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="105.0" layoutY="30.0" text="2021 / 11 / 12" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="40.0" layoutY="55.0" text="Time :" textFill="WHITE">
-         <graphic>
-            <ImageView accessibleRole="TEXT" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/icons/clock.png" />
-               </image>
-            </ImageView>
-         </graphic>
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="105.0" layoutY="55.0" text="17 : 50" textFill="WHITE">
+      <Label fx:id="lbl_time" layoutX="40.0" layoutY="55.0" text="Time:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

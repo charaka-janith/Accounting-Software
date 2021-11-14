@@ -46,6 +46,9 @@ public class LoginController implements Initializable {
     private JFXButton btn_login;
 
     @FXML
+    private Label lbl_date;
+
+    @FXML
     private Label lbl_login;
 
     @FXML
@@ -56,6 +59,9 @@ public class LoginController implements Initializable {
 
     @FXML
     private Label lbl_shortcuts;
+
+    @FXML
+    private Label lbl_time;
 
     @FXML
     private Label lbl_userName;
@@ -238,6 +244,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setLanguage();
         setColors();
+        Theme.setTimeDate(lbl_date, lbl_time);
         if (null != Session.getUser()) {
             txt_userName.setText(Session.getUser().getName());
             Session.setUser(null);
@@ -278,7 +285,7 @@ public class LoginController implements Initializable {
                     Theme.setBackgroundColor("border", region_front);
                     Theme.setBackgroundColor("warning", btn_exit);
                     Theme.setTextFill("font", toggleBtn_language, lbl_userName, lbl_pass, lbl_shortcuts);
-                    Theme.setTextFill("background", lbl_welcome, lbl_main, btn_login, btn_exit);
+                    Theme.setTextFill("background", lbl_welcome, lbl_main, btn_login, btn_exit, lbl_date, lbl_time);
                     Theme.setTextFill("border", lbl_login);
                     Theme.setToggleColor("success", "background", "border", "font", toggleBtn_language);
                 });

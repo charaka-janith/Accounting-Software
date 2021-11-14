@@ -30,6 +30,8 @@ public class AdminDashboardController implements Initializable {
 
     public static Stage stage;
     private String windowName;
+    Parent root;
+    int count;
 
     @FXML
     private JFXButton btn_createCompany;
@@ -79,21 +81,17 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private AnchorPane subPane;
 
-    Parent root;
-    int count;
-
     public void slideShow() {
         ArrayList<Image> images;
         images = new ArrayList<>();
         images.add(new Image("front_end/img/dashboard/adminBackground.jpg"));
         images.add(new Image("front_end/img/dashboard/adminBackground2.jpg"));
         images.add(new Image("front_end/img/dashboard/adminBackground3.jpg"));
-        images.add(new Image("front_end/img/dashboard/adminBackground4.jpg"));
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(10), event -> {
             imageView.setImage(images.get(count));
             count++;
-            if (count == 4)
+            if (count == 3)
                 count = 0;
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -171,7 +169,6 @@ public class AdminDashboardController implements Initializable {
                 }
                 break;
             default:
-                System.out.println("............nothing");
                 break;
         }
         subPane.getChildren().clear();

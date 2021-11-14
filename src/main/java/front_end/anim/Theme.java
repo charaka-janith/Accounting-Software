@@ -6,8 +6,13 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXToggleButton;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
@@ -20,6 +25,10 @@ import javafx.scene.paint.Paint;
 import javafx.scene.transform.Scale;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Theme {
     static ColorBO bo = (ColorBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.COLOR);
@@ -155,6 +164,18 @@ public class Theme {
         btn.setOnMouseMoved(mouseEvent -> {
             btn.arm();
         });
+    }
+
+    public static void setTimeDate(Label date, Label time) {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                date.setText("Date : " + new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
+                time.setText("Time : " + new SimpleDateFormat("hh:mm:ss a").format(new Date()));
+            }
+        }), new KeyFrame(Duration.seconds(1)));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
     public static void scale(Node node, boolean isFullScreen) {
