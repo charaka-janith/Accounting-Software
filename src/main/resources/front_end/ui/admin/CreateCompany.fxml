@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="668.0" prefWidth="965.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.admin.CreateCompanyController">
+<AnchorPane fx:id="pane" prefHeight="640.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.admin.CreateCompanyController">
     <children>
-        <JFXButton fx:id="btn_goBack" layoutX="79.5" layoutY="604.0" onAction="#btn_goBack_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #c23616; -fx-background-radius: 5; -fx-border-radius: 5;" text="Go Back [F4]" textFill="#c23616">
+        <JFXButton fx:id="btn_goBack" layoutX="50.0" layoutY="533.0" onAction="#btn_goBack_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #c23616; -fx-background-radius: 5; -fx-border-radius: 5;" text="Go Back [F4]" textFill="#c23616">
             <font>
                 <Font name="System Bold" size="13.0" />
             </font>
@@ -17,7 +17,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </JFXButton>
-        <JFXButton fx:id="btn_create" layoutX="524.5" layoutY="604.0" onAction="#btn_create_onAction" onKeyReleased="#btn_create_keyReleased" prefHeight="50.0" prefWidth="361.0" style="-fx-background-color: #96ca00; -fx-background-radius: 5; -fx-border-radius: 5;" text="Create [F1]" textFill="WHITE">
+        <JFXButton fx:id="btn_create" layoutX="584.0" layoutY="533.0" onAction="#btn_create_onAction" onKeyReleased="#btn_create_keyReleased" prefHeight="50.0" prefWidth="361.0" style="-fx-background-color: #44BD32; -fx-background-radius: 5; -fx-border-radius: 5;" text="Create [F1]" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="13.0" />
             </font>
@@ -25,7 +25,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </JFXButton>
-      <Label fx:id="lbl_main" alignment="CENTER" layoutX="5.0" layoutY="5.0" prefHeight="50.0" prefWidth="955.0" text="Create Company" textAlignment="CENTER" textFill="#96ca00">
+      <Label fx:id="lbl_main" alignment="CENTER" layoutX="5.0" layoutY="5.0" prefHeight="50.0" prefWidth="955.0" text="Create Company" textAlignment="CENTER" textFill="#44bd32">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

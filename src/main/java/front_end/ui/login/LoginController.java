@@ -106,9 +106,12 @@ public class LoginController implements Initializable {
             Session.setUser(userBO.searchUser(txt_userName.getText()));
             if (null == Session.getUser()) {
                 Platform.runLater(() -> {
+                    Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_front);
+                    txt_pass.setText("");
+                    txt_userName.setText("");
+                    txt_userName.requestFocus();
                     Theme.giveBorderWarning(txt_userName);
                     Theme.giveBorderWarning(txt_pass);
-                    Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_front);
                 });
             } else {
                 if (txt_pass.getText().equals(Session.getUser().getPassword())) {
@@ -131,9 +134,11 @@ public class LoginController implements Initializable {
                         e.printStackTrace();
                     }
                 } else {
+                    Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_front);
                     Theme.giveBorderWarning(txt_userName);
                     Theme.giveBorderWarning(txt_pass);
-                    Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_front);
+                    Theme.giveBorderWarning(txt_userName);
+                    Theme.giveBorderWarning(txt_pass);
                 }
             }
         } catch (SQLException e) {
@@ -173,6 +178,7 @@ public class LoginController implements Initializable {
         if (Session.isSinhala()) {
             new Thread(() -> {
                     Platform.runLater(() -> {
+                        lbl_login.setText("පිවිසුම");
                         lbl_welcome.setText("ආයුබෝවන් !");
 //                        lbl_welcome.setText("සාදරයෙන් පිළිගනිමු !");
                         lbl_userName.setText("පරිශීලක නාමය");
@@ -188,6 +194,7 @@ public class LoginController implements Initializable {
         } else {
             new Thread(() -> {
                 Platform.runLater(() -> {
+                    lbl_login.setText("Login");
                     lbl_welcome.setText("Welcome !");
                     lbl_userName.setText("User Name");
                     txt_userName.setPromptText("Enter User Name");
