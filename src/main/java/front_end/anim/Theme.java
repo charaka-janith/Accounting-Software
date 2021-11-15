@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXToggleButton;
+import front_end.sessions.Session;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -170,8 +171,13 @@ public class Theme {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                date.setText("Date : " + new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
-                time.setText("Time : " + new SimpleDateFormat("hh:mm:ss a").format(new Date()));
+                if (Session.isSinhala()) {
+                    date.setText("දිනය : " + new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
+                    time.setText("වේලාව : " + new SimpleDateFormat("hh:mm:ss a").format(new Date()));
+                } else {
+                    date.setText("Date : " + new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
+                    time.setText("Time : " + new SimpleDateFormat("hh:mm:ss a").format(new Date()));
+                }
             }
         }), new KeyFrame(Duration.seconds(1)));
         timeline.setCycleCount(Animation.INDEFINITE);
