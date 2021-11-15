@@ -10,6 +10,7 @@ import front_end.anim.RunLater;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
 import front_end.ui.dashboard.AdminDashboardController;
+import front_end.ui.dashboard.CompanyDashboardController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -132,9 +133,34 @@ public class LoginController implements Initializable {
                             AdminDashboardController.stage.initStyle(StageStyle.UNDECORATED);
                             AdminDashboardController.stage.show();
                             Theme.setShade(AdminDashboardController.stage);
-                            stage.close();
+                            new Thread(() -> {
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException ignored) {
+                                }
+                                Platform.runLater(() -> {
+                                    stage.close();
+                                });
+                            }).start();
                         } else {
-                            Theme.giveAWarning("Company login success", "", lbl_main, region_front);
+                            Parent root = FXMLLoader.load(Objects.requireNonNull(CompanyDashboardController.class.getResource("CompanyDashboard.fxml")));
+                            Scene scene = new Scene(root);
+                            CompanyDashboardController.stage = new Stage();
+                            CompanyDashboardController.stage.setScene(scene);
+                            CompanyDashboardController.stage.setMaximized(true);
+                            CompanyDashboardController.stage.setResizable(false);
+                            CompanyDashboardController.stage.initStyle(StageStyle.UNDECORATED);
+                            CompanyDashboardController.stage.show();
+                            Theme.setShade(CompanyDashboardController.stage);
+                            new Thread(() -> {
+                                try {
+                                    Thread.sleep(2000);
+                                } catch (InterruptedException ignored) {
+                                }
+                                Platform.runLater(() -> {
+                                    stage.close();
+                                });
+                            }).start();
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
