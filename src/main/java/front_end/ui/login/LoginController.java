@@ -26,12 +26,21 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXToggleButton;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 
 public class LoginController implements Initializable {
 
@@ -76,7 +85,19 @@ public class LoginController implements Initializable {
     private Region region_back;
 
     @FXML
+    private Region region_bottom;
+
+    @FXML
     private Region region_front;
+
+    @FXML
+    private Region region_left;
+
+    @FXML
+    private Region region_right;
+
+    @FXML
+    private Region region_top;
 
     @FXML
     private Region region_ui;
@@ -183,18 +204,18 @@ public class LoginController implements Initializable {
     private void setLanguage() {
         if (Session.isSinhala()) {
             new Thread(() -> {
-                    Platform.runLater(() -> {
-                        lbl_login.setText("පිවිසුම");
-                        lbl_welcome.setText("ආයුබෝවන් !");
+                Platform.runLater(() -> {
+                    lbl_login.setText("පිවිසුම");
+                    lbl_welcome.setText("ආයුබෝවන් !");
 //                        lbl_welcome.setText("සාදරයෙන් පිළිගනිමු !");
-                        lbl_userName.setText("පරිශීලක නාමය");
-                        txt_userName.setPromptText("පරිශීලක නාමය ඇතුළත් කරන්න");
-                        lbl_pass.setText("මුරපදය");
-                        txt_pass.setPromptText("මුරපදය ඇතුළත් කරන්න");
-                        btn_exit.setText("අවලංගු කරන්න");
-                        btn_login.setText("පුරන්න");
-                        lbl_shortcuts.setText("ඊළඟ = Enter / ආපසු = Esc / පිටවීම = F5");
-                    });
+                    lbl_userName.setText("පරිශීලක නාමය");
+                    txt_userName.setPromptText("පරිශීලක නාමය ඇතුළත් කරන්න");
+                    lbl_pass.setText("මුරපදය");
+                    txt_pass.setPromptText("මුරපදය ඇතුළත් කරන්න");
+                    btn_exit.setText("අවලංගු කරන්න");
+                    btn_login.setText("පුරන්න");
+                    lbl_shortcuts.setText("ඊළඟ = Enter / ආපසු = Esc / පිටවීම = F5");
+                });
             }).start();
             toggleBtn_language.setSelected(true);
         } else {
@@ -237,7 +258,6 @@ public class LoginController implements Initializable {
     @FXML
     void txt_userName_onAction(ActionEvent event) {
         txt_pass.requestFocus();
-
     }
 
     @Override
