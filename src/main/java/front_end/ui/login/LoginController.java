@@ -134,7 +134,7 @@ public class LoginController implements Initializable {
             Session.setUser(userBO.searchUser(txt_userName.getText()));
             if (null == Session.getUser()) {
                 Platform.runLater(() -> {
-                    Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_front);
+                    Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
                     txt_pass.setText("");
                     txt_userName.setText("");
                     txt_userName.requestFocus();
@@ -187,7 +187,7 @@ public class LoginController implements Initializable {
                         e.printStackTrace();
                     }
                 } else {
-                    Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_front);
+                    Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
                     Theme.giveBorderWarning(txt_userName);
                     Theme.giveBorderWarning(txt_pass);
                     Theme.giveBorderWarning(txt_userName);
@@ -195,7 +195,7 @@ public class LoginController implements Initializable {
                 }
             }
         } catch (SQLException e) {
-            Theme.giveAWarning("Database config invalid", "", lbl_main, region_front);
+            Theme.giveAWarning("Database config invalid", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
         } catch (NullPointerException e) {
             Session.setUser(null);
         } catch (Exception e) {
@@ -220,7 +220,7 @@ public class LoginController implements Initializable {
                 Session.setSinhala(!Session.isSinhala());
                 setLanguage();
             } catch (SQLException e) {
-                Theme.giveAWarning("Database config invalid", "", lbl_main, region_front);
+                Theme.giveAWarning("Database config invalid", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -305,7 +305,7 @@ public class LoginController implements Initializable {
                 Session.setSinhala(configBO.searchConfig(0).getLanguage().equals("sinhala"));
                 setLanguage();
             } catch (SQLException e) {
-                Theme.giveAWarning("Database config invalid", "", lbl_main, region_front);
+                Theme.giveAWarning("Database config invalid", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -328,7 +328,7 @@ public class LoginController implements Initializable {
                 Platform.runLater(() -> {
                     Theme.setBackgroundColor("background", pane);
                     Theme.setBackgroundColor("success", region_back, btn_login);
-                    Theme.setBackgroundColor("border", region_front);
+                    Theme.setBackgroundColor("border", region_front, region_top, region_bottom, region_left, region_right);
                     Theme.setBackgroundColor("warning", btn_exit);
                     Theme.setTextFill("font", toggleBtn_language, lbl_userName, lbl_pass, lbl_shortcuts);
                     Theme.setTextFill("background", lbl_welcome, lbl_main, btn_login, btn_exit, lbl_date, lbl_time);
@@ -336,7 +336,7 @@ public class LoginController implements Initializable {
                     Theme.setToggleColor("success", "background", "border", "font", toggleBtn_language);
                 });
             } catch (SQLException e) {
-                Theme.giveAWarning("Database config invalid", "", lbl_main, region_front);
+                Theme.giveAWarning("Database config invalid", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="640.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.admin.CreateCompanyController">
+<AnchorPane fx:id="pane" prefHeight="640.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.admin.ManageCompanyController">
     <children>
         <JFXButton fx:id="btn_goBack" layoutX="50.0" layoutY="533.0" onAction="#btn_goBack_onAction" prefHeight="50.0" prefWidth="361.0" style="-fx-border-color: #c23616; -fx-background-radius: 5; -fx-border-radius: 5;" text="Go Back [F4]" textFill="#c23616">
             <font>
