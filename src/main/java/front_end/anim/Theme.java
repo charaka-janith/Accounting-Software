@@ -50,9 +50,10 @@ public class Theme {
         warning = bo.searchColor("warning").getCode();
     }
 
-    public static void giveAWarning(String warning_text, String after_text, Label label, Region... regions) {
+    public static void giveAWarning(String warning_text, String after_text, Label label, Region back_region, Region... regions) {
         Platform.runLater(() -> {
             label.setText(warning_text);
+            back_region.setStyle("-fx-background-color:" + warning);
             for (Region region :
                     regions) {
                 region.setStyle("-fx-background-color:" + warning);
@@ -65,9 +66,10 @@ public class Theme {
 
         errorThread = new Thread(() -> {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(5000);
                 Platform.runLater(() -> {
                     label.setText(after_text);
+                    back_region.setStyle("-fx-background-color:" + success);
                     for (Region region :
                             regions) {
                         region.setStyle("-fx-background-color:" + border);

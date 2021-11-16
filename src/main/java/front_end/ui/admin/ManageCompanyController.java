@@ -16,7 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CreateCompanyController implements Initializable {
+public class ManageCompanyController implements Initializable {
 
      CompanyBO bo = (CompanyBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.COMPANY);
 
