@@ -24,7 +24,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txt_userName" layoutX="268.0" layoutY="317.0" onAction="#txt_userName_onAction" onKeyReleased="#txt_userName_keyReleased" prefHeight="35.0" prefWidth="350.0" promptText="Enter Username">
+      <TextField fx:id="txt_userName" layoutX="268.0" layoutY="315.0" onAction="#txt_userName_onAction" onKeyReleased="#txt_userName_keyReleased" prefHeight="35.0" prefWidth="350.0" promptText="Enter Username">
          <font>
             <Font size="14.0" />
          </font>
@@ -34,7 +34,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <PasswordField fx:id="txt_pass" layoutX="268.0" layoutY="400.0" onAction="#txt_pass_onAction" onKeyReleased="#txt_pass_keyReleased" prefHeight="35.0" prefWidth="350.0" promptText="Enter Password">
+      <PasswordField fx:id="txt_pass" layoutX="268.0" layoutY="401.0" onAction="#txt_pass_onAction" onKeyReleased="#txt_pass_keyReleased" prefHeight="35.0" prefWidth="350.0" promptText="Enter Password">
          <font>
             <Font size="14.0" />
          </font>

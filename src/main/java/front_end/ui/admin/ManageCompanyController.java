@@ -9,22 +9,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ManageCompanyController implements Initializable {
 
-     CompanyBO bo = (CompanyBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.COMPANY);
+    CompanyBO bo = (CompanyBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.COMPANY);
 
     @FXML
     private JFXButton btn_create;
 
     @FXML
-    private JFXButton btn_goBack;
+    private JFXButton btn_refresh;
 
     @FXML
     private Label lbl_address;
@@ -45,13 +46,16 @@ public class ManageCompanyController implements Initializable {
     private Label lbl_phoneNumber;
 
     @FXML
+    private Label lbl_userName;
+
+    @FXML
     private Label lbl_website;
 
     @FXML
     private AnchorPane pane;
 
     @FXML
-    private TextField txt_address;
+    private TextArea txt_address;
 
     @FXML
     private TextField txt_businessRegistrationNumber;
@@ -66,6 +70,9 @@ public class ManageCompanyController implements Initializable {
     private TextField txt_phoneNumber;
 
     @FXML
+    private TextField txt_userName;
+
+    @FXML
     private TextField txt_website;
 
     @FXML
@@ -75,11 +82,11 @@ public class ManageCompanyController implements Initializable {
 
     @FXML
     void btn_create_onAction(ActionEvent event) {
-        System.out.println("CreateCompanyController.btn_create_onAction");
+
     }
 
     @FXML
-    void btn_goBack_onAction(ActionEvent event) {
+    void btn_refresh_onAction(ActionEvent event) {
 
     }
 
@@ -89,7 +96,7 @@ public class ManageCompanyController implements Initializable {
     }
 
     @FXML
-    void txt_address_onAction(ActionEvent event) {
+    void txt_address_onAction(MouseEvent event) {
 
     }
 
@@ -134,6 +141,16 @@ public class ManageCompanyController implements Initializable {
     }
 
     @FXML
+    void txt_userName_keyReleased(KeyEvent event) {
+
+    }
+
+    @FXML
+    void txt_userName_onAction(ActionEvent event) {
+
+    }
+
+    @FXML
     void txt_website_keyReleased(KeyEvent event) {
 
     }
@@ -148,7 +165,7 @@ public class ManageCompanyController implements Initializable {
         new Thread(() -> {
             try {
                 CompanyDTO company = bo.getCompany();
-                if (null != company){
+                if (null != company) {
                     Platform.runLater(() -> {
                         lbl_main.setText("Update Company");
                         btn_create.setText("Update [F1]");
