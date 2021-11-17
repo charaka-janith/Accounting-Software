@@ -22,7 +22,7 @@ public class ManageCompanyController implements Initializable {
     CompanyBO bo = (CompanyBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.COMPANY);
 
     @FXML
-    private JFXButton btn_create;
+    private JFXButton btn_save;
 
     @FXML
     private JFXButton btn_refresh;
@@ -76,12 +76,12 @@ public class ManageCompanyController implements Initializable {
     private TextField txt_website;
 
     @FXML
-    void btn_create_keyReleased(KeyEvent event) {
+    void btn_save_keyReleased(KeyEvent event) {
 
     }
 
     @FXML
-    void btn_create_onAction(ActionEvent event) {
+    void btn_save_onAction(ActionEvent event) {
 
     }
 
@@ -168,7 +168,7 @@ public class ManageCompanyController implements Initializable {
                 if (null != company) {
                     Platform.runLater(() -> {
                         lbl_main.setText("Update Company");
-                        btn_create.setText("Update [F1]");
+                        btn_save.setText("Update [F1]");
                         txt_name.setText(company.getName());
                         txt_address.setText(company.getAddress());
                         txt_phoneNumber.setText(company.getPhoneNumber());
@@ -179,7 +179,7 @@ public class ManageCompanyController implements Initializable {
                 } else {
                     Platform.runLater(() -> {
                         lbl_main.setText("Create Company");
-                        btn_create.setText("Create [F1]");
+                        btn_save.setText("Create [F1]");
                         txt_name.setText("");
                         txt_address.setText("");
                         txt_phoneNumber.setText("");

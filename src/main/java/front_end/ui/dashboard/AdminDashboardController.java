@@ -2,6 +2,7 @@ package front_end.ui.dashboard;
 
 import com.jfoenix.controls.JFXButton;
 import front_end.anim.PaneOpenAnim;
+import front_end.anim.RunLater;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
 import front_end.ui.admin.ManageCompanyController;
@@ -22,9 +23,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -32,8 +33,6 @@ import java.util.ResourceBundle;
 public class AdminDashboardController implements Initializable {
 
     public static Stage stage;
-    private String windowName;
-    Parent root;
     int count;
 
     @FXML
@@ -61,19 +60,34 @@ public class AdminDashboardController implements Initializable {
     private ImageView imageView;
 
     @FXML
+    private Label lbl_date;
+
+    @FXML
     private Label lbl_main;
 
     @FXML
     private Label lbl_shortcuts;
 
     @FXML
+    private Label lbl_time;
+
+    @FXML
     private Label lbl_welcome;
+
+    @FXML
+    private Label lbl_userName;
 
     @FXML
     private AnchorPane pane;
 
     @FXML
+    private Region region_back;
+
+    @FXML
     private Region region_bottom;
+
+    @FXML
+    private Region region_menu;
 
     @FXML
     private Region region_left;
@@ -112,7 +126,7 @@ public class AdminDashboardController implements Initializable {
         try {
             LoginController.backToLogin(stage);
         } catch (IOException e) {
-            Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+            e.printStackTrace();
         }
     }
 
@@ -128,11 +142,32 @@ public class AdminDashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        windowName = "Welcome Back, " + Session.getUser().getName() + " !";
-        lbl_main.setText(windowName);
+        lbl_welcome.setText("Welcome " + Session.getUser().getName() + " !");
+        lbl_userName.setText(Session.getUser().getName());
+        setColors();
+        Theme.setTimeDate(lbl_date, lbl_time);
         Theme.scale(pane, true);
         runLater();
         Session.imageSlider = subPane.getChildren().get(0);
+        new RunLater(btn_dashboard);
+    }
+
+    private void setColors() {
+        new Thread(() -> {
+            try {
+                Platform.runLater(() -> {
+                    Theme.setBackgroundColor("background", pane, region_menu);
+                    Theme.setBackgroundColor("success", region_back);
+                    Theme.setBackgroundColor("border", region_top, region_bottom, region_left, region_right);
+                    Theme.setTextFill("background", lbl_welcome, lbl_main, lbl_date, lbl_time);
+                    Theme.setTextFill("border", lbl_userName, btn_dashboard, btn_manageCompany, btn_manageAdmins, btn_changeTheme, btn_changePass, btn_lock);
+                    Theme.setTextFill("warning", btn_exit);
+                    Theme.setTextFill("font", lbl_shortcuts);
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     private void slideShow() {
@@ -150,39 +185,6 @@ public class AdminDashboardController implements Initializable {
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-
-        /*........................fading slide show..........................
-        public FadeTransition getFadeTransition(ImageView imageView, double fromValue, double toValue, int durationInMilliseconds) {
-            FadeTransition ft = new FadeTransition(Duration.millis(durationInMilliseconds), imageView);
-            ft.setFromValue(fromValue);
-            ft.setToValue(toValue);
-            return ft;
-        }
-
-        ArrayList<Image> images = new ArrayList<Image>();
-        images.add(new Image("front_end/img/dashboard/adminBackground.jpg"));
-        images.add(new Image("front_end/img/dashboard/adminBackground2.jpg"));
-        images.add(new Image("front_end/img/dashboard/adminBackground3.jpg"));
-        images.add(new Image("front_end/img/dashboard/adminBackground4.jpg"));
-
-        SequentialTransition slideshow = new SequentialTransition();
-
-        for (Image image : images) {
-            imageView.setImage(image);
-            SequentialTransition sequentialTransition = new SequentialTransition();
-
-            FadeTransition fadeIn = getFadeTransition(imageView, 0.0, 1.0, 2000);
-            PauseTransition stayOn = new PauseTransition(Duration.millis(2000));
-            FadeTransition fadeOut = getFadeTransition(imageView, 1.0, 0.0, 2000);
-
-            sequentialTransition.getChildren().addAll(fadeIn, stayOn, fadeOut);
-            imageView.setOpacity(0);
-            imageView.setImage(slide);
-            slideshow.getChildren().add(sequentialTransition);
-
-        }
-        slideshow.setCycleCount(Timeline.INDEFINITE);
-        slideshow.play();*/
     }
 
     public void handleAllButtons(String btnName) {
@@ -197,7 +199,7 @@ public class AdminDashboardController implements Initializable {
                 try {
                     subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(ManageCompanyController.class.getResource("ManageCompany.fxml"))));
                 } catch (IOException e) {
-                    Theme.giveAWarning(e.getMessage(), windowName, lbl_main, region_left, region_right, region_bottom, region_top);
+                    e.printStackTrace();
                 }
             }
         }
