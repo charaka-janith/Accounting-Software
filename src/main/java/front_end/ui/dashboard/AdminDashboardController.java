@@ -5,8 +5,11 @@ import front_end.anim.PaneOpenAnim;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
+import front_end.ui.admin.ManageAdminsController;
 import front_end.ui.admin.ManageCompanyController;
 import front_end.ui.login.LoginController;
+import front_end.ui.settings.ChangePasswordController;
+import front_end.ui.settings.ChangeThemeController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -103,12 +106,12 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     void btn_changePass_onAction(ActionEvent event) {
-
+        handleAllButtons("changePass");
     }
 
     @FXML
     void btn_changeTheme_onAction(ActionEvent event) {
-
+        handleAllButtons("changeTheme");
     }
 
     @FXML
@@ -132,7 +135,7 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     void btn_manageAdmins_onAction(ActionEvent event) {
-
+        handleAllButtons("manageAdmins");
     }
 
     @FXML
@@ -202,6 +205,30 @@ public class AdminDashboardController implements Initializable {
                     e.printStackTrace();
                 }
             }
+            case "manageAdmins" -> {
+                btn_manageAdmins.requestFocus();
+                try {
+                    subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(ManageAdminsController.class.getResource("ManageAdmins.fxml"))));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            case "changeTheme" -> {
+                btn_changeTheme.requestFocus();
+                try {
+                    subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(ChangeThemeController.class.getResource("ChangeTheme.fxml"))));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            case "changePass" -> {
+                btn_changePass.requestFocus();
+                try {
+                    subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(ChangePasswordController.class.getResource("ChangePassword.fxml"))));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         new PaneOpenAnim(subPane);
     }
@@ -215,6 +242,12 @@ public class AdminDashboardController implements Initializable {
                     handleAllButtons("dashboard");
                 } else if (event.getCode().equals(KeyCode.F3)) {
                     handleAllButtons("manageCompany");
+                } else if (event.getCode().equals(KeyCode.F6)) {
+                    handleAllButtons("manageAdmins");
+                } else if (event.getCode().equals(KeyCode.F7)) {
+                    handleAllButtons("changeTheme");
+                } else if (event.getCode().equals(KeyCode.F9)) {
+                    handleAllButtons("changePass");
                 }
             });
         });

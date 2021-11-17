@@ -4,6 +4,7 @@ import back_end.bo.BOFactory;
 import back_end.bo.custom.CompanyBO;
 import back_end.dto.CompanyDTO;
 import com.jfoenix.controls.JFXButton;
+import front_end.anim.RunLater;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -162,6 +163,7 @@ public class ManageCompanyController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        new RunLater(txt_name);
         new Thread(() -> {
             try {
                 CompanyDTO company = bo.getCompany();
