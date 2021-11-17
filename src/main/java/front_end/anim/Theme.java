@@ -99,18 +99,6 @@ public class Theme {
         });
     }
 
-    public static void setBorderColor(String code, Node... list) {
-        for (Node node :
-                list) {
-            if (node instanceof JFXButton) {
-                node.setStyle("-fx-border-color: " + colorSwitch(code));
-                setOnMouseMoveFocus((JFXButton) node);
-            } else {
-                node.setStyle("-fx-border-color:" + colorSwitch(code));
-            }
-        }
-    }
-
     public static void setToggleColor(String toggleColor, String unToggleColor, String toggleLineColor, String unToggleLineColor, JFXToggleButton... list) {
         for (JFXToggleButton node :
                 list) {
@@ -140,6 +128,7 @@ public class Theme {
                 label.setTextFill(Paint.valueOf(colorSwitch(code)));
             } else if (node instanceof JFXButton button) {
                 button.setTextFill(Paint.valueOf(colorSwitch(code)));
+                setOnMouseMoveFocus((JFXButton) node);
             } else if (node instanceof Hyperlink link) {
                 link.setTextFill(Paint.valueOf(colorSwitch(code)));
             } else if (node instanceof JFXToggleButton button) {
