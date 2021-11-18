@@ -5,6 +5,7 @@ import back_end.bo.custom.CompanyBO;
 import back_end.dto.CompanyDTO;
 import com.jfoenix.controls.JFXButton;
 import front_end.anim.RunLater;
+import front_end.anim.Theme;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -164,6 +166,11 @@ public class ManageCompanyController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         new RunLater(txt_name);
+        setColors();
+        Theme.setChangeListeners(txt_name, txt_userName, txt_phoneNumber, txt_email, txt_website, txt_businessRegistrationNumber);
+        Platform.runLater(() -> {
+            txt_address.textProperty().addListener((observableValue, s, t1) -> txt_address.setStyle("-fx-border-color: transparent"));
+        });
         new Thread(() -> {
             try {
                 CompanyDTO company = bo.getCompany();
@@ -190,6 +197,24 @@ public class ManageCompanyController implements Initializable {
                         txt_businessRegistrationNumber.setText("");
                     });
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    private void setColors() {
+        new Thread(() -> {
+            try {
+                Platform.runLater(() -> {
+                    /*Theme.setBackgroundColor("background", pane, region_menu);
+                    Theme.setBackgroundColor("success", region_back);
+                    Theme.setBackgroundColor("border", region_top, region_bottom, region_left, region_right);
+                    Theme.setTextFill("background", lbl_welcome, lbl_main, lbl_date, lbl_time);
+                    Theme.setTextFill("border", lbl_userName, btn_dashboard, btn_manageCompany, btn_manageAdmins, btn_changeTheme, btn_changePass, btn_lock);
+                    Theme.setTextFill("warning", btn_exit);
+                    Theme.setTextFill("font", lbl_shortcuts);*/
+                });
             } catch (Exception e) {
                 e.printStackTrace();
             }

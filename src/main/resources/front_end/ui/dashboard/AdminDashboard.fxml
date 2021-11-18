@@ -13,7 +13,7 @@
 <AnchorPane fx:id="pane" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #F4F7FC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.dashboard.AdminDashboardController">
     <children>
       <Region fx:id="region_back" layoutX="5.0" layoutY="5.0" prefHeight="200.0" prefWidth="1356.0" style="-fx-background-color: #44BD32;" />
-      <Region fx:id="region_menu" layoutY="82.0" prefHeight="680.0" prefWidth="250.0" style="-fx-background-color: #ffffff;" />
+      <Region fx:id="region_menu" layoutY="85.0" prefHeight="678.0" prefWidth="250.0" style="-fx-background-color: #ffffff;" />
         <JFXButton fx:id="btn_lock" alignment="BASELINE_LEFT" layoutX="30.0" layoutY="663.0" onAction="#btn_lock_onAction" prefHeight="40.0" prefWidth="178.0" ripplerFill="#9a9a9a" style="-fx-background-radius: 0; -fx-background-color: #ffffff; -fx-border-radius: 5;" text="Lock [F8]" textFill="#1b1464">
             <font>
                 <Font size="14.0" />
