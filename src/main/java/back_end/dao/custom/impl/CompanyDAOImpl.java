@@ -2,7 +2,6 @@ package back_end.dao.custom.impl;
 
 import back_end.dao.CrudUtil;
 import back_end.dao.custom.CompanyDAO;
-import back_end.entity.Colors;
 import back_end.entity.Company;
 
 import java.sql.ResultSet;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 public class CompanyDAOImpl implements CompanyDAO {
     @Override
     public boolean add(Company company) throws Exception {
-        return false;
+        return CrudUtil.executeUpdate("insert into company values(?,?,?,?,?,?)", company.getName(), company.getAddress(), company.getPhoneNumber(), company.getEmail(), company.getWebSite(), company.getBrn());
     }
 
     @Override
@@ -22,7 +21,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public boolean update(Company company) throws Exception {
-        return false;
+        return CrudUtil.executeUpdate("UPDATE company SET name=?, address=?, phoneNumber=?, email=?, webSite=?, brn=?", company.getName(), company.getAddress(), company.getPhoneNumber(), company.getEmail(), company.getWebSite(), company.getBrn());
     }
 
     @Override
