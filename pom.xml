@@ -45,11 +45,16 @@
             <artifactId>commons-codec</artifactId>
             <version>1.15</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.webjars/font-awesome -->
+        <!-- https://mvnrepository.com/artifact/de.jensd/fontawesomefx -->
         <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>font-awesome</artifactId>
-            <version>5.15.4</version>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx</artifactId>
+            <version>8.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.1.0</version>
         </dependency>
     </dependencies>
 
