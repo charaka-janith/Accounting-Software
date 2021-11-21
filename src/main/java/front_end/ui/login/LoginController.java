@@ -5,6 +5,7 @@ import back_end.bo.custom.ConfigBO;
 import back_end.bo.custom.UserBO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import front_end.anim.PaneOpenAnim;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
@@ -25,29 +26,24 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXToggleButton;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 
 public class LoginController implements Initializable {
 
     public static Stage stage;
     UserBO userBO = (UserBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.USER);
     ConfigBO configBO = (ConfigBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.CONFIG);
+
+    @FXML
+    private FontAwesomeIconView icon_time;
 
     @FXML
     private JFXButton btn_exit;
@@ -324,6 +320,9 @@ public class LoginController implements Initializable {
             try {
                 Theme.initialize();
                 Platform.runLater(() -> {
+
+                    icon_time.setFill(Paint.valueOf("red"));
+
                     Theme.setBackgroundColor("background", pane);
                     Theme.setBackgroundColor("success", region_back, btn_login);
                     Theme.setBackgroundColor("border", region_front, region_top, region_bottom, region_left, region_right);

@@ -80,7 +80,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="CLOCK" />
+            <FontAwesomeIconView fx:id="icon_time" fill="WHITE" glyphName="HOURGLASS" />
          </graphic>
       </Label>
       <Region fx:id="region_top" prefHeight="5.0" prefWidth="1366.0" style="-fx-background-color: #1B1464;" />
