@@ -65,7 +65,7 @@ public class AdminDashboardController implements Initializable {
     private Label lbl_date;
 
     @FXML
-    private Label lbl_main;
+    public Label lbl_main;
 
     @FXML
     private Label lbl_shortcuts;
@@ -83,25 +83,34 @@ public class AdminDashboardController implements Initializable {
     private AnchorPane pane;
 
     @FXML
-    private Region region_back;
+    public Region region_back;
 
     @FXML
-    private Region region_bottom;
+    public Region region_bottom;
 
     @FXML
     private Region region_menu;
 
     @FXML
-    private Region region_left;
+    public Region region_left;
 
     @FXML
-    private Region region_right;
+    public Region region_right;
 
     @FXML
-    private Region region_top;
+    public Region region_top;
 
     @FXML
     private AnchorPane subPane;
+
+    private void setErrorInputs () {
+        Session.admin_mainLabel = lbl_main;
+        Session.admin_regionBack = region_back;
+        Session.admin_regionTop = region_top;
+        Session.admin_regionBottom =  region_bottom;
+        Session.admin_regionLeft = region_left;
+        Session.admin_regionRight = region_right;
+    }
 
     @FXML
     void btn_changePass_onAction(ActionEvent event) {
@@ -152,6 +161,7 @@ public class AdminDashboardController implements Initializable {
         runLater();
         Session.imageSlider = subPane.getChildren().get(0);
         new RunLater(btn_dashboard);
+        setErrorInputs();
     }
 
     private void setColors() {

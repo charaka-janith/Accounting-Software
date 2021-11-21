@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -59,5 +60,10 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
+      <JFXToggleButton fx:id="toggleBtn_language" layoutX="846.0" onAction="#toggleBtn_language_onAction" onKeyReleased="#toggleBtn_language_keyReleased" prefHeight="50.0" prefWidth="150.0" size="9.0" text="සිංහල" toggleColor="#96ca00" toggleLineColor="#1b1464">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXToggleButton>
     </children>
 </AnchorPane>

@@ -1,6 +1,7 @@
 package front_end.ui.admin;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -34,6 +35,19 @@ public class ManageAdminsController {
 
     @FXML
     private TextField txt_userName;
+
+    @FXML
+    private JFXToggleButton toggleBtn_language;
+
+    @FXML
+    void toggleBtn_language_keyReleased(KeyEvent event) {
+
+    }
+
+    @FXML
+    void toggleBtn_language_onAction(ActionEvent event) {
+
+    }
 
     @FXML
     void btn_create_keyReleased(KeyEvent event) {

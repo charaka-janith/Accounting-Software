@@ -1,6 +1,7 @@
 package front_end.ui.settings;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -41,7 +42,16 @@ public class ChangePasswordController {
     @FXML
     private TextField txt_newPass2;
 
+    @FXML
+    private JFXToggleButton toggleBtn_language;
+
     //    ..........................................Key Events........................................
+
+    @FXML
+    void toggleBtn_language_keyReleased(KeyEvent event) {
+
+    }
+
     @FXML
     void txt_currentPass_keyReleased(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
@@ -71,6 +81,12 @@ public class ChangePasswordController {
     }
 
     //    ..........................................Action Events........................................
+
+    @FXML
+    void toggleBtn_language_onAction(ActionEvent event) {
+
+    }
+
     @FXML
     void txt_currentPass_onAction(ActionEvent event) {
         txt_newPass.requestFocus();

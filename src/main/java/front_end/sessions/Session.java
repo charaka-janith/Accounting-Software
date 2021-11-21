@@ -5,12 +5,21 @@ import back_end.bo.custom.ConfigBO;
 import back_end.dto.ConfigDTO;
 import back_end.dto.UserDTO;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
 
 public class Session {
     public static Node imageSlider;
     private static UserDTO user;
     private static boolean sinhala = false;
-   static ConfigBO bo = (ConfigBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.CONFIG);
+    static ConfigBO bo = (ConfigBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.CONFIG);
+    // admin dashboard error inputs
+    public static Label admin_mainLabel;
+    public static Region admin_regionBack;
+    public static Region admin_regionTop;
+    public static Region admin_regionBottom;
+    public static Region admin_regionLeft;
+    public static Region admin_regionRight;
 
     public static boolean isSinhala() {
         return sinhala;

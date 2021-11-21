@@ -207,8 +207,6 @@ public class LoginController implements Initializable {
     void toggleBtn_language_keyReleased(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
             btn_exit.requestFocus();
-        } else if (event.getCode().equals(KeyCode.ENTER)) {
-            txt_userName.requestFocus();
         }
     }
 

@@ -1,6 +1,7 @@
 package front_end.ui.settings;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
@@ -73,6 +74,19 @@ public class ChangeThemeController {
 
     @FXML
     private Region region_border;
+
+    @FXML
+    private JFXToggleButton toggleBtn_language;
+
+    @FXML
+    void toggleBtn_language_keyReleased(KeyEvent event) {
+
+    }
+
+    @FXML
+    void toggleBtn_language_onAction(ActionEvent event) {
+
+    }
 
     @FXML
     void btn_defaults_onAction(ActionEvent event) {
