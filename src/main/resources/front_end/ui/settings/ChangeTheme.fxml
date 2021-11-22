@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
@@ -64,7 +63,7 @@
       <ColorPicker fx:id="colorPicker_colorWarning" layoutX="50.0" layoutY="410.0" onAction="#colorPicker_colorWarning_onAction" onKeyReleased="#colorPicker_colorWarning_keyReleased" prefHeight="30.0" prefWidth="200.0" />
       <Region fx:id="region_border" layoutX="300.0" layoutY="60.0" prefHeight="428.0" prefWidth="656.0" style="-fx-background-color: #1B1464;" />
       <Region fx:id="region_bg" layoutX="305.0" layoutY="65.0" prefHeight="418.0" prefWidth="646.0" style="-fx-background-color: white;" />
-      <JFXButton fx:id="btn_success" layoutX="687.0" layoutY="400.0" onAction="#colorButtons_onAction" prefHeight="25.0" prefWidth="214.0" style="-fx-background-color: #44BD32; -fx-background-radius: 5; -fx-border-radius: 5;" text="Success" textFill="WHITE">
+      <JFXButton fx:id="btn_success" layoutX="687.0" layoutY="400.0" onAction="#colorButtons_onAction" prefHeight="30.0" prefWidth="214.0" style="-fx-background-color: #44BD32; -fx-background-radius: 5; -fx-border-radius: 5;" text="Success" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -72,7 +71,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="btn_warning" layoutX="355.0" layoutY="400.0" onAction="#colorButtons_onAction" prefHeight="25.0" prefWidth="214.0" style="-fx-background-color: red; -fx-background-radius: 5; -fx-border-radius: 5;" text="Warning" textFill="WHITE">
+      <JFXButton fx:id="btn_warning" layoutX="355.0" layoutY="400.0" onAction="#colorButtons_onAction" prefHeight="30.0" prefWidth="214.0" style="-fx-background-color: red; -fx-background-radius: 5; -fx-border-radius: 5;" text="Warning" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -80,7 +79,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="btn_border" layoutX="355.0" layoutY="340.0" onAction="#colorButtons_onAction" prefHeight="25.0" prefWidth="214.0" style="-fx-background-color: #1B1464; -fx-background-radius: 5; -fx-border-radius: 5;" text="Border" textFill="WHITE">
+      <JFXButton fx:id="btn_border" layoutX="355.0" layoutY="340.0" onAction="#colorButtons_onAction" prefHeight="30.0" prefWidth="214.0" style="-fx-background-color: #1B1464; -fx-background-radius: 5; -fx-border-radius: 5;" text="Border" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -98,10 +97,5 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <JFXToggleButton fx:id="toggleBtn_language" layoutX="846.0" onAction="#toggleBtn_language_onAction" onKeyReleased="#toggleBtn_language_keyReleased" prefHeight="50.0" prefWidth="150.0" size="9.0" text="සිංහල" toggleColor="#96ca00" toggleLineColor="#1b1464">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </JFXToggleButton>
     </children>
 </AnchorPane>

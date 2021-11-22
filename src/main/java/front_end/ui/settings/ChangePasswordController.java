@@ -42,15 +42,7 @@ public class ChangePasswordController {
     @FXML
     private TextField txt_newPass2;
 
-    @FXML
-    private JFXToggleButton toggleBtn_language;
-
     //    ..........................................Key Events........................................
-
-    @FXML
-    void toggleBtn_language_keyReleased(KeyEvent event) {
-
-    }
 
     @FXML
     void txt_currentPass_keyReleased(KeyEvent event) {
@@ -81,11 +73,6 @@ public class ChangePasswordController {
     }
 
     //    ..........................................Action Events........................................
-
-    @FXML
-    void toggleBtn_language_onAction(ActionEvent event) {
-
-    }
 
     @FXML
     void txt_currentPass_onAction(ActionEvent event) {

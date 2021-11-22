@@ -43,7 +43,25 @@ public class LoginController implements Initializable {
     ConfigBO configBO = (ConfigBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.CONFIG);
 
     @FXML
+    private FontAwesomeIconView icon_date;
+
+    @FXML
+    private FontAwesomeIconView icon_exit;
+
+    @FXML
+    private FontAwesomeIconView icon_login;
+
+    @FXML
+    private FontAwesomeIconView icon_signIn;
+
+    @FXML
+    private FontAwesomeIconView icon_pass;
+
+    @FXML
     private FontAwesomeIconView icon_time;
+
+    @FXML
+    private FontAwesomeIconView icon_username;
 
     @FXML
     private JFXButton btn_exit;
@@ -225,15 +243,14 @@ public class LoginController implements Initializable {
         if (Session.isSinhala()) {
             new Thread(() -> {
                 Platform.runLater(() -> {
-                    lbl_login.setText("පිවිසුම");
+                    lbl_login.setText(" පිවිසුම");
                     lbl_welcome.setText("ආයුබෝවන් !");
-//                        lbl_welcome.setText("සාදරයෙන් පිළිගනිමු !");
-                    lbl_userName.setText("පරිශීලක නාමය");
+                    lbl_userName.setText(" පරිශීලක නාමය");
                     txt_userName.setPromptText("පරිශීලක නාමය ඇතුළත් කරන්න");
-                    lbl_pass.setText("මුරපදය");
+                    lbl_pass.setText(" මුරපදය");
                     txt_pass.setPromptText("මුරපදය ඇතුළත් කරන්න");
-                    btn_exit.setText("අවලංගු කරන්න");
-                    btn_login.setText("පුරන්න");
+                    btn_exit.setText(" අවලංගු කරන්න");
+                    btn_login.setText(" පුරන්න");
                     lbl_shortcuts.setText("ඊළඟ = Enter / ආපසු = Esc / පිටවීම = F5");
                 });
             }).start();
@@ -241,14 +258,14 @@ public class LoginController implements Initializable {
         } else {
             new Thread(() -> {
                 Platform.runLater(() -> {
-                    lbl_login.setText("Login");
+                    lbl_login.setText(" Login");
                     lbl_welcome.setText("Welcome !");
-                    lbl_userName.setText("User Name");
+                    lbl_userName.setText(" User Name");
                     txt_userName.setPromptText("Enter User Name");
-                    lbl_pass.setText("Password");
+                    lbl_pass.setText(" Password");
                     txt_pass.setPromptText("Enter Password");
-                    btn_exit.setText("Exit");
-                    btn_login.setText("Login");
+                    btn_exit.setText(" Exit");
+                    btn_login.setText(" Login");
                     lbl_shortcuts.setText("Next = Enter / Back = Esc / Exit = F5");
                 });
             }).start();
@@ -320,17 +337,21 @@ public class LoginController implements Initializable {
             try {
                 Theme.initialize();
                 Platform.runLater(() -> {
-
-                    icon_time.setFill(Paint.valueOf("red"));
-
+                    // background
                     Theme.setBackgroundColor("background", pane);
                     Theme.setBackgroundColor("success", region_back, btn_login);
                     Theme.setBackgroundColor("border", region_front, region_top, region_bottom, region_left, region_right);
                     Theme.setBackgroundColor("warning", btn_exit);
+                    // text
                     Theme.setTextFill("font", toggleBtn_language, lbl_userName, lbl_pass, lbl_shortcuts);
                     Theme.setTextFill("background", lbl_welcome, lbl_main, btn_login, btn_exit, lbl_date, lbl_time);
                     Theme.setTextFill("border", lbl_login);
+                    // toggle button
                     Theme.setToggleColor("success", "background", "border", "font", toggleBtn_language);
+                    // icon
+                    Theme.setIconFill("background", icon_date, icon_time, icon_signIn, icon_exit);
+                    Theme.setIconFill("border", icon_login);
+                    Theme.setIconFill("font", icon_username, icon_pass);
                 });
             } catch (SQLException e) {
                 Theme.giveAWarning("Database config invalid", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);

@@ -2,15 +2,24 @@ package front_end.ui.settings;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
+import front_end.anim.RunLater;
+import front_end.anim.Theme;
+import front_end.sessions.Session;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 
-public class ChangeThemeController {
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
+public class ChangeThemeController implements Initializable {
 
     @FXML
     private JFXButton btn_border;
@@ -74,19 +83,6 @@ public class ChangeThemeController {
 
     @FXML
     private Region region_border;
-
-    @FXML
-    private JFXToggleButton toggleBtn_language;
-
-    @FXML
-    void toggleBtn_language_keyReleased(KeyEvent event) {
-
-    }
-
-    @FXML
-    void toggleBtn_language_onAction(ActionEvent event) {
-
-    }
 
     @FXML
     void btn_defaults_onAction(ActionEvent event) {
@@ -158,4 +154,55 @@ public class ChangeThemeController {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setLanguage();
+        setColors();
+        new RunLater(colorPicker_colorBg);
+        setFocusListeners();
+    }
+
+    private void setFocusListeners() {
+        colorPicker_colorBg.focusedProperty().addListener((observableValue, aBoolean, focused) -> {
+            if (!focused) {
+                System.out.println("ChangeThemeController.setFocusListeners");
+            }
+        });
+    }
+
+    private void setLanguage() {
+        if (Session.isSinhala()) {
+            new Thread(() -> {
+                Platform.runLater(() -> {
+
+                });
+            }).start();
+        } else {
+            new Thread(() -> {
+                Platform.runLater(() -> {
+
+                });
+            }).start();
+        }
+    }
+
+    private void setColors() {
+        new Thread(() -> {
+            try {
+                Theme.initialize();
+                Platform.runLater(() -> {
+                    // background
+                    Theme.setBackgroundColor("background", pane);
+                    // text
+                    Theme.setTextFill("background", lbl_main);
+                    // icon
+//                    Theme.setIconFill("background", icon_date, icon_time, icon_signIn, icon_exit);
+                });
+            } catch (SQLException e) {
+                Theme.giveAWarning("Database config invalid", "Have A Great Day !", Session.admin_mainLabel, Session.admin_regionBack, Session.admin_regionTop, Session.admin_regionBottom, Session.admin_regionLeft, Session.admin_regionRight);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
 }

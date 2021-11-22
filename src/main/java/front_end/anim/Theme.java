@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXToggleButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import front_end.sessions.Session;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -141,6 +142,13 @@ public class Theme {
         }
     }
 
+    public static void setIconFill (String code, FontAwesomeIconView... list) {
+        for (FontAwesomeIconView node :
+                list) {
+            node.setFill(Paint.valueOf(colorSwitch(code)));
+        }
+    }
+
     private static String colorSwitch(String code) {
         return switch (code) {
             case "background" -> background;
@@ -163,11 +171,11 @@ public class Theme {
             @Override
             public void handle(ActionEvent event) {
                 if (Session.isSinhala()) {
-                    date.setText("දිනය : " + new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
-                    time.setText("වේලාව : " + new SimpleDateFormat("hh:mm:ss a").format(new Date()));
+                    date.setText(" දිනය : " + new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
+                    time.setText(" වේලාව : " + new SimpleDateFormat("hh:mm:ss a").format(new Date()));
                 } else {
-                    date.setText("Date : " + new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
-                    time.setText("Time : " + new SimpleDateFormat("hh:mm:ss a").format(new Date()));
+                    date.setText(" Date : " + new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
+                    time.setText(" Time : " + new SimpleDateFormat("hh:mm:ss a").format(new Date()));
                 }
             }
         }), new KeyFrame(Duration.seconds(1)));

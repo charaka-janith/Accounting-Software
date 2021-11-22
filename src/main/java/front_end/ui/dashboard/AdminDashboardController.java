@@ -1,6 +1,7 @@
 package front_end.ui.dashboard;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXToggleButton;
 import front_end.anim.PaneOpenAnim;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
@@ -21,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
@@ -103,6 +105,19 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private AnchorPane subPane;
 
+    @FXML
+    private JFXToggleButton toggleBtn_language;
+
+    @FXML
+    void toggleBtn_language_keyReleased(KeyEvent event) {
+
+    }
+
+    @FXML
+    void toggleBtn_language_onAction(ActionEvent event) {
+
+    }
+
     private void setErrorInputs () {
         Session.admin_mainLabel = lbl_main;
         Session.admin_regionBack = region_back;
@@ -163,13 +178,8 @@ public class AdminDashboardController implements Initializable {
         new RunLater(btn_dashboard);
         setErrorInputs();
         Platform.runLater(() -> {
-//            subPane.setStyle("-fx-effect: dropshadow(three-pass-box, purple, 0.0, 25.0, 0.0, -5.0);"); //north
-//            subPane.setStyle("-fx-effect: dropshadow(three-pass-box, purple, 0.0, 25.0, 0.0,  5.0);"); //south
-//            subPane.setStyle("-fx-effect: dropshadow(three-pass-box, purple, 0.0, 25.0, 5.0,  0.0);"); //east
-            subPane.setStyle("-fx-effect: dropshadow(three-pass-box,#C9C9C98D, 20.0, 0.0, 0.0, 10.0);"); //west
-//            region_menu.setStyle("-fx-effect: dropshadow(three-pass-box,#C9C9C94D, 20.0, 0.0, 0.0, 20.0);");
+            subPane.setStyle("-fx-effect: dropshadow(three-pass-box,#C9C9C98D, 20.0, 0.0, 0.0, 10.0);");
         });
-
     }
 
     private void setColors() {

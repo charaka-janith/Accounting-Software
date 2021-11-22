@@ -63,9 +63,6 @@ public class ManageCompanyController implements Initializable {
     private AnchorPane pane;
 
     @FXML
-    private JFXToggleButton toggleBtn_language;
-
-    @FXML
     private TextArea txt_address;
 
     @FXML
@@ -143,13 +140,6 @@ public class ManageCompanyController implements Initializable {
         }
     }
 
-    @FXML
-    void toggleBtn_language_keyReleased(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.ESCAPE)) {
-         btn_refresh.requestFocus();
-        }
-    }
-
     //    ..........................................Action Events........................................
     @FXML
     void txt_name_onAction() {
@@ -204,37 +194,8 @@ public class ManageCompanyController implements Initializable {
         btn_save.setDisable(false);
     }
 
-    @FXML
-    void toggleBtn_language_onAction(ActionEvent event) {
-        txt_name.requestFocus();
-        new Thread(() -> {
-            try {
-                Session.setSinhala(!Session.isSinhala());
-                setLanguage();
-            } catch (SQLException e) {
-                Theme.giveAWarning("Database config invalid", "Have A Great Day !", Session.admin_mainLabel, Session.admin_regionBack, Session.admin_regionTop, Session.admin_regionBottom, Session.admin_regionLeft, Session.admin_regionRight);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
-
     private void setLanguage() {
-        if (Session.isSinhala()) {
-            new Thread(() -> {
-                Platform.runLater(() -> {
 
-                });
-            }).start();
-            toggleBtn_language.setSelected(true);
-        } else {
-            new Thread(() -> {
-                Platform.runLater(() -> {
-
-                });
-            }).start();
-            toggleBtn_language.setSelected(false);
-        }
     }
 
     private void addOrUpdateCompanyDetails() {

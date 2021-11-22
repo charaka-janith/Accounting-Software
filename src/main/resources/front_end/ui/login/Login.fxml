@@ -20,20 +20,26 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_userName" contentDisplay="CENTER" layoutX="268.0" layoutY="285.0" prefHeight="25.0" prefWidth="350.0" text="Username" textAlignment="CENTER" textFill="#728188">
+      <Label fx:id="lbl_userName" layoutX="268.0" layoutY="285.0" prefHeight="25.0" prefWidth="350.0" text=" Username" textAlignment="CENTER" textFill="#728188">
          <font>
             <Font size="14.0" />
          </font>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_username" fill="#728188" glyphName="USER" />
+         </graphic>
       </Label>
       <TextField fx:id="txt_userName" layoutX="268.0" layoutY="315.0" onAction="#txt_userName_onAction" onKeyReleased="#txt_userName_keyReleased" prefHeight="35.0" prefWidth="350.0" promptText="Enter Username">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label fx:id="lbl_pass" contentDisplay="CENTER" layoutX="268.0" layoutY="371.0" prefHeight="25.0" prefWidth="350.0" text="Password" textAlignment="CENTER" textFill="#728188">
+      <Label fx:id="lbl_pass" layoutX="268.0" layoutY="371.0" prefHeight="25.0" prefWidth="350.0" text=" Password" textAlignment="CENTER" textFill="#728188">
          <font>
             <Font size="14.0" />
          </font>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_pass" fill="#728188" glyphName="KEY" />
+         </graphic>
       </Label>
       <PasswordField fx:id="txt_pass" layoutX="268.0" layoutY="401.0" onAction="#txt_pass_onAction" onKeyReleased="#txt_pass_keyReleased" prefHeight="35.0" prefWidth="350.0" promptText="Enter Password">
          <font>
@@ -51,16 +57,25 @@
          </font>
          <graphic>
          </graphic>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_signIn" fill="WHITE" glyphName="SIGN_IN" />
+         </graphic>
       </JFXButton>
-      <JFXButton fx:id="btn_exit" layoutX="825.0" layoutY="506.0" onAction="#btn_exit_onAction" prefHeight="50.0" prefWidth="200.0" ripplerFill="WHITE" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #a50000;" text="Exit" textFill="WHITE">
+      <JFXButton fx:id="btn_exit" layoutX="825.0" layoutY="506.0" onAction="#btn_exit_onAction" prefHeight="50.0" prefWidth="200.0" ripplerFill="WHITE" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #a50000;" text=" Exit" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_exit" fill="WHITE" glyphName="SIGN_OUT" />
+         </graphic>
       </JFXButton>
-      <Label fx:id="lbl_login" alignment="CENTER" layoutX="242.0" layoutY="172.0" prefHeight="50.0" prefWidth="400.0" text="Login" textAlignment="CENTER" textFill="#1b1464">
+      <Label fx:id="lbl_login" alignment="CENTER" layoutX="242.0" layoutY="172.0" prefHeight="50.0" prefWidth="400.0" text=" Login" textAlignment="CENTER" textFill="#1b1464">
          <font>
             <Font name="System Bold" size="35.0" />
          </font>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_login" fill="#1b1464" glyphName="LOCK" />
+         </graphic>
       </Label>
       <Label fx:id="lbl_welcome" alignment="CENTER" layoutX="725.0" layoutY="292.0" prefHeight="50.0" prefWidth="400.0" text="Welcome !" textAlignment="CENTER" textFill="WHITE">
          <font>
@@ -72,7 +87,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="CALENDAR" />
+            <FontAwesomeIconView fx:id="icon_date" fill="WHITE" glyphName="CALENDAR" />
          </graphic>
       </Label>
       <Label fx:id="lbl_time" layoutX="30.0" layoutY="45.0" text=" Time :" textFill="WHITE">
@@ -80,7 +95,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView fx:id="icon_time" fill="WHITE" glyphName="HOURGLASS" />
+            <FontAwesomeIconView fx:id="icon_time" fill="WHITE" glyphName="CALENDAR_ALT" />
          </graphic>
       </Label>
       <Region fx:id="region_top" prefHeight="5.0" prefWidth="1366.0" style="-fx-background-color: #1B1464;" />
