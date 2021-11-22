@@ -162,6 +162,14 @@ public class AdminDashboardController implements Initializable {
         Session.imageSlider = subPane.getChildren().get(0);
         new RunLater(btn_dashboard);
         setErrorInputs();
+        Platform.runLater(() -> {
+//            subPane.setStyle("-fx-effect: dropshadow(three-pass-box, purple, 0.0, 25.0, 0.0, -5.0);"); //north
+//            subPane.setStyle("-fx-effect: dropshadow(three-pass-box, purple, 0.0, 25.0, 0.0,  5.0);"); //south
+//            subPane.setStyle("-fx-effect: dropshadow(three-pass-box, purple, 0.0, 25.0, 5.0,  0.0);"); //east
+            subPane.setStyle("-fx-effect: dropshadow(three-pass-box,#C9C9C98D, 20.0, 0.0, 0.0, 10.0);"); //west
+//            region_menu.setStyle("-fx-effect: dropshadow(three-pass-box,#C9C9C94D, 20.0, 0.0, 0.0, 20.0);");
+        });
+
     }
 
     private void setColors() {
