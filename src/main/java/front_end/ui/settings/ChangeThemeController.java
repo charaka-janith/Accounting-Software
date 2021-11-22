@@ -174,7 +174,7 @@ public class ChangeThemeController implements Initializable {
         if (Session.isSinhala()) {
             new Thread(() -> {
                 Platform.runLater(() -> {
-
+                    lbl_main.setText("sinhala laskfjlsfj");
                 });
             }).start();
         } else {
