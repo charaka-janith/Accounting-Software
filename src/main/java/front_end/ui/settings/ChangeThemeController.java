@@ -2,6 +2,7 @@ package front_end.ui.settings;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
@@ -20,6 +21,12 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ChangeThemeController implements Initializable {
+
+    @FXML
+    private FontAwesomeIconView icon_refresh;
+
+    @FXML
+    private FontAwesomeIconView icon_save;
 
     @FXML
     private JFXButton btn_border;
