@@ -174,13 +174,25 @@ public class ChangeThemeController implements Initializable {
         if (Session.isSinhala()) {
             new Thread(() -> {
                 Platform.runLater(() -> {
-                    lbl_main.setText("sinhala laskfjlsfj");
+                    lbl_main.setText("තේමාව වෙනස් කරන්න");
                 });
             }).start();
         } else {
             new Thread(() -> {
                 Platform.runLater(() -> {
                     lbl_main.setText("Change Theme");
+                    lbl_colorBg.setText("Background Color");
+                    lbl_colorBorder.setText("Border Color");
+                    lbl_colorFont.setText("Font Color");
+                    lbl_colorSuccess.setText("Success Color");
+                    lbl_colorWarning.setText("Warning Color");
+                    lbl_success.setText("Success");
+                    lbl_font.setText("Font");
+                    btn_border.setText("Border");
+                    btn_warning.setText("Warning");
+                    btn_success.setText("Success");
+                    btn_defaults.setText("Defaults [F5]");
+                    btn_save.setText(" Save [F1]");
                 });
             }).start();
         }
