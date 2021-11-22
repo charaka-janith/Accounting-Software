@@ -14,7 +14,6 @@ import front_end.ui.settings.ChangeThemeController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,7 +21,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
@@ -30,6 +28,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -109,46 +108,55 @@ public class AdminDashboardController implements Initializable {
     private JFXToggleButton toggleBtn_language;
 
     @FXML
-    void toggleBtn_language_keyReleased(KeyEvent event) {
+    void toggleBtn_language_keyReleased() {
 
     }
 
     @FXML
-    void toggleBtn_language_onAction(ActionEvent event) {
-
+    void toggleBtn_language_onAction() {
+        new Thread(() -> {
+            try {
+                Session.setSinhala(!Session.isSinhala());
+                setLanguage();
+            } catch (SQLException e) {
+                Theme.giveAWarning("Database config invalid", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
-    private void setErrorInputs () {
+    private void setErrorInputs() {
         Session.admin_mainLabel = lbl_main;
         Session.admin_regionBack = region_back;
         Session.admin_regionTop = region_top;
-        Session.admin_regionBottom =  region_bottom;
+        Session.admin_regionBottom = region_bottom;
         Session.admin_regionLeft = region_left;
         Session.admin_regionRight = region_right;
     }
 
     @FXML
-    void btn_changePass_onAction(ActionEvent event) {
+    void btn_changePass_onAction() {
         handleAllButtons("changePass");
     }
 
     @FXML
-    void btn_changeTheme_onAction(ActionEvent event) {
+    void btn_changeTheme_onAction() {
         handleAllButtons("changeTheme");
     }
 
     @FXML
-    void btn_dashboard_onAction(ActionEvent event) {
+    void btn_dashboard_onAction() {
         handleAllButtons("dashboard");
     }
 
     @FXML
-    void btn_exit_onAction(ActionEvent event) {
+    void btn_exit_onAction() {
         System.exit(0);
     }
 
     @FXML
-    void btn_lock_onAction(ActionEvent event) {
+    void btn_lock_onAction() {
         try {
             LoginController.backToLogin(stage);
         } catch (IOException e) {
@@ -157,18 +165,48 @@ public class AdminDashboardController implements Initializable {
     }
 
     @FXML
-    void btn_manageAdmins_onAction(ActionEvent event) {
+    void btn_manageAdmins_onAction() {
         handleAllButtons("manageAdmins");
     }
 
     @FXML
-    void btn_manageCompany_onAction(ActionEvent event) {
+    void btn_manageCompany_onAction() {
         handleAllButtons("manageCompany");
+    }
+
+    private void setLanguage() {
+        if (Session.isSinhala()) {
+            new Thread(() -> Platform.runLater(() -> {
+                lbl_welcome.setText(Session.getUser().getName() + " සාදරයෙන් පිළිගනිමු !");
+                lbl_main.setText("සුභ දිනයක් වේවා !");
+                btn_dashboard.setText("උපකරණ පුවරුව [F2]");
+                btn_manageCompany.setText("සමාගම කළමනාකරණය කිරීම [F3]");
+                btn_manageAdmins.setText("පරිපාලක කළමනාකරණය කිරීම [F6]");
+                btn_changeTheme.setText("තේමාව වෙනස් කිරීම [F7]");
+                btn_changePass.setText("මුරපදය වෙනස් කිරීම [F9]");
+                btn_lock.setText("අගුල [F8]");
+                btn_exit.setText("පිටවීම");
+            })).start();
+            toggleBtn_language.setSelected(true);
+        } else {
+            new Thread(() -> Platform.runLater(() -> {
+                lbl_welcome.setText("Welcome " + Session.getUser().getName() + " !");
+                lbl_main.setText("Have A Great Day !");
+                btn_dashboard.setText("Dashboard [F2]");
+                btn_manageCompany.setText("Manage Company [F3]");
+                btn_manageAdmins.setText("Manage Admins [F6]");
+                btn_changeTheme.setText("Change Theme [F7]");
+                btn_changePass.setText("Change Password [F9]");
+                btn_lock.setText("Lock [F8]");
+                btn_exit.setText("Exit");
+            })).start();
+            toggleBtn_language.setSelected(false);
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        lbl_welcome.setText("Welcome " + Session.getUser().getName() + " !");
+        setLanguage();
         lbl_userName.setText(Session.getUser().getName());
         setColors();
         Theme.setTimeDate(lbl_date, lbl_time);
@@ -177,9 +215,7 @@ public class AdminDashboardController implements Initializable {
         Session.imageSlider = subPane.getChildren().get(0);
         new RunLater(btn_dashboard);
         setErrorInputs();
-        Platform.runLater(() -> {
-            subPane.setStyle("-fx-effect: dropshadow(three-pass-box,#C9C9C98D, 20.0, 0.0, 0.0, 10.0);");
-        });
+        Platform.runLater(() -> subPane.setStyle("-fx-effect: dropshadow(three-pass-box,#C9C9C98D, 20.0, 0.0, 0.0, 10.0);"));
     }
 
     private void setColors() {
