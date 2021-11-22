@@ -347,7 +347,7 @@ public class LoginController implements Initializable {
                     Theme.setTextFill("background", lbl_welcome, lbl_main, btn_login, btn_exit, lbl_date, lbl_time);
                     Theme.setTextFill("border", lbl_login);
                     // toggle button
-                    Theme.setToggleColor("success", "background", "border", "font", toggleBtn_language);
+                    Theme.setToggleColor("success", "background", "border", "font", "background", toggleBtn_language);
                     // icon
                     Theme.setIconFill("background", icon_date, icon_time, icon_signIn, icon_exit);
                     Theme.setIconFill("border", icon_login);

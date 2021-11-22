@@ -180,7 +180,7 @@ public class ChangeThemeController implements Initializable {
         } else {
             new Thread(() -> {
                 Platform.runLater(() -> {
-
+                    lbl_main.setText("Change Theme");
                 });
             }).start();
         }
@@ -192,9 +192,9 @@ public class ChangeThemeController implements Initializable {
                 Theme.initialize();
                 Platform.runLater(() -> {
                     // background
-                    Theme.setBackgroundColor("background", pane);
+//                    Theme.setBackgroundColor("background", pane);
                     // text
-                    Theme.setTextFill("background", lbl_main);
+//                    Theme.setTextFill("background", lbl_main);
                     // icon
 //                    Theme.setIconFill("background", icon_date, icon_time, icon_signIn, icon_exit);
                 });

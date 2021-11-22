@@ -9,6 +9,6 @@ public class PaneOpenAnim {
         FadeTransition fadeIn = new FadeTransition(Duration.millis(1000), pane);
         fadeIn.setFromValue(0.1);
         fadeIn.setToValue(1.0);
-//        fadeIn.play();
+        fadeIn.play();
     }
 }

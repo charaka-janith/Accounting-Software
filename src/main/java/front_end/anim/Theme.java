@@ -100,13 +100,14 @@ public class Theme {
         });
     }
 
-    public static void setToggleColor(String toggleColor, String unToggleColor, String toggleLineColor, String unToggleLineColor, JFXToggleButton... list) {
+    public static void setToggleColor(String toggleColor, String unToggleColor, String toggleLineColor, String unToggleLineColor, String colorBg, JFXToggleButton... list) {
         for (JFXToggleButton node :
                 list) {
             node.setToggleColor(Paint.valueOf(colorSwitch(toggleColor)));
             node.setUnToggleColor(Paint.valueOf(colorSwitch(unToggleColor)));
             node.setToggleLineColor(Paint.valueOf(colorSwitch(toggleLineColor)));
             node.setUnToggleLineColor(Paint.valueOf(colorSwitch(unToggleLineColor)));
+            node.setStyle("-fx-background-color:" + colorSwitch(colorBg));
         }
     }
 
