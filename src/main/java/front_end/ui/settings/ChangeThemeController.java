@@ -1,7 +1,6 @@
 package front_end.ui.settings;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXToggleButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
@@ -179,41 +178,37 @@ public class ChangeThemeController implements Initializable {
 
     private void setLanguage() {
         if (Session.isSinhala()) {
-            new Thread(() -> {
-                Platform.runLater(() -> {
-                    lbl_main.setText("තේමාව වෙනස් කරන්න");
-                    lbl_colorBg.setText("Background Color");
-                    lbl_colorBorder.setText("Border Color");
-                    lbl_colorFont.setText("Font Color");
-                    lbl_colorSuccess.setText("Success Color");
-                    lbl_colorWarning.setText("Warning Color");
-                    lbl_success.setText("Success");
-                    lbl_font.setText("Font");
-                    btn_border.setText("Border");
-                    btn_warning.setText("Warning");
-                    btn_success.setText("Success");
-                    btn_defaults.setText("Defaults [F5]");
-                    btn_save.setText(" Save [F1]");
-                });
-            }).start();
+            new Thread(() -> Platform.runLater(() -> {
+                lbl_main.setText("තේමාව වෙනස් කිරීම");
+                lbl_colorBg.setText("පසුබිම් වර්ණය");
+                lbl_colorBorder.setText("මායිම් වර්ණය");
+                lbl_colorFont.setText("අකුරු වර්ණය");
+                lbl_colorSuccess.setText("සාර්ථක වර්ණය");
+                lbl_colorWarning.setText("අනතුරු ඇඟවීමේ වර්ණය");
+                lbl_success.setText("සාර්ථක");
+                lbl_font.setText("අකුරු");
+                btn_border.setText("මායිම්");
+                btn_warning.setText("අනතුරු ඇඟවීම");
+                btn_success.setText("සාර්ථකයි");
+                btn_defaults.setText("පෙරනිමි [F5]");
+                btn_save.setText(" සුරකින්න [F1]");
+            })).start();
         } else {
-            new Thread(() -> {
-                Platform.runLater(() -> {
-                    lbl_main.setText("Change Theme");
-                    lbl_colorBg.setText("Background Color");
-                    lbl_colorBorder.setText("Border Color");
-                    lbl_colorFont.setText("Font Color");
-                    lbl_colorSuccess.setText("Success Color");
-                    lbl_colorWarning.setText("Warning Color");
-                    lbl_success.setText("Success");
-                    lbl_font.setText("Font");
-                    btn_border.setText("Border");
-                    btn_warning.setText("Warning");
-                    btn_success.setText("Success");
-                    btn_defaults.setText(" Reset [F5]");
-                    btn_save.setText(" Save [F1]");
-                });
-            }).start();
+            new Thread(() -> Platform.runLater(() -> {
+                lbl_main.setText("Change Theme");
+                lbl_colorBg.setText("Background Color");
+                lbl_colorBorder.setText("Border Color");
+                lbl_colorFont.setText("Font Color");
+                lbl_colorSuccess.setText("Success Color");
+                lbl_colorWarning.setText("Warning Color");
+                lbl_success.setText("Success");
+                lbl_font.setText("Font");
+                btn_border.setText("Border");
+                btn_warning.setText("Warning");
+                btn_success.setText("Success");
+                btn_defaults.setText(" Reset [F5]");
+                btn_save.setText(" Save [F1]");
+            })).start();
         }
     }
 
