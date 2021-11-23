@@ -37,6 +37,7 @@ public class AdminDashboardController implements Initializable {
 
     public static Stage stage;
     int count;
+    String nowSubPaneName;
 
     @FXML
     private JFXButton btn_changePass;
@@ -124,6 +125,7 @@ public class AdminDashboardController implements Initializable {
                 e.printStackTrace();
             }
         }).start();
+        handleAllButtons(nowSubPaneName);
     }
 
     private void setErrorInputs() {
@@ -259,11 +261,13 @@ public class AdminDashboardController implements Initializable {
             case "dashboard" -> {
                 btn_dashboard.requestFocus();
                 subPane.getChildren().add(Session.imageSlider);
+                nowSubPaneName = "dashboard";
             }
             case "manageCompany" -> {
                 btn_manageCompany.requestFocus();
                 try {
                     subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(ManageCompanyController.class.getResource("ManageCompany.fxml"))));
+                    nowSubPaneName = "manageCompany";
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -272,6 +276,7 @@ public class AdminDashboardController implements Initializable {
                 btn_manageAdmins.requestFocus();
                 try {
                     subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(ManageAdminsController.class.getResource("ManageAdmins.fxml"))));
+                    nowSubPaneName = "manageAdmins";
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -280,6 +285,7 @@ public class AdminDashboardController implements Initializable {
                 btn_changeTheme.requestFocus();
                 try {
                     subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(ChangeThemeController.class.getResource("ChangeTheme.fxml"))));
+                    nowSubPaneName = "changeTheme";
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -288,6 +294,7 @@ public class AdminDashboardController implements Initializable {
                 btn_changePass.requestFocus();
                 try {
                     subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(ChangePasswordController.class.getResource("ChangePassword.fxml"))));
+                    nowSubPaneName = "changePass";
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
