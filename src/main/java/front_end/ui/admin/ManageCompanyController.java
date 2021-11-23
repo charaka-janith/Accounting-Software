@@ -4,13 +4,10 @@ import back_end.bo.BOFactory;
 import back_end.bo.custom.CompanyBO;
 import back_end.dto.CompanyDTO;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXToggleButton;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
-import front_end.ui.dashboard.AdminDashboardController;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -20,10 +17,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static front_end.ui.dashboard.AdminDashboardController.*;
 
 public class ManageCompanyController implements Initializable {
 
@@ -87,7 +82,7 @@ public class ManageCompanyController implements Initializable {
     @FXML
     void txt_name_keyReleased(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
-            txt_name.requestFocus();
+            btn_refresh.requestFocus();
         }
     }
 
@@ -195,7 +190,27 @@ public class ManageCompanyController implements Initializable {
     }
 
     private void setLanguage() {
-
+        if (Session.isSinhala()) {
+            new Thread(() -> Platform.runLater(() -> {
+                lbl_name.setText("නම");
+                lbl_userName.setText("පරිශීලක නාමය");
+                lbl_address.setText("ලිපිනය");
+                lbl_phoneNumber.setText("දුරකථන අංකය");
+                lbl_email.setText("විද්\u200Dයුත් තැපැල් ලිපිනය");
+                lbl_website.setText("වෙබ් අඩවිය");
+                lbl_businessRegistrationNumber.setText("ව්\u200Dයාපාර ලියාපදිංචි අංකය");
+            })).start();
+        } else {
+            new Thread(() -> Platform.runLater(() -> {
+                lbl_name.setText("Name");
+                lbl_userName.setText("Username");
+                lbl_address.setText("Address");
+                lbl_phoneNumber.setText("Phone Number");
+                lbl_email.setText("Email");
+                lbl_website.setText("Website");
+                lbl_businessRegistrationNumber.setText("Business Registration Number");
+            })).start();
+        }
     }
 
     private void addOrUpdateCompanyDetails() {
@@ -216,8 +231,13 @@ public class ManageCompanyController implements Initializable {
             CompanyDTO company = companyBO.getCompany();
             if (null != company) {
                 Platform.runLater(() -> {
-                    lbl_main.setText("Update Company");
-                    btn_save.setText("Update [F1]");
+                    if (Session.isSinhala()) {
+                        lbl_main.setText("සමාගම යාවත්කාලීන කිරීම");
+                        btn_save.setText("යාවත්කාලීන කරන්න [F1]");
+                    } else {
+                        lbl_main.setText("Update Company");
+                        btn_save.setText("Update [F1]");
+                    }
                     txt_name.setText(company.getName());
                     txt_address.setText(company.getAddress());
                     txt_phoneNumber.setText(company.getPhoneNumber());
@@ -228,8 +248,13 @@ public class ManageCompanyController implements Initializable {
                 });
             } else {
                 Platform.runLater(() -> {
-                    lbl_main.setText("Create Company");
-                    btn_save.setText("Create [F1]");
+                    if (Session.isSinhala()) {
+                        lbl_main.setText("සමාගම නිර්මාණය කිරීම");
+                        btn_save.setText("නිර්මාණය කරන්න [F1]");
+                    } else {
+                        lbl_main.setText("Create Company");
+                        btn_save.setText("Create [F1]");
+                    }
                     clearTextFields();
                     txt_name.requestFocus();
                 });
