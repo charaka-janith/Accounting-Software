@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -193,22 +194,38 @@ public class ManageCompanyController implements Initializable {
         if (Session.isSinhala()) {
             new Thread(() -> Platform.runLater(() -> {
                 lbl_name.setText("නම");
+                txt_name.setPromptText("නම ඇතුළත් කරන්න");
                 lbl_userName.setText("පරිශීලක නාමය");
+                txt_userName.setPromptText("පරිශීලක නාමය ඇතුළත් කරන්න");
                 lbl_address.setText("ලිපිනය");
+                txt_address.setPromptText("ලිපිනය ඇතුළත් කරන්න");
                 lbl_phoneNumber.setText("දුරකථන අංකය");
+                txt_phoneNumber.setPromptText("දුරකථන අංකය ඇතුළත් කරන්න");
                 lbl_email.setText("විද්\u200Dයුත් තැපැල් ලිපිනය");
+                txt_email.setPromptText("විද්\u200Dයුත් තැපැල් ලිපිනය ඇතුළත් කරන්න");
                 lbl_website.setText("වෙබ් අඩවිය");
+                txt_website.setPromptText("වෙබ් අඩවිය ඇතුළත් කරන්න");
                 lbl_businessRegistrationNumber.setText("ව්\u200Dයාපාර ලියාපදිංචි අංකය");
+                txt_businessRegistrationNumber.setPromptText("ව්\u200Dයාපාර ලියාපදිංචි අංකය ඇතුළත් කරන්න");
+                btn_refresh.setText("නැවුම් කරන්න [F5]");
             })).start();
         } else {
             new Thread(() -> Platform.runLater(() -> {
                 lbl_name.setText("Name");
+                txt_name.setPromptText("Enter Name");
                 lbl_userName.setText("Username");
+                txt_userName.setPromptText("Enter Username");
                 lbl_address.setText("Address");
+                txt_address.setPromptText("Enter Address");
                 lbl_phoneNumber.setText("Phone Number");
+                txt_phoneNumber.setPromptText("Enter Phone Number");
                 lbl_email.setText("Email");
+                txt_email.setPromptText("Enter Email");
                 lbl_website.setText("Website");
+                txt_website.setPromptText("Enter Website");
                 lbl_businessRegistrationNumber.setText("Business Registration Number");
+                txt_businessRegistrationNumber.setPromptText("Enter Business Registration Number");
+                btn_refresh.setText("Refresh [F5]");
             })).start();
         }
     }
