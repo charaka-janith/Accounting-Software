@@ -12,6 +12,20 @@ public class CompanyBOImpl implements CompanyBO {
     @Override
     public CompanyDTO getCompany() throws Exception {
         Company company = dao.get();
-        return new CompanyDTO(company.getName(), company.getAddress(), company.getPhoneNumber(), company.getEmail(), company.getWebSite(), company.getBrn());
+        if (company == null) {
+            return null;
+        } else {
+            return new CompanyDTO(company.getName(), company.getAddress(), company.getPhoneNumber(), company.getEmail(), company.getWebSite(), company.getBrn());
+        }
+    }
+
+    @Override
+    public boolean addCompany(CompanyDTO company) throws Exception {
+        return dao.add(new Company(company.getName(), company.getAddress(), company.getPhoneNumber(), company.getEmail(), company.getWebSite(), company.getBrn()));
+    }
+
+    @Override
+    public boolean updateCompany(CompanyDTO company) throws Exception {
+        return dao.update(new Company(company.getName(), company.getAddress(), company.getPhoneNumber(), company.getEmail(), company.getWebSite(), company.getBrn()));
     }
 }

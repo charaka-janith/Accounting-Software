@@ -10,11 +10,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #F4F7FC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.dashboard.AdminDashboardController">
+<AnchorPane fx:id="pane" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #F4F7FC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.dashboard.CompanyDashboardController">
     <children>
-      <Region layoutX="5.0" layoutY="5.0" prefHeight="200.0" prefWidth="1356.0" style="-fx-background-color: #44BD32;" />
+      <Region prefHeight="200.0" prefWidth="1366.0" style="-fx-background-color: #44BD32;" />
       <Region layoutY="82.0" prefHeight="680.0" prefWidth="250.0" style="-fx-background-color: #ffffff;" />
-        <JFXButton fx:id="btn_lock" alignment="BASELINE_LEFT" layoutX="30.0" layoutY="663.0" onAction="#btn_lock_onAction" prefHeight="40.0" prefWidth="178.0" ripplerFill="#9a9a9a" style="-fx-background-radius: 0; -fx-background-color: #ffffff; -fx-border-radius: 5;" text="Lock [F8]" textFill="#1b1464">
+        <JFXButton fx:id="btn_lock" alignment="BASELINE_LEFT" layoutX="30.0" layoutY="663.0" onAction="#btn_lock_onAction" prefHeight="40.0" prefWidth="178.0" ripplerFill="#9a9a9a" style="-fx-background-radius: 0; -fx-background-color: #ffffff; -fx-border-radius: 5;" text="Lock [F7]" textFill="#1b1464">
             <font>
                 <Font size="14.0" />
             </font>
@@ -22,7 +22,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </JFXButton>
-        <JFXButton fx:id="btn_exit" alignment="BASELINE_LEFT" layoutX="30.0" layoutY="713.0" onAction="#btn_exit_onAction" prefHeight="40.0" prefWidth="178.0" ripplerFill="#d75454" style="-fx-border-radius: 0px; -fx-background-radius: 0px;" text="Exit [F4]" textFill="#d60000">
+        <JFXButton fx:id="btn_exit" alignment="BASELINE_LEFT" layoutX="30.0" layoutY="703.0" onAction="#btn_exit_onAction" prefHeight="40.0" prefWidth="178.0" ripplerFill="#d75454" style="-fx-border-radius: 0px; -fx-background-radius: 0px;" text="Exit [F4]" textFill="#d60000">
             <font>
                 <Font size="14.0" />
             </font>
@@ -30,16 +30,16 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </JFXButton>
-        <AnchorPane fx:id="subPane" layoutX="310.0" layoutY="85.0" prefHeight="638.0" prefWidth="1006.0">
+        <AnchorPane fx:id="subPane" layoutX="305.0" layoutY="83.0" prefHeight="640.0" prefWidth="1000.0">
          <children>
-                <ImageView fx:id="imageView" fitHeight="640.0" fitWidth="1006.0" pickOnBounds="true">
+                <ImageView fx:id="imageView" fitHeight="640.0" fitWidth="1000.0" pickOnBounds="true">
                     <image>
                         <Image url="@../../img/dashboard/adminBackground.jpg" />
                     </image>
                 </ImageView>
          </children>
         </AnchorPane>
-      <Label fx:id="lbl_welcome" layoutX="310.0" layoutY="5.0" prefHeight="40.0" text="Welcome !" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="lbl_main" layoutX="261.0" layoutY="10.0" prefHeight="40.0" text="Welcome !" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Calibri Bold" size="30.0" />
          </font>
@@ -49,7 +49,7 @@
       <Region fx:id="region_left" prefHeight="768.0" prefWidth="5.0" style="-fx-background-color: #1B1464;" />
       <Region fx:id="region_right" layoutX="1361.0" prefHeight="768.0" prefWidth="5.0" style="-fx-background-color: #1B1464;" />
       <Label fx:id="lbl_shortcuts" alignment="CENTER" layoutX="250.0" layoutY="723.0" prefHeight="40.0" prefWidth="1111.0" text="no shortcuts here" />
-      <JFXButton fx:id="btn_dashboard" alignment="BASELINE_LEFT" layoutX="30.0" layoutY="255.0" onAction="#btn_dashboard_onAction" prefHeight="40.0" prefWidth="178.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text="Dashboard [F2]" textAlignment="JUSTIFY" textFill="#1b1464">
+      <JFXButton fx:id="btn_manageAdmins" alignment="BASELINE_LEFT" layoutX="30.0" layoutY="375.0" onAction="#btn_manageAdmins_onAction" prefHeight="40.0" prefWidth="178.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text="Manage Admins [F3]" textFill="#1b1464">
          <font>
             <Font size="14.0" />
          </font>
@@ -57,7 +57,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="btn_manageAdmins" alignment="BASELINE_LEFT" layoutX="30.0" layoutY="355.0" onAction="#btn_manageAdmins_onAction" prefHeight="40.0" prefWidth="178.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text="Manage Admins [F6]" textFill="#1b1464">
+      <JFXButton fx:id="btn_changeTheme" alignment="BASELINE_LEFT" layoutX="30.0" layoutY="425.0" onAction="#btn_changeTheme_onAction" prefHeight="40.0" prefWidth="178.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text="Change Theme [F5]" textFill="#1b1464">
          <font>
             <Font size="14.0" />
          </font>
@@ -65,7 +65,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="btn_changeTheme" alignment="BASELINE_LEFT" layoutX="30.0" layoutY="405.0" onAction="#btn_changeTheme_onAction" prefHeight="40.0" prefWidth="178.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text="Change Theme [F7]" textFill="#1b1464">
+      <JFXButton fx:id="btn_changePass" alignment="BASELINE_LEFT" layoutX="30.0" layoutY="474.0" onAction="#btn_changePass_onAction" prefHeight="40.0" prefWidth="178.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text="Change Password [F6]" textAlignment="JUSTIFY" textFill="#1b1464">
          <font>
             <Font size="14.0" />
          </font>
@@ -73,7 +73,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="btn_changePass" alignment="BASELINE_LEFT" layoutX="30.0" layoutY="455.0" onAction="#btn_changePass_onAction" prefHeight="40.0" prefWidth="178.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text="Change Password [F9]" textAlignment="JUSTIFY" textFill="#1b1464">
+      <JFXButton fx:id="btn_editCompany" alignment="BASELINE_LEFT" layoutX="30.0" layoutY="272.0" onAction="#btn_editCompany_onAction" prefHeight="40.0" prefWidth="178.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text="Dashboard [F2]" textAlignment="JUSTIFY" textFill="#1b1464">
          <font>
             <Font size="14.0" />
          </font>
@@ -81,7 +81,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-        <JFXButton fx:id="btn_manageCompany" alignment="BASELINE_LEFT" layoutX="30.0" layoutY="305.0" onAction="#btn_manageCompany_onAction" prefHeight="40.0" prefWidth="178.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text="Manage Company [F3]" textFill="#1b1464">
+        <JFXButton fx:id="btn_createCompany" alignment="BASELINE_LEFT" layoutX="30.0" layoutY="322.0" onAction="#btn_createCompany_onAction" prefHeight="40.0" prefWidth="178.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text="Manage Company [F1]" textFill="#1b1464">
             <font>
                 <Font size="14.0" />
             </font>
@@ -89,7 +89,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </JFXButton>
-      <Line endX="103.0" fill="#797979" layoutX="107.0" layoutY="633.0" opacity="0.14" startX="-100.0" />
+      <Line endX="103.0" fill="#797979" layoutX="107.0" layoutY="636.0" opacity="0.14" startX="-100.0" />
       <Label layoutX="30.0" layoutY="20.0" text="Date :" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
@@ -100,12 +100,12 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_main" layoutX="310.0" layoutY="45.0" prefHeight="40.0" text="Have A Great Day !" textFill="WHITE">
+      <Label layoutX="261.0" layoutY="45.0" text="Have A Great Day !" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="5.0" layoutY="155.0" prefHeight="50.0" prefWidth="250.0" text="name" textFill="#1b1464">
+      <Label layoutX="90.0" layoutY="182.0" text="Name" textFill="#1b1464">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>

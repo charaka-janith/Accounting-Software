@@ -21,7 +21,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean update(User user) throws Exception {
-        return false;
+        return CrudUtil.executeUpdate("UPDATE user SET password=?,userType=? WHERE userName=?", user.getPassword(), user.getUserType(), user.getUserName());
     }
 
     @Override

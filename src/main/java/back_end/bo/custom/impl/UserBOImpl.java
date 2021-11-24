@@ -9,6 +9,7 @@ import back_end.entity.User;
 
 public class UserBOImpl implements UserBO {
     UserDAO dao = (UserDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOFactoryTypes.USER);
+
     @Override
     public boolean addUser(UserDTO user) throws Exception {
         return dao.add(new User(user.getName(), new TrippleDes().encrypt(user.getPassword()), user.getType()));
@@ -18,5 +19,10 @@ public class UserBOImpl implements UserBO {
     public UserDTO searchUser(String userName) throws Exception {
         User user = dao.search(userName);
         return null == user ? null : new UserDTO(user.getUserName(), new TrippleDes().decrypt(user.getPassword()), user.getUserType());
+    }
+
+    @Override
+    public boolean updateUser(UserDTO user) throws Exception {
+        return dao.update(new User(user.getName(), new TrippleDes().encrypt(user.getPassword()), user.getType()));
     }
 }
