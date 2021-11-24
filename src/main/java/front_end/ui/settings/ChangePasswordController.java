@@ -1,6 +1,10 @@
 package front_end.ui.settings;
 
+import back_end.bo.BOFactory;
+import back_end.bo.custom.UserBO;
+import back_end.dto.UserDTO;
 import com.jfoenix.controls.JFXButton;
+import front_end.anim.Theme;
 import front_end.sessions.Session;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -15,6 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ChangePasswordController implements Initializable {
+    UserBO userBO = (UserBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.USER);
 
     @FXML
     private JFXButton btn_refresh;
@@ -51,7 +56,7 @@ public class ChangePasswordController implements Initializable {
     @FXML
     void txt_currentPass_keyReleased(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
-            txt_currentPass.requestFocus();
+            btn_refresh.requestFocus();
         }
     }
 
@@ -59,6 +64,8 @@ public class ChangePasswordController implements Initializable {
     void txt_newPass_keyReleased(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
             txt_currentPass.requestFocus();
+        } else {
+            checkCurrentPassword();
         }
     }
 
@@ -80,7 +87,9 @@ public class ChangePasswordController implements Initializable {
 
     @FXML
     void txt_currentPass_onAction() {
-        txt_newPass.requestFocus();
+        if (checkCurrentPassword()) {
+            txt_newPass.requestFocus();
+        }
     }
 
     @FXML
@@ -90,19 +99,61 @@ public class ChangePasswordController implements Initializable {
 
     @FXML
     void txt_newPass2_onAction() {
-//..........TODO-> Call Save password method
+        updatePassword();
     }
 
     @FXML
     void btn_save_onAction() {
-//..........TODO-> Call Save password method
+        updatePassword();
+    }
+
+    private boolean checkCurrentPassword() {
+        try {
+            UserDTO userDTO = userBO.searchUser(Session.getUser().getName());
+            if (userDTO.getPassword().equals(txt_currentPass.getText())) {
+                return true;
+            } else {
+                Theme.giveAWarning("Password is incorrect", "Have A Great Day !", Session.admin_mainLabel, Session.admin_regionBack, Session.admin_regionTop, Session.admin_regionBottom, Session.admin_regionLeft, Session.admin_regionRight);
+                clearAll();
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private void updatePassword() {
+        if (txt_newPass.getText().equals(txt_newPass2.getText())) {
+            UserDTO userDTO;
+            try {
+                userDTO = userBO.searchUser(Session.getUser().getName());
+                userDTO.setPassword(txt_newPass2.getText());
+                userBO.updateUser(userDTO);
+                //TODO-->Remove call giveAWarning method & Add giveSuccess method
+                Theme.giveAWarning("Update Success", "Have A Great Day !", Session.admin_mainLabel, Session.admin_regionBack, Session.admin_regionTop, Session.admin_regionBottom, Session.admin_regionLeft, Session.admin_regionRight);
+                clearAll();
+            } catch (Exception e) {
+                Theme.giveAWarning("Update Failed", "Have A Great Day !", Session.admin_mainLabel, Session.admin_regionBack, Session.admin_regionTop, Session.admin_regionBottom, Session.admin_regionLeft, Session.admin_regionRight);
+                clearAll();
+                e.printStackTrace();
+            }
+        } else {
+            Theme.giveAWarning("Repeat password is incorrect", "Have A Great Day !", Session.admin_mainLabel, Session.admin_regionBack, Session.admin_regionTop, Session.admin_regionBottom, Session.admin_regionLeft, Session.admin_regionRight);
+            clearAll();
+        }
     }
 
     @FXML
     void btn_refresh_onAction() {
+        clearAll();
+    }
+
+    private void clearAll() {
         txt_currentPass.setText("");
         txt_newPass.setText("");
         txt_newPass2.setText("");
+        txt_currentPass.requestFocus();
     }
 
     public void setLanguage() {
