@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -30,12 +29,16 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <TextArea fx:id="txt_address" layoutX="50.0" layoutY="170.0" onDragDetected="#txt_address_onAction" onKeyReleased="#txt_address_keyReleased" prefHeight="100.0" prefWidth="550.0" promptText="Enter Address" />
       <Label fx:id="lbl_address" layoutX="50.0" layoutY="140.0" prefHeight="25.0" text="Address" textFill="#999999">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <TextField fx:id="txt_address" layoutX="50.0" layoutY="170.0" onAction="#txt_address_onAction" onKeyReleased="#txt_address_keyReleased" prefHeight="30.0" prefWidth="550.0" promptText="Enter Address" style="-fx-border-radius: 2;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
       <Label fx:id="lbl_phoneNumber" layoutX="650.0" layoutY="140.0" prefHeight="25.0" text="Phone Number" textFill="#999999">
          <font>
             <Font size="14.0" />
@@ -46,32 +49,32 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label fx:id="lbl_email" layoutX="50.0" layoutY="290.0" prefHeight="25.0" text="Email" textFill="#999999">
+      <Label fx:id="lbl_email" layoutX="50.0" layoutY="220.0" prefHeight="25.0" text="Email" textFill="#999999">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txt_email" layoutX="50.0" layoutY="320.0" onAction="#txt_email_onAction" onKeyReleased="#txt_email_keyReleased" prefHeight="30.0" prefWidth="906.0" promptText="Enter Email" style="-fx-border-radius: 2;">
+      <TextField fx:id="txt_email" layoutX="50.0" layoutY="250.0" onAction="#txt_email_onAction" onKeyReleased="#txt_email_keyReleased" prefHeight="30.0" prefWidth="906.0" promptText="Enter Email" style="-fx-border-radius: 2;">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label fx:id="lbl_website" layoutX="50.0" layoutY="370.0" prefHeight="25.0" text="Website" textFill="#999999">
+      <Label fx:id="lbl_website" layoutX="50.0" layoutY="300.0" prefHeight="25.0" text="Website" textFill="#999999">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txt_website" layoutX="50.0" layoutY="400.0" onAction="#txt_website_onAction" onKeyReleased="#txt_website_keyReleased" prefHeight="30.0" prefWidth="550.0" promptText="Enter Website" style="-fx-border-radius: 2;">
+      <TextField fx:id="txt_website" layoutX="50.0" layoutY="330.0" onAction="#txt_website_onAction" onKeyReleased="#txt_website_keyReleased" prefHeight="30.0" prefWidth="550.0" promptText="Enter Website" style="-fx-border-radius: 2;">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label fx:id="lbl_businessRegistrationNumber" layoutX="650.0" layoutY="370.0" prefHeight="25.0" text="Business Registration Number" textFill="#999999">
+      <Label fx:id="lbl_businessRegistrationNumber" layoutX="650.0" layoutY="300.0" prefHeight="25.0" text="Business Registration Number" textFill="#999999">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txt_businessRegistrationNumber" layoutX="650.0" layoutY="400.0" onAction="#txt_businessRegistrationNumber_onAction" onKeyReleased="#txt_businessRegistrationNumber_keyReleased" prefHeight="30.0" prefWidth="306.0" promptText="Enter Business Registration Number" style="-fx-border-radius: 2;">
+      <TextField fx:id="txt_businessRegistrationNumber" layoutX="650.0" layoutY="330.0" onAction="#txt_businessRegistrationNumber_onAction" onKeyReleased="#txt_businessRegistrationNumber_keyReleased" prefHeight="30.0" prefWidth="306.0" promptText="Enter Business Registration Number" style="-fx-border-radius: 2;">
          <font>
             <Font size="14.0" />
          </font>

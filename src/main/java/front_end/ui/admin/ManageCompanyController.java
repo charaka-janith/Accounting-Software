@@ -59,7 +59,7 @@ public class ManageCompanyController implements Initializable {
     private AnchorPane pane;
 
     @FXML
-    private TextArea txt_address;
+    private TextField txt_address;
 
     @FXML
     private TextField txt_businessRegistrationNumber;
