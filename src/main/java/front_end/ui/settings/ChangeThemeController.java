@@ -117,7 +117,7 @@ public class ChangeThemeController implements Initializable {
 
     @FXML
     void colorPicker_colorBg_onAction(ActionEvent event) {
-
+        colorPicker_colorBorder.requestFocus();
     }
 
     @FXML
@@ -171,7 +171,7 @@ public class ChangeThemeController implements Initializable {
     private void setFocusListeners() {
         colorPicker_colorBg.focusedProperty().addListener((observableValue, aBoolean, focused) -> {
             if (!focused) {
-                System.out.println("ChangeThemeController.setFocusListeners");
+                region_bg.setStyle("-fx-background-color:" + "#" + Integer.toHexString(colorPicker_colorBg.getValue().hashCode()));
             }
         });
     }

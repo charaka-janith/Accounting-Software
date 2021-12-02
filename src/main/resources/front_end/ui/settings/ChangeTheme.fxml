@@ -11,28 +11,6 @@
 
 <AnchorPane fx:id="pane" prefHeight="638.0" prefWidth="1006.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.settings.ChangeThemeController">
     <children>
-        <JFXButton fx:id="btn_defaults" layoutX="50.0" layoutY="538.0" onAction="#btn_defaults_onAction" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #1B1464; -fx-background-radius: 5; -fx-border-radius: 5;" text=" Reset [F5]" textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="13.0" />
-            </font>
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor>
-         <graphic>
-            <FontAwesomeIconView fx:id="icon_refresh" fill="WHITE" glyphName="RETWEET" />
-         </graphic>
-        </JFXButton>
-        <JFXButton fx:id="btn_save" layoutX="528.0" layoutY="538.0" onAction="#btn_save_onAction" onKeyReleased="#btn_save_keyReleased" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #44BD32; -fx-background-radius: 5; -fx-border-radius: 5;" text=" Save [F1]" textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="13.0" />
-            </font>
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor>
-         <graphic>
-            <FontAwesomeIconView fx:id="icon_save" fill="WHITE" glyphName="SAVE" />
-         </graphic>
-        </JFXButton>
       <Label fx:id="lbl_main" alignment="CENTER" prefHeight="50.0" prefWidth="1006.0" text="Change Theme" textAlignment="CENTER" textFill="#44bd32">
          <font>
             <Font name="System Bold" size="20.0" />
@@ -99,6 +77,28 @@
             <Font size="14.0" />
          </font>
       </Label>
+        <JFXButton fx:id="btn_save" layoutX="528.0" layoutY="538.0" onAction="#btn_save_onAction" onKeyReleased="#btn_save_keyReleased" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #44BD32; -fx-background-radius: 5; -fx-border-radius: 5;" text=" Save [F1]" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_save" fill="WHITE" glyphName="SAVE" />
+         </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btn_defaults" layoutX="50.0" layoutY="538.0" onAction="#btn_defaults_onAction" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #1B1464; -fx-background-radius: 5; -fx-border-radius: 5;" text=" Reset [F5]" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_refresh" fill="WHITE" glyphName="RETWEET" />
+         </graphic>
+        </JFXButton>
       <Label fx:id="lbl_success" alignment="CENTER" layoutX="305.0" layoutY="70.0" prefHeight="50.0" prefWidth="646.0" text="Success" textAlignment="CENTER" textFill="#44bd32">
          <font>
             <Font name="System Bold" size="20.0" />

@@ -10,22 +10,6 @@
 
 <AnchorPane fx:id="pane" prefHeight="638.0" prefWidth="1006.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.admin.ManageCompanyController">
     <children>
-        <JFXButton fx:id="btn_refresh" layoutX="50.0" layoutY="538.0" onAction="#btn_refresh_onAction" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #1B1464; -fx-background-radius: 5; -fx-border-radius: 5;" text="Refresh [F5]" textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="13.0" />
-            </font>
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor>
-        </JFXButton>
-        <JFXButton fx:id="btn_save" layoutX="528.0" layoutY="538.0" onAction="#btn_save_onAction" onKeyReleased="#btn_save_keyReleased" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #44BD32; -fx-background-radius: 5; -fx-border-radius: 5;" text="Save [F1]" textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="13.0" />
-            </font>
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor>
-        </JFXButton>
       <Label fx:id="lbl_main" alignment="CENTER" prefHeight="50.0" prefWidth="1006.0" text="Create Enterprise / Person" textAlignment="CENTER" textFill="#44bd32">
          <font>
             <Font name="System Bold" size="20.0" />
@@ -41,6 +25,12 @@
             <Font size="14.0" />
          </font>
       </TextField>
+      <TextField fx:id="txt_userName" layoutX="650.0" layoutY="90.0" onAction="#txt_userName_onAction" onKeyReleased="#txt_userName_keyReleased" prefHeight="30.0" prefWidth="306.0" promptText="Enter Username" style="-fx-border-radius: 2;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextArea fx:id="txt_address" layoutX="50.0" layoutY="170.0" onDragDetected="#txt_address_onAction" onKeyReleased="#txt_address_keyReleased" prefHeight="100.0" prefWidth="550.0" promptText="Enter Address" />
       <Label fx:id="lbl_address" layoutX="50.0" layoutY="140.0" prefHeight="25.0" text="Address" textFill="#999999">
          <font>
             <Font size="14.0" />
@@ -91,11 +81,21 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txt_userName" layoutX="650.0" layoutY="90.0" onAction="#txt_userName_onAction" onKeyReleased="#txt_userName_keyReleased" prefHeight="30.0" prefWidth="306.0" promptText="Enter Username" style="-fx-border-radius: 2;">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </TextField>
-      <TextArea fx:id="txt_address" layoutX="50.0" layoutY="170.0" onDragDetected="#txt_address_onAction" onKeyReleased="#txt_address_keyReleased" prefHeight="100.0" prefWidth="550.0" promptText="Enter Address" />
+        <JFXButton fx:id="btn_save" layoutX="528.0" layoutY="538.0" onAction="#btn_save_onAction" onKeyReleased="#btn_save_keyReleased" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #44BD32; -fx-background-radius: 5; -fx-border-radius: 5;" text="Save [F1]" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </JFXButton>
+        <JFXButton fx:id="btn_refresh" layoutX="50.0" layoutY="538.0" onAction="#btn_refresh_onAction" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #1B1464; -fx-background-radius: 5; -fx-border-radius: 5;" text="Refresh [F5]" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </JFXButton>
     </children>
 </AnchorPane>
