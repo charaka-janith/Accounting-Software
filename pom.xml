@@ -45,7 +45,7 @@
             <artifactId>commons-codec</artifactId>
             <version>1.15</version>
         </dependency>
-
+        <!-- fontawesomefx -->
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-commons</artifactId>
