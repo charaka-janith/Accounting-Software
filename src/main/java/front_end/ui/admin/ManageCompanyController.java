@@ -177,7 +177,6 @@ public class ManageCompanyController implements Initializable {
 
     @FXML
     void btn_save_onAction() {
-        Theme.giveAWarning("Database config invalid", "Have A Great Day !", Session.admin_mainLabel, Session.admin_regionBack, Session.admin_regionTop, Session.admin_regionBottom, Session.admin_regionLeft, Session.admin_regionRight);
         addOrUpdateCompanyDetails();
         clearTextFields();
         btn_save.setDisable(true);
