@@ -171,7 +171,8 @@ public class ChangeThemeController implements Initializable {
     private void setFocusListeners() {
         colorPicker_colorBg.focusedProperty().addListener((observableValue, aBoolean, focused) -> {
             if (!focused) {
-                region_bg.setStyle("-fx-background-color:" + "#" + colorPicker_colorBg.getValue().hashCode());
+                String color= (String.valueOf(colorPicker_colorBg.getValue())).substring(2);
+                region_bg.setStyle("-fx-background-color:" + "#" + color);
             }
         });
     }

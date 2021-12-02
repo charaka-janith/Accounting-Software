@@ -218,6 +218,7 @@ public class AdminDashboardController implements Initializable {
         new RunLater(btn_dashboard);
         setErrorInputs();
         Platform.runLater(() -> subPane.setStyle("-fx-effect: dropshadow(three-pass-box,#C9C9C98D, 20.0, 0.0, 0.0, 10.0);"));
+        nowSubPaneName = "dashboard";
     }
 
     private void setColors() {
