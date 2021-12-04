@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class ColorDAOImpl implements ColorDAO {
     @Override
-    public boolean add(Colors colors) throws Exception {
+    public boolean add(Colors colors){
         return false;
     }
 
@@ -26,10 +26,16 @@ public class ColorDAOImpl implements ColorDAO {
 
     @Override
     public Colors search(String color) throws Exception {
-        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM colors WHERE color=?", color);
+        ResultSet rst = CrudUtil.executeQuery(
+                "SELECT * FROM Colors WHERE Color=?",
+                color
+        );
         Colors colors = null;
         while (rst.next()) {
-            colors = new Colors(rst.getString(1), rst.getString(2));
+            colors = new Colors(
+                    rst.getString("Color"),
+                    rst.getString("ColorCode")
+            );
         }
         return colors;
     }

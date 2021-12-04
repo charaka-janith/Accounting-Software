@@ -10,7 +10,7 @@ public class AddUser {
     public static void main(String[] args) {
         UserBO bo = (UserBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.USER);
         try {
-            bo.addUser(new UserDTO("", "", ""));
+            bo.addUser(new UserDTO("admin", "admin", "admin"));
             System.out.println("user adding success");
         }catch (SQLIntegrityConstraintViolationException e){
             System.out.println("username already exists");

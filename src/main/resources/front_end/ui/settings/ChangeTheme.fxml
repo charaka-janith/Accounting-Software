@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="638.0" prefWidth="1006.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.settings.ChangeThemeController">
+    <children>
+      <Label fx:id="lbl_main" alignment="CENTER" prefHeight="50.0" prefWidth="1006.0" text="Change Theme" textAlignment="CENTER" textFill="#44bd32">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_colorBg" layoutX="50.0" layoutY="60.0" prefHeight="25.0" text="Background Color" textFill="#999999">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ColorPicker fx:id="colorPicker_colorBg" layoutX="50.0" layoutY="90.0" onAction="#colorPicker_colorBg_onAction" onKeyReleased="#colorPicker_colorBg_keyReleased" prefHeight="30.0" prefWidth="200.0" />
+      <Label fx:id="lbl_colorBorder" layoutX="50.0" layoutY="140.0" prefHeight="25.0" text="Border Color" textFill="#999999">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ColorPicker fx:id="colorPicker_colorBorder" layoutX="50.0" layoutY="170.0" onAction="#colorPicker_colorBorder_onAction" onKeyReleased="#colorPicker_colorBorder_keyReleased" prefHeight="30.0" prefWidth="200.0" />
+      <Label fx:id="lbl_colorFont" layoutX="50.0" layoutY="220.0" prefHeight="25.0" text="Font Color" textFill="#999999">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ColorPicker fx:id="colorPicker_colorFont" layoutX="50.0" layoutY="250.0" onAction="#colorPicker_colorFont_onAction" onKeyReleased="#colorPicker_colorFont_keyReleased" prefHeight="30.0" prefWidth="200.0" />
+      <Label fx:id="lbl_colorSuccess" layoutX="50.0" layoutY="300.0" prefHeight="25.0" text="Success Color" textFill="#999999">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ColorPicker fx:id="colorPicker_colorSuccess" layoutX="50.0" layoutY="330.0" onAction="#colorPicker_colorSuccess_onAction" onKeyReleased="#colorPicker_colorSuccess_keyReleased" prefHeight="30.0" prefWidth="200.0" />
+      <Label fx:id="lbl_colorWarning" layoutX="50.0" layoutY="380.0" prefHeight="25.0" text="Warning Color" textFill="#999999">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ColorPicker fx:id="colorPicker_colorWarning" layoutX="50.0" layoutY="410.0" onAction="#colorPicker_colorWarning_onAction" onKeyReleased="#colorPicker_colorWarning_keyReleased" prefHeight="30.0" prefWidth="200.0" />
+      <Region fx:id="region_border" layoutX="300.0" layoutY="60.0" prefHeight="428.0" prefWidth="656.0" style="-fx-background-color: #1B1464;" />
+      <Region fx:id="region_bg" layoutX="305.0" layoutY="65.0" prefHeight="418.0" prefWidth="646.0" style="-fx-background-color: white;" />
+      <JFXButton fx:id="btn_success" layoutX="687.0" layoutY="400.0" onAction="#colorButtons_onAction" prefHeight="30.0" prefWidth="214.0" style="-fx-background-color: #44BD32; -fx-background-radius: 5; -fx-border-radius: 5;" text="Success" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="btn_warning" layoutX="355.0" layoutY="400.0" onAction="#colorButtons_onAction" prefHeight="30.0" prefWidth="214.0" style="-fx-background-color: red; -fx-background-radius: 5; -fx-border-radius: 5;" text="Warning" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="btn_border" layoutX="355.0" layoutY="340.0" onAction="#colorButtons_onAction" prefHeight="30.0" prefWidth="214.0" style="-fx-background-color: #1B1464; -fx-background-radius: 5; -fx-border-radius: 5;" text="Border" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <Label fx:id="lbl_font" alignment="CENTER" layoutX="305.0" layoutY="140.0" prefHeight="25.0" prefWidth="646.0" text="Font" textFill="#999999">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+        <JFXButton fx:id="btn_save" layoutX="528.0" layoutY="538.0" onAction="#btn_save_onAction" onKeyReleased="#btn_save_keyReleased" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #44BD32; -fx-background-radius: 5; -fx-border-radius: 5;" text=" Save [F1]" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_save" fill="WHITE" glyphName="SAVE" />
+         </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btn_defaults" layoutX="50.0" layoutY="538.0" onAction="#btn_defaults_onAction" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #1B1464; -fx-background-radius: 5; -fx-border-radius: 5;" text=" Reset [F5]" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_refresh" fill="WHITE" glyphName="RETWEET" />
+         </graphic>
+        </JFXButton>
+      <Label fx:id="lbl_success" alignment="CENTER" layoutX="305.0" layoutY="70.0" prefHeight="50.0" prefWidth="646.0" text="Success" textAlignment="CENTER" textFill="#44bd32">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

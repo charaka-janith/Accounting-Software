@@ -2,6 +2,8 @@ package back_end.config;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import javax.crypto.*;
 import javax.crypto.spec.DESedeKeySpec;
@@ -16,7 +18,7 @@ public class TrippleDes {
     byte[] arrayBytes;
     SecretKey key;
 
-    public TrippleDes() throws Exception {
+    public TrippleDes() throws InvalidKeyException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeySpecException {
         String myEncryptionKey = "ThisIsSpartaThisIsSparta";
         String myEncryptionScheme = DESEDE_ENCRYPTION_SCHEME;
         arrayBytes = myEncryptionKey.getBytes(UNICODE_FORMAT);

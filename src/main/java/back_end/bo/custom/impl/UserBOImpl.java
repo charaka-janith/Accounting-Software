@@ -7,18 +7,59 @@ import back_end.dao.custom.UserDAO;
 import back_end.dto.UserDTO;
 import back_end.entity.User;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class UserBOImpl implements UserBO {
     UserDAO dao = (UserDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOFactoryTypes.USER);
 
     @Override
-    public boolean addUser(UserDTO user) throws Exception {
-        return dao.add(new User(user.getName(), new TrippleDes().encrypt(user.getPassword()), user.getType()));
+    public boolean addUser(UserDTO user) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, SQLException, ClassNotFoundException {
+        return dao.add(new User(
+                user.getName(),
+                null != user.getPassword() ? new TrippleDes().encrypt(user.getPassword()) : null,
+                user.getType()
+        ));
     }
 
     @Override
     public UserDTO searchUser(String userName) throws Exception {
         User user = dao.search(userName);
-        return null == user ? null : new UserDTO(user.getUserName(), new TrippleDes().decrypt(user.getPassword()), user.getUserType());
+        return null == user ? null : new UserDTO(
+                user.getUserName(),
+                null != user.getPassword() ? new TrippleDes().decrypt(user.getPassword()) : null,
+                user.getUserType()
+        );
+    }
+
+    @Override
+    public boolean updateUser(UserDTO user) throws Exception {
+        return dao.update(new User(
+                user.getName(),
+                null != user.getPassword() ? new TrippleDes().encrypt(user.getPassword()) : null,
+                user.getType()
+        ));
+    }
+
+    @Override
+    public ArrayList<UserDTO> getAllAdmins() throws SQLException, ClassNotFoundException, UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        ArrayList<User> userList = dao.getAllAdmins();
+        ArrayList<UserDTO> allUsers = new ArrayList<>();
+        for (User user : userList) {
+            allUsers.add(new UserDTO(
+                    user.getUserName(),
+                    null != user.getPassword() ? new TrippleDes().decrypt(user.getPassword()) : null,
+                    user.getUserType()
+            ));
+        }
+        return allUsers;
     }
 
     @Override

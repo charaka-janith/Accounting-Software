@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXToggleButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import front_end.sessions.Session;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -99,25 +100,14 @@ public class Theme {
         });
     }
 
-    public static void setBorderColor(String code, Node... list) {
-        for (Node node :
-                list) {
-            if (node instanceof JFXButton) {
-                node.setStyle("-fx-border-color: " + colorSwitch(code));
-                setOnMouseMoveFocus((JFXButton) node);
-            } else {
-                node.setStyle("-fx-border-color:" + colorSwitch(code));
-            }
-        }
-    }
-
-    public static void setToggleColor(String toggleColor, String unToggleColor, String toggleLineColor, String unToggleLineColor, JFXToggleButton... list) {
+    public static void setToggleColor(String toggleColor, String unToggleColor, String toggleLineColor, String unToggleLineColor, String colorBg, JFXToggleButton... list) {
         for (JFXToggleButton node :
                 list) {
             node.setToggleColor(Paint.valueOf(colorSwitch(toggleColor)));
             node.setUnToggleColor(Paint.valueOf(colorSwitch(unToggleColor)));
             node.setToggleLineColor(Paint.valueOf(colorSwitch(toggleLineColor)));
             node.setUnToggleLineColor(Paint.valueOf(colorSwitch(unToggleLineColor)));
+            node.setStyle("-fx-background-color:" + colorSwitch(colorBg));
         }
     }
 
@@ -140,6 +130,7 @@ public class Theme {
                 label.setTextFill(Paint.valueOf(colorSwitch(code)));
             } else if (node instanceof JFXButton button) {
                 button.setTextFill(Paint.valueOf(colorSwitch(code)));
+                setOnMouseMoveFocus((JFXButton) node);
             } else if (node instanceof Hyperlink link) {
                 link.setTextFill(Paint.valueOf(colorSwitch(code)));
             } else if (node instanceof JFXToggleButton button) {
@@ -149,6 +140,13 @@ public class Theme {
             } else if (node instanceof JFXRadioButton radioButton) {
                 radioButton.setTextFill(Paint.valueOf(colorSwitch(code)));
             }
+        }
+    }
+
+    public static void setIconFill (String code, FontAwesomeIconView... list) {
+        for (FontAwesomeIconView node :
+                list) {
+            node.setFill(Paint.valueOf(colorSwitch(code)));
         }
     }
 
@@ -174,11 +172,11 @@ public class Theme {
             @Override
             public void handle(ActionEvent event) {
                 if (Session.isSinhala()) {
-                    date.setText("දිනය : " + new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
-                    time.setText("වේලාව : " + new SimpleDateFormat("hh:mm:ss a").format(new Date()));
+                    date.setText(" දිනය : " + new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
+                    time.setText(" වේලාව : " + new SimpleDateFormat("hh:mm:ss a").format(new Date()));
                 } else {
-                    date.setText("Date : " + new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
-                    time.setText("Time : " + new SimpleDateFormat("hh:mm:ss a").format(new Date()));
+                    date.setText(" Date : " + new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
+                    time.setText(" Time : " + new SimpleDateFormat("hh:mm:ss a").format(new Date()));
                 }
             }
         }), new KeyFrame(Duration.seconds(1)));

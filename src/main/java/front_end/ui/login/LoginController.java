@@ -5,6 +5,7 @@ import back_end.bo.custom.ConfigBO;
 import back_end.bo.custom.UserBO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import front_end.anim.PaneOpenAnim;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
@@ -25,29 +26,42 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXToggleButton;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 
 public class LoginController implements Initializable {
 
     public static Stage stage;
     UserBO userBO = (UserBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.USER);
     ConfigBO configBO = (ConfigBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.CONFIG);
+
+    @FXML
+    private FontAwesomeIconView icon_date;
+
+    @FXML
+    private FontAwesomeIconView icon_exit;
+
+    @FXML
+    private FontAwesomeIconView icon_login;
+
+    @FXML
+    private FontAwesomeIconView icon_signIn;
+
+    @FXML
+    private FontAwesomeIconView icon_pass;
+
+    @FXML
+    private FontAwesomeIconView icon_time;
+
+    @FXML
+    private FontAwesomeIconView icon_username;
 
     @FXML
     private JFXButton btn_exit;
@@ -207,8 +221,6 @@ public class LoginController implements Initializable {
     void toggleBtn_language_keyReleased(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
             btn_exit.requestFocus();
-        } else if (event.getCode().equals(KeyCode.ENTER)) {
-            txt_userName.requestFocus();
         }
     }
 
@@ -231,15 +243,14 @@ public class LoginController implements Initializable {
         if (Session.isSinhala()) {
             new Thread(() -> {
                 Platform.runLater(() -> {
-                    lbl_login.setText("පිවිසුම");
+                    lbl_login.setText(" පිවිසුම");
                     lbl_welcome.setText("ආයුබෝවන් !");
-//                        lbl_welcome.setText("සාදරයෙන් පිළිගනිමු !");
-                    lbl_userName.setText("පරිශීලක නාමය");
+                    lbl_userName.setText(" පරිශීලක නාමය");
                     txt_userName.setPromptText("පරිශීලක නාමය ඇතුළත් කරන්න");
-                    lbl_pass.setText("මුරපදය");
+                    lbl_pass.setText(" මුරපදය");
                     txt_pass.setPromptText("මුරපදය ඇතුළත් කරන්න");
-                    btn_exit.setText("අවලංගු කරන්න");
-                    btn_login.setText("පුරන්න");
+                    btn_exit.setText(" අවලංගු කරන්න");
+                    btn_login.setText(" පුරන්න");
                     lbl_shortcuts.setText("ඊළඟ = Enter / ආපසු = Esc / පිටවීම = F5");
                 });
             }).start();
@@ -247,14 +258,14 @@ public class LoginController implements Initializable {
         } else {
             new Thread(() -> {
                 Platform.runLater(() -> {
-                    lbl_login.setText("Login");
+                    lbl_login.setText(" Login");
                     lbl_welcome.setText("Welcome !");
-                    lbl_userName.setText("User Name");
+                    lbl_userName.setText(" User Name");
                     txt_userName.setPromptText("Enter User Name");
-                    lbl_pass.setText("Password");
+                    lbl_pass.setText(" Password");
                     txt_pass.setPromptText("Enter Password");
-                    btn_exit.setText("Exit");
-                    btn_login.setText("Login");
+                    btn_exit.setText(" Exit");
+                    btn_login.setText(" Login");
                     lbl_shortcuts.setText("Next = Enter / Back = Esc / Exit = F5");
                 });
             }).start();
@@ -326,14 +337,21 @@ public class LoginController implements Initializable {
             try {
                 Theme.initialize();
                 Platform.runLater(() -> {
+                    // background
                     Theme.setBackgroundColor("background", pane);
                     Theme.setBackgroundColor("success", region_back, btn_login);
                     Theme.setBackgroundColor("border", region_front, region_top, region_bottom, region_left, region_right);
                     Theme.setBackgroundColor("warning", btn_exit);
+                    // text
                     Theme.setTextFill("font", toggleBtn_language, lbl_userName, lbl_pass, lbl_shortcuts);
                     Theme.setTextFill("background", lbl_welcome, lbl_main, btn_login, btn_exit, lbl_date, lbl_time);
                     Theme.setTextFill("border", lbl_login);
-                    Theme.setToggleColor("success", "background", "border", "font", toggleBtn_language);
+                    // toggle button
+                    Theme.setToggleColor("success", "background", "border", "font", "background", toggleBtn_language);
+                    // icon
+                    Theme.setIconFill("background", icon_date, icon_time, icon_signIn, icon_exit);
+                    Theme.setIconFill("border", icon_login);
+                    Theme.setIconFill("font", icon_username, icon_pass);
                 });
             } catch (SQLException e) {
                 Theme.giveAWarning("Database config invalid", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);

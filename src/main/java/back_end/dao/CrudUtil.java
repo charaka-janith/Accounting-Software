@@ -14,22 +14,24 @@ import java.sql.SQLException;
 
 public class CrudUtil {
 
-    private static PreparedStatement getPreparedStatement(String sql, Object... parms) throws ClassNotFoundException, SQLException {
-        //creating connection with mysql server
+    // prepare and execute the sql statement
+    private static PreparedStatement getPreparedStatement(String sql, Object... params) throws ClassNotFoundException, SQLException {
+        // creating connection with mysql server
         Connection connection = DBConnector.getInstance().getConnection();
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        for (int i = 0; i < parms.length; i++) {
-            pstm.setObject(i + 1, parms[i]);
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        for (int i = 0; i < params.length; i++) {
+            preparedStatement.setObject(i + 1, params[i]);
         }
-        return pstm;
+        return preparedStatement;
     }
 
-    public static boolean executeUpdate(String sql, Object... parms) throws ClassNotFoundException, SQLException {
-        return getPreparedStatement(sql, parms).executeUpdate() > 0;
+    // results in an update count that is greater than one, or that generates more than one result set
+    public static boolean executeUpdate(String sql, Object... params) throws ClassNotFoundException, SQLException {
+        return getPreparedStatement(sql, params).executeUpdate() > 0;
     }
 
-    public  static ResultSet executeQuery(String sql, Object... parms) throws ClassNotFoundException, SQLException {
-        return getPreparedStatement(sql, parms).executeQuery();
+    // used to execute statements that returns tabular data
+    public static ResultSet executeQuery(String sql, Object... params) throws ClassNotFoundException, SQLException {
+        return getPreparedStatement(sql, params).executeQuery();
     }
-
 }
