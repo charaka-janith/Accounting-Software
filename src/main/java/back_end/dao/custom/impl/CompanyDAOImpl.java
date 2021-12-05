@@ -10,8 +10,16 @@ import java.util.ArrayList;
 
 public class CompanyDAOImpl implements CompanyDAO {
     @Override
-    public boolean add(Company company) throws Exception {
-        return CrudUtil.executeUpdate("insert into company values(?,?,?,?,?,?)", company.getName(), company.getAddress(), company.getPhoneNumber(), company.getEmail(), company.getWebSite(), company.getBrn());
+    public boolean add(Company company) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate(
+                "insert into Company values(?,?,?,?,?,?)",
+                company.getName(),
+                company.getAddress(),
+                company.getPhoneNumber(),
+                company.getEmail(),
+                company.getWebSite(),
+                company.getBrn()
+        );
     }
 
     @Override
@@ -21,15 +29,33 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public boolean update(Company company) throws Exception {
-        return CrudUtil.executeUpdate("UPDATE company SET name=?, address=?, phoneNumber=?, email=?, webSite=?, brn=?", company.getName(), company.getAddress(), company.getPhoneNumber(), company.getEmail(), company.getWebSite(), company.getBrn());
+        return CrudUtil.executeUpdate(
+                "UPDATE Company SET Name=?, Address=?, PhoneNumber=?, Email=?, WebSite=?, BRN=?",
+                company.getName(),
+                company.getAddress(),
+                company.getPhoneNumber(),
+                company.getEmail(),
+                company.getWebSite(),
+                company.getBrn()
+        );
     }
 
     @Override
     public Company search(String name) throws Exception {
-        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM company WHERE name=?", name);
+        ResultSet rst = CrudUtil.executeQuery(
+                "SELECT * FROM Company WHERE Name=?",
+                name
+        );
         Company company = null;
         while (rst.next()) {
-            company = new Company(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), rst.getString(6));
+            company = new Company(
+                    rst.getString("Name"),
+                    rst.getString("Address"),
+                    rst.getString("PhoneNumber"),
+                    rst.getString("Email"),
+                    rst.getString("WebSite"),
+                    rst.getString("BRN")
+            );
         }
         return company;
     }
@@ -41,10 +67,18 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public Company get() throws SQLException, ClassNotFoundException {
-        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM company");
+        ResultSet rst = CrudUtil.executeQuery(
+                "SELECT * FROM Company"
+        );
         Company company = null;
         while (rst.next()) {
-            company = new Company(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), rst.getString(6));
+            company = new Company(
+                    rst.getString("Name"),
+                    rst.getString("Address"),
+                    rst.getString("PhoneNumber"),
+                    rst.getString("Email"),
+                    rst.getString("WebSite"),
+                    rst.getString("BRN"));
         }
         return company;
     }

@@ -14,7 +14,7 @@ public class DBConnector {
     private DBConnector() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/accountingSoftware",
+                "jdbc:mysql://localhost:3306/AccountingSoftware",
                 SqlConfig.user,
                 SqlConfig.password
         );

@@ -1,50 +1,50 @@
-DROP DATABASE IF EXISTS accountingSoftware;
-CREATE DATABASE accountingSoftware;
-USE accountingSoftware;
+DROP DATABASE IF EXISTS AccountingSoftware;
+CREATE DATABASE AccountingSoftware;
+USE AccountingSoftware;
 
-DROP TABLE IF EXISTS user;
-CREATE TABLE user (
-userName VARCHAR ( 20 ) NOT NULL,
-password VARCHAR ( 100 ) NOT NULL,
-userType VARCHAR ( 20 ) NOT NULL,
-CONSTRAINT PRIMARY KEY(userName)
+DROP TABLE IF EXISTS User;
+CREATE TABLE User (
+UserName VARCHAR ( 20 ) NOT NULL,
+Password VARCHAR ( 100 ),
+UserType VARCHAR ( 20 ) NOT NULL,
+CONSTRAINT PRIMARY KEY(UserName)
 );
 
-INSERT INTO user(userName, password, userType) VALUES('චරක','iSUqUJfX1CY=','admin');
-INSERT INTO user(userName, password, userType) VALUES('charaka','g8jnkt0oArE=','admin');
-INSERT INTO user(userName, password, userType) VALUES('lini','LmQoge4J6N6JJSpQl9fUJg==','admin');
+INSERT INTO User(UserName, Password, UserType) VALUES('චරක','iSUqUJfX1CY=','admin');
+INSERT INTO User(UserName, Password, UserType) VALUES('charaka','g8jnkt0oArE=','admin');
+INSERT INTO User(UserName, Password, UserType) VALUES('lini','LmQoge4J6N6JJSpQl9fUJg==','admin');
 
-DROP TABLE IF EXISTS config;
-CREATE TABLE config(
-id INT NOT NULL,
-language VARCHAR ( 20 ) NOT NULL,
-CONSTRAINT PRIMARY KEY(id)
+DROP TABLE IF EXISTS Config;
+CREATE TABLE Config(
+Id INT NOT NULL,
+Language VARCHAR ( 20 ) NOT NULL,
+CONSTRAINT PRIMARY KEY(Id)
 );
 
-INSERT INTO config(id, language) VALUES(0,'english');
+INSERT INTO Config(Id, Language) VALUES(0,'english');
 
-DROP TABLE IF EXISTS colors;
-CREATE TABLE colors(
-color VARCHAR (20) NOT NULL,
-colorCode VARCHAR (20) NOT NULL,
-CONSTRAINT PRIMARY KEY (color)
+DROP TABLE IF EXISTS Colors;
+CREATE TABLE Colors(
+Color VARCHAR (20) NOT NULL,
+ColorCode VARCHAR (20) NOT NULL,
+CONSTRAINT PRIMARY KEY (Color)
 );
 
-INSERT INTO colors (color, colorCode) VALUES('background','#ffffff');
-INSERT INTO colors (color, colorCode) VALUES('success','#44bd32');
-INSERT INTO colors (color, colorCode) VALUES('border','#1B1464');
-INSERT INTO colors (color, colorCode) VALUES('font','#999999');
-INSERT INTO colors (color, colorCode) VALUES('warning','#a50000');
+INSERT INTO Colors (Color, ColorCode) VALUES('background','#ffffff');
+INSERT INTO Colors (Color, ColorCode) VALUES('success','#44bd32');
+INSERT INTO Colors (Color, ColorCode) VALUES('border','#1B1464');
+INSERT INTO Colors (Color, ColorCode) VALUES('font','#999999');
+INSERT INTO Colors (Color, ColorCode) VALUES('warning','#a50000');
 
-DROP TABLE IF EXISTS company;
-CREATE TABLE company(
-name VARCHAR (50) NOT NULL,
-address VARCHAR (100) NULL,
-phoneNumber VARCHAR (20) NULL,
-email VARCHAR (50) NULL,
-webSite VARCHAR (60) NULL,
-brn VARCHAR (20) NULL,
-CONSTRAINT PRIMARY KEY (name)
+DROP TABLE IF EXISTS Company;
+CREATE TABLE Company(
+Name VARCHAR (50) NOT NULL,
+Address VARCHAR (100) NULL,
+PhoneNumber VARCHAR (20) NULL,
+Email VARCHAR (50) NULL,
+WebSite VARCHAR (60) NULL,
+BRN VARCHAR (20) NULL,
+CONSTRAINT PRIMARY KEY (Name)
 );
 
-INSERT INTO company (name, address, phoneNumber, email, webSite, brn) VALUES ('sample name','sample address','0123456789','samplemail@mail.samplesite','sample site','sample reg number');
+INSERT INTO Company (Name, Address, PhoneNumber, Email, WebSite, BRN) VALUES ('sample name','sample address','0123456789','samplemail@mail.samplesite','sample site','sample reg number');
