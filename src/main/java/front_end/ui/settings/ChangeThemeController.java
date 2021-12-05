@@ -6,14 +6,13 @@ import front_end.anim.RunLater;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Paint;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -91,73 +90,74 @@ public class ChangeThemeController implements Initializable {
     private Region region_border;
 
     @FXML
-    void btn_defaults_onAction(ActionEvent event) {
+    void btn_save_keyReleased() {
 
     }
 
     @FXML
-    void btn_save_keyReleased(KeyEvent event) {
+    void colorPicker_colorSuccess_keyReleased() {
 
     }
 
     @FXML
-    void btn_save_onAction(ActionEvent event) {
+    void colorPicker_colorBg_keyReleased() {
 
     }
 
     @FXML
-    void colorButtons_onAction(ActionEvent event) {
+    void colorPicker_colorFont_keyReleased() {
 
     }
 
     @FXML
-    void colorPicker_colorBg_keyReleased(KeyEvent event) {
+    void colorPicker_colorBorder_keyReleased() {
 
     }
 
     @FXML
-    void colorPicker_colorBg_onAction(ActionEvent event) {
+    void colorPicker_colorWarning_keyReleased() {
+
+    }
+
+
+    @FXML
+    void btn_defaults_onAction() {
+
+    }
+
+    @FXML
+    void btn_save_onAction() {
+
+    }
+
+    @FXML
+    void colorButtons_onAction() {
+
+    }
+
+    @FXML
+    void colorPicker_colorBg_onAction() {
         colorPicker_colorBorder.requestFocus();
     }
 
     @FXML
-    void colorPicker_colorBorder_keyReleased(KeyEvent event) {
-
+    void colorPicker_colorBorder_onAction() {
+        colorPicker_colorFont.requestFocus();
     }
 
     @FXML
-    void colorPicker_colorBorder_onAction(ActionEvent event) {
-
+    void colorPicker_colorFont_onAction() {
+        colorPicker_colorSuccess.requestFocus();
     }
 
     @FXML
-    void colorPicker_colorFont_keyReleased(KeyEvent event) {
-
+    void colorPicker_colorSuccess_onAction() {
+        colorPicker_colorWarning.requestFocus();
     }
 
     @FXML
-    void colorPicker_colorFont_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void colorPicker_colorSuccess_keyReleased(KeyEvent event) {
-
-    }
-
-    @FXML
-    void colorPicker_colorSuccess_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void colorPicker_colorWarning_keyReleased(KeyEvent event) {
-
-    }
-
-    @FXML
-    void colorPicker_colorWarning_onAction(ActionEvent event) {
-
+    void colorPicker_colorWarning_onAction() {
+        btn_save.requestFocus();
     }
 
     @Override
@@ -171,8 +171,37 @@ public class ChangeThemeController implements Initializable {
     private void setFocusListeners() {
         colorPicker_colorBg.focusedProperty().addListener((observableValue, aBoolean, focused) -> {
             if (!focused) {
-                String color= (String.valueOf(colorPicker_colorBg.getValue())).substring(2);
+                String color = (String.valueOf(colorPicker_colorBg.getValue())).substring(2);
                 region_bg.setStyle("-fx-background-color:" + "#" + color);
+            }
+        });
+
+        colorPicker_colorBorder.focusedProperty().addListener((observableValue, aBoolean, focused) -> {
+            if (!focused) {
+                String color = (String.valueOf(colorPicker_colorBorder.getValue())).substring(2);
+                region_border.setStyle("-fx-background-color:" + "#" + color);
+                btn_border.setStyle("-fx-background-color:" + "#" + color);
+            }
+        });
+
+        colorPicker_colorFont.focusedProperty().addListener((observableValue, aBoolean, focused) -> {
+            if (!focused) {
+                String color = (String.valueOf(colorPicker_colorFont.getValue())).substring(2);
+                lbl_font.setTextFill(Paint.valueOf("#" + color));
+            }
+        });
+
+        colorPicker_colorSuccess.focusedProperty().addListener((observableValue, aBoolean, focused) -> {
+            if (!focused) {
+                String color = (String.valueOf(colorPicker_colorSuccess.getValue())).substring(2);
+                btn_success.setStyle("-fx-background-color:" + "#" + color);
+            }
+        });
+
+        colorPicker_colorWarning.focusedProperty().addListener((observableValue, aBoolean, focused) -> {
+            if (!focused) {
+                String color = (String.valueOf(colorPicker_colorWarning.getValue())).substring(2);
+                btn_warning.setStyle("-fx-background-color:" + "#" + color);
             }
         });
     }
