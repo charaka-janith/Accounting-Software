@@ -2,6 +2,7 @@ package front_end.ui.dashboard;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import front_end.anim.PaneOpenAnim;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
@@ -21,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
@@ -32,12 +34,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AdminDashboardController implements Initializable {
 
     public static Stage stage;
-    int count;
-    String nowSubPaneName;
+    private int count;
 
     @FXML
     private JFXButton btn_changePass;
@@ -59,6 +61,33 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     private JFXButton btn_manageCompany;
+
+    @FXML
+    private FontAwesomeIconView icon_changePassword;
+
+    @FXML
+    private FontAwesomeIconView icon_changeTheme;
+
+    @FXML
+    private FontAwesomeIconView icon_dashboard;
+
+    @FXML
+    private FontAwesomeIconView icon_date;
+
+    @FXML
+    private FontAwesomeIconView icon_exit;
+
+    @FXML
+    private FontAwesomeIconView icon_lock;
+
+    @FXML
+    private FontAwesomeIconView icon_manageAdmins;
+
+    @FXML
+    private FontAwesomeIconView icon_manageCompany;
+
+    @FXML
+    private FontAwesomeIconView icon_time;
 
     @FXML
     private ImageView imageView;
@@ -109,11 +138,6 @@ public class AdminDashboardController implements Initializable {
     private JFXToggleButton toggleBtn_language;
 
     @FXML
-    void toggleBtn_language_keyReleased() {
-
-    }
-
-    @FXML
     void toggleBtn_language_onAction() {
         new Thread(() -> {
             try {
@@ -125,7 +149,7 @@ public class AdminDashboardController implements Initializable {
                 e.printStackTrace();
             }
         }).start();
-        handleAllButtons(nowSubPaneName);
+        handleAllButtons(Session.getCurrent_subPane());
     }
 
     private void setErrorInputs() {
@@ -154,7 +178,20 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     void btn_exit_onAction() {
-        System.exit(0);
+        exit_popup();
+    }
+
+    private void exit_popup() {
+        AtomicBoolean b = new AtomicBoolean(false);
+        Platform.runLater(() -> {
+            b.set(Theme.confirmPopup(
+                    Session.isSinhala() ? "ඔබට පිටවීමට අවශ්‍ය බව විශ්වාසද ?" : "Are you sure you want to Exit ?",
+                    stage
+            ));
+            if (b.get()) {
+                System.exit(0);
+            }
+        });
     }
 
     @FXML
@@ -176,31 +213,38 @@ public class AdminDashboardController implements Initializable {
         handleAllButtons("manageCompany");
     }
 
+    @FXML
+    void btn_onKeyReleased(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            toggleBtn_language.requestFocus();
+        }
+    }
+
     private void setLanguage() {
         if (Session.isSinhala()) {
             new Thread(() -> Platform.runLater(() -> {
-                lbl_welcome.setText(Session.getUser().getName() + " සාදරයෙන් පිළිගනිමු !");
-                lbl_main.setText("සුභ දිනයක් වේවා !");
-                btn_dashboard.setText("උපකරණ පුවරුව [F2]");
-                btn_manageCompany.setText("සමාගම කළමනාකරණය කිරීම [F3]");
-                btn_manageAdmins.setText("පරිපාලක කළමනාකරණය කිරීම [F6]");
-                btn_changeTheme.setText("තේමාව වෙනස් කිරීම [F7]");
-                btn_changePass.setText("මුරපදය වෙනස් කිරීම [F9]");
-                btn_lock.setText("අගුල [F8]");
-                btn_exit.setText("පිටවීම");
+                lbl_welcome.setText("ආයුබෝවන් " + Session.getUser().getName() + " !");
+                lbl_main.setText(" සුභ දිනයක් වේවා !");
+                btn_dashboard.setText(" උපකරණ පුවරුව [F2]");
+                btn_manageCompany.setText(" සමාගම් කළමනාකරණ [F3]");
+                btn_manageAdmins.setText(" පරිපාලක කළමනාකරණ [F6]");
+                btn_changeTheme.setText(" තේමාව වෙනස් කිරීම [F7]");
+                btn_changePass.setText(" මුරපදය වෙනස් කිරීම [F9]");
+                btn_lock.setText(" අගුල [F8]");
+                btn_exit.setText(" පිටවීම");
             })).start();
             toggleBtn_language.setSelected(true);
         } else {
             new Thread(() -> Platform.runLater(() -> {
                 lbl_welcome.setText("Welcome " + Session.getUser().getName() + " !");
                 lbl_main.setText("Have A Great Day !");
-                btn_dashboard.setText("Dashboard [F2]");
-                btn_manageCompany.setText("Manage Company [F3]");
-                btn_manageAdmins.setText("Manage Admins [F6]");
-                btn_changeTheme.setText("Change Theme [F7]");
-                btn_changePass.setText("Change Password [F9]");
-                btn_lock.setText("Lock [F8]");
-                btn_exit.setText("Exit");
+                btn_dashboard.setText(" Dashboard [F2]");
+                btn_manageCompany.setText(" Manage Company [F3]");
+                btn_manageAdmins.setText(" Manage Admins [F6]");
+                btn_changeTheme.setText(" Change Theme [F7]");
+                btn_changePass.setText(" Change Password [F9]");
+                btn_lock.setText(" Lock [F8]");
+                btn_exit.setText(" Exit");
             })).start();
             toggleBtn_language.setSelected(false);
         }
@@ -209,29 +253,53 @@ public class AdminDashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setLanguage();
-        lbl_userName.setText(Session.getUser().getName());
         setColors();
         Theme.setTimeDate(lbl_date, lbl_time);
+        lbl_userName.setText(Session.getUser().getName());
         Theme.scale(pane, true);
-        runLater();
-        Session.imageSlider = subPane.getChildren().get(0);
         new RunLater(btn_dashboard);
+        runLater();
+        new PaneOpenAnim(pane);
+        Session.imageSlider = subPane.getChildren().get(0);
         setErrorInputs();
-        Platform.runLater(() -> subPane.setStyle("-fx-effect: dropshadow(three-pass-box,#C9C9C98D, 20.0, 0.0, 0.0, 10.0);"));
-        nowSubPaneName = "dashboard";
+        Session.setCurrent_subPane("dashboard");
     }
 
     private void setColors() {
         new Thread(() -> {
             try {
                 Platform.runLater(() -> {
+                    subPane.setStyle("-fx-effect: dropshadow(three-pass-box,#C9C9C98D, 20.0, 0.0, 0.0, 10.0);");
+                    // background
                     Theme.setBackgroundColor("background", pane, region_menu);
                     Theme.setBackgroundColor("success", region_back);
                     Theme.setBackgroundColor("border", region_top, region_bottom, region_left, region_right);
+                    // text
                     Theme.setTextFill("background", lbl_welcome, lbl_main, lbl_date, lbl_time);
-                    Theme.setTextFill("border", lbl_userName, btn_dashboard, btn_manageCompany, btn_manageAdmins, btn_changeTheme, btn_changePass, btn_lock);
+                    Theme.setTextFill("border",
+                            lbl_userName,
+                            btn_dashboard,
+                            btn_manageCompany,
+                            btn_manageAdmins,
+                            btn_changeTheme,
+                            btn_changePass,
+                            btn_lock
+                    );
                     Theme.setTextFill("warning", btn_exit);
-                    Theme.setTextFill("font", lbl_shortcuts);
+                    Theme.setTextFill("font", lbl_shortcuts, toggleBtn_language);
+                    // toggle button
+                    Theme.setToggleColor("success", "background", "border", "font", "background", toggleBtn_language);
+                    // icon
+                    Theme.setIconFill("background", icon_date, icon_time);
+                    Theme.setIconFill("border",
+                            icon_dashboard,
+                            icon_manageCompany,
+                            icon_manageAdmins,
+                            icon_changeTheme,
+                            icon_changePassword,
+                            icon_lock
+                    );
+                    Theme.setIconFill("warning", icon_exit);
                 });
             } catch (Exception e) {
                 e.printStackTrace();
@@ -256,19 +324,19 @@ public class AdminDashboardController implements Initializable {
         timeline.play();
     }
 
-    public void handleAllButtons(String btnName) {
+    private void handleAllButtons(String btnName) {
         subPane.getChildren().clear();
         switch (btnName) {
             case "dashboard" -> {
                 btn_dashboard.requestFocus();
                 subPane.getChildren().add(Session.imageSlider);
-                nowSubPaneName = "dashboard";
+                Session.setCurrent_subPane("dashboard");
             }
             case "manageCompany" -> {
                 btn_manageCompany.requestFocus();
                 try {
                     subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(ManageCompanyController.class.getResource("ManageCompany.fxml"))));
-                    nowSubPaneName = "manageCompany";
+                    Session.setCurrent_subPane("manageCompany");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -277,7 +345,7 @@ public class AdminDashboardController implements Initializable {
                 btn_manageAdmins.requestFocus();
                 try {
                     subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(ManageAdminsController.class.getResource("ManageAdmins.fxml"))));
-                    nowSubPaneName = "manageAdmins";
+                    Session.setCurrent_subPane("manageAdmins");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -286,7 +354,7 @@ public class AdminDashboardController implements Initializable {
                 btn_changeTheme.requestFocus();
                 try {
                     subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(ChangeThemeController.class.getResource("ChangeTheme.fxml"))));
-                    nowSubPaneName = "changeTheme";
+                    Session.setCurrent_subPane("changeTheme");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -295,20 +363,36 @@ public class AdminDashboardController implements Initializable {
                 btn_changePass.requestFocus();
                 try {
                     subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(ChangePasswordController.class.getResource("ChangePassword.fxml"))));
-                    nowSubPaneName = "changePass";
+                    Session.setCurrent_subPane("changePass");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
+        Platform.runLater(() -> {
+            if (Session.isSinhala()) {
+                switch (Session.getCurrent_subPane()) {
+                    case "dashboard" -> lbl_shortcuts.setText("උපකරණ පුවරුව = F2 / සමාගම් කළමනාකරණ = F3 / පරිපාලක කළමනාකරණ = F6 / තේමාව වෙනස් කිරීම = F7 / මුරපදය වෙනස් කිරීම = F9 / අගුල = F8");
+                    case "manageCompany", "changePass" -> lbl_shortcuts.setText("ඊළඟ = Enter / ආපසු = Esc / සුරකින්න = F1 / නැවුම් කරන්න = F5");
+                    case "manageAdmins" -> lbl_shortcuts.setText("Next = Enter / Next Row = Down / Previous Row = Up / Save = F1 / Refresh = F5");
+                    case "changeTheme" -> lbl_shortcuts.setText("Save = F1 / Reset = F5");
+                }
+            } else {
+                switch (Session.getCurrent_subPane()) {
+                    case "dashboard" -> lbl_shortcuts.setText("Dashboard = F2 / Manage Company = F3 / Manage Admins = F6 / Change Theme = F7 / Change Password = F9 / Lock = F8");
+                    case "manageCompany", "changePass" -> lbl_shortcuts.setText("Next = Enter / Back = Esc / Save = F1 / Refresh = F5");
+                    case "manageAdmins" -> lbl_shortcuts.setText("Next = Enter / Next Row = Down / Previous Row = Up / Save = F1 / Refresh = F5");
+                    case "changeTheme" -> lbl_shortcuts.setText("Save = F1 / Reset = F5");
+                }
+            }
+        });
         new PaneOpenAnim(subPane);
     }
 
     private void runLater() {
         Platform.runLater(() -> {
-            btn_dashboard.requestFocus();
             slideShow();
-            pane.getScene().setOnKeyPressed(event -> {
+            pane.getScene().setOnKeyReleased(event -> {
                 if (event.getCode().equals(KeyCode.F2)) {
                     handleAllButtons("dashboard");
                 } else if (event.getCode().equals(KeyCode.F3)) {

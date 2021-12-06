@@ -2,18 +2,19 @@ package back_end.entity;
 
 public class Company {
     private String name;
+    private String userName;
     private String address;
     private String phoneNumber;
     private String email;
     private String webSite;
     private String brn;
 
-    public Company(String name) {
-        this.name = name;
+    public Company() {
     }
 
-    public Company(String name, String address, String phoneNumber, String email, String webSite, String brn) {
+    public Company(String name, String userName, String address, String phoneNumber, String email, String webSite, String brn) {
         this.name = name;
+        this.userName = userName;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -27,6 +28,14 @@ public class Company {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getAddress() {

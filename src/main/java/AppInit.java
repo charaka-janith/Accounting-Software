@@ -27,10 +27,10 @@ public class AppInit extends Application {
             primaryStage.initStyle(StageStyle.UNDECORATED);
             primaryStage.setResizable(false);
             primaryStage.setMaximized(true);
-            LoginController.stage = primaryStage;
             primaryStage.requestFocus();
             primaryStage.show();
             Theme.setShade(primaryStage);
+            LoginController.stage = primaryStage;
         } catch (Exception e) {
             e.printStackTrace();
         }

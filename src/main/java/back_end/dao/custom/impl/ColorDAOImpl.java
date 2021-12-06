@@ -6,6 +6,7 @@ import back_end.entity.Colors;
 import back_end.entity.Config;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ColorDAOImpl implements ColorDAO {
@@ -15,17 +16,17 @@ public class ColorDAOImpl implements ColorDAO {
     }
 
     @Override
-    public boolean delete(String s) throws Exception {
+    public boolean delete(String s) {
         return false;
     }
 
     @Override
-    public boolean update(Colors colors) throws Exception {
+    public boolean update(Colors colors) {
         return false;
     }
 
     @Override
-    public Colors search(String color) throws Exception {
+    public Colors search(String color) throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.executeQuery(
                 "SELECT * FROM Colors WHERE Color=?",
                 color
@@ -41,7 +42,7 @@ public class ColorDAOImpl implements ColorDAO {
     }
 
     @Override
-    public ArrayList<Colors> getAll() throws Exception {
+    public ArrayList<Colors> getAll() {
         return null;
     }
 }

@@ -35,6 +35,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LoginController implements Initializable {
 
@@ -128,7 +129,20 @@ public class LoginController implements Initializable {
 
     @FXML
     void btn_exit_onAction(ActionEvent event) {
-        System.exit(0);
+        exit_popup();
+    }
+
+    private void exit_popup () {
+        AtomicBoolean b = new AtomicBoolean(false);
+        Platform.runLater(() -> {
+            b.set(Theme.confirmPopup(
+                    Session.isSinhala() ? "ඔබට පිටවීමට අවශ්‍ය බව විශ්වාසද ?" : "Are you sure you want to Exit ?",
+                    stage
+            ));
+            if (b.get()) {
+                System.exit(0);
+            }
+        });
     }
 
     @FXML
@@ -208,8 +222,6 @@ public class LoginController implements Initializable {
                     Theme.giveBorderWarning(txt_pass);
                 }
             }
-        } catch (SQLException e) {
-            Theme.giveAWarning("Database config invalid", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
         } catch (NullPointerException e) {
             Session.setUser(null);
         } catch (Exception e) {

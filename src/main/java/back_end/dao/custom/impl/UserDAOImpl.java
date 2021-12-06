@@ -21,12 +21,12 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean delete(String s) throws Exception {
+    public boolean delete(String s) {
         return false;
     }
 
     @Override
-    public boolean update(User user) throws Exception {
+    public boolean update(User user) throws SQLException, ClassNotFoundException {
         return CrudUtil.executeUpdate(
                 "UPDATE User SET Password=?,UserType=? WHERE UserName=?",
                 user.getPassword(),
@@ -36,7 +36,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User search(String userName) throws Exception {
+    public User search(String userName) throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.executeQuery(
                 "SELECT * FROM User WHERE UserName=?",
                 userName
@@ -53,7 +53,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public ArrayList<User> getAll() throws Exception {
+    public ArrayList<User> getAll() {
         return null;
     }
 

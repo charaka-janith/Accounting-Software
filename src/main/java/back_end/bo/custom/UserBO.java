@@ -17,9 +17,9 @@ import java.util.ArrayList;
 public interface UserBO extends SuperBO {
     public boolean addUser(UserDTO user) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, SQLException, ClassNotFoundException;
 
-    public UserDTO searchUser(String userName) throws Exception;
+    public UserDTO searchUser(String userName) throws SQLException, ClassNotFoundException, UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException;
 
-    public boolean updateUser(UserDTO user) throws Exception;
+    public boolean updateUser(UserDTO user) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, SQLException, ClassNotFoundException;
 
     public ArrayList<UserDTO> getAllAdmins() throws SQLException, ClassNotFoundException, UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException;
 }

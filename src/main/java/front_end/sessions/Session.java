@@ -20,6 +20,8 @@ public class Session {
     public static Region admin_regionBottom;
     public static Region admin_regionLeft;
     public static Region admin_regionRight;
+    // sub pane
+    private static String current_subPane;
 
     public static boolean isSinhala() {
         return sinhala;
@@ -36,5 +38,13 @@ public class Session {
 
     public static void setUser(UserDTO user) {
         Session.user = user;
+    }
+
+    public static String getCurrent_subPane() {
+        return current_subPane;
+    }
+
+    public static void setCurrent_subPane(String current_subPane) {
+        Session.current_subPane = current_subPane;
     }
 }

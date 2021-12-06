@@ -4,20 +4,21 @@ import back_end.bo.BOFactory;
 import back_end.bo.custom.CompanyBO;
 import back_end.dto.CompanyDTO;
 import com.jfoenix.controls.JFXButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
+import front_end.ui.dashboard.AdminDashboardController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
@@ -30,6 +31,12 @@ public class ManageCompanyController implements Initializable {
 
     @FXML
     private JFXButton btn_refresh;
+
+    @FXML
+    private FontAwesomeIconView icon_refresh;
+
+    @FXML
+    private FontAwesomeIconView icon_save;
 
     @FXML
     private Label lbl_address;
@@ -170,23 +177,18 @@ public class ManageCompanyController implements Initializable {
     @FXML
     void txt_businessRegistrationNumber_onAction() {
         addOrUpdateCompanyDetails();
-        clearTextFields();
-        btn_save.setDisable(true);
-        btn_refresh.requestFocus();
+        txt_name.requestFocus();
     }
 
     @FXML
     void btn_save_onAction() {
         addOrUpdateCompanyDetails();
-        clearTextFields();
-        btn_save.setDisable(true);
-        btn_refresh.requestFocus();
+        txt_name.requestFocus();
     }
 
     @FXML
     void btn_refresh_onAction() {
         setCompanyDetails();
-        btn_save.setDisable(false);
     }
 
     private void setLanguage() {
@@ -206,7 +208,7 @@ public class ManageCompanyController implements Initializable {
                 txt_website.setPromptText("වෙබ් අඩවිය ඇතුළත් කරන්න");
                 lbl_businessRegistrationNumber.setText("ව්\u200Dයාපාර ලියාපදිංචි අංකය");
                 txt_businessRegistrationNumber.setPromptText("ව්\u200Dයාපාර ලියාපදිංචි අංකය ඇතුළත් කරන්න");
-                btn_refresh.setText("නැවුම් කරන්න [F5]");
+                btn_refresh.setText(" නැවුම් කරන්න [F5]");
             })).start();
         } else {
             new Thread(() -> Platform.runLater(() -> {
@@ -224,7 +226,7 @@ public class ManageCompanyController implements Initializable {
                 txt_website.setPromptText("Enter Website");
                 lbl_businessRegistrationNumber.setText("Business Registration Number");
                 txt_businessRegistrationNumber.setPromptText("Enter Business Registration Number");
-                btn_refresh.setText("Refresh [F5]");
+                btn_refresh.setText(" Refresh [F5]");
             })).start();
         }
     }
@@ -233,11 +235,29 @@ public class ManageCompanyController implements Initializable {
         try {
             CompanyDTO company = companyBO.getCompany();
             if (null != company) {
-                companyBO.updateCompany(new CompanyDTO(txt_name.getText(), txt_address.getText(), txt_phoneNumber.getText(), txt_email.getText(), txt_website.getText(), txt_businessRegistrationNumber.getText()));
+                companyBO.updateCompany(new CompanyDTO(
+                        txt_name.getText(),
+                        txt_userName.getText(),
+                        txt_address.getText(),
+                        txt_phoneNumber.getText(),
+                        txt_email.getText(),
+                        txt_website.getText(),
+                        txt_businessRegistrationNumber.getText()
+                ));
             } else {
-                companyBO.addCompany(new CompanyDTO(txt_name.getText(), txt_address.getText(), txt_phoneNumber.getText(), txt_email.getText(), txt_website.getText(), txt_businessRegistrationNumber.getText()));
+                companyBO.addCompany(new CompanyDTO(
+                        txt_name.getText(),
+                        txt_userName.getText(),
+                        txt_address.getText(),
+                        txt_phoneNumber.getText(),
+                        txt_email.getText(),
+                        txt_website.getText(),
+                        txt_businessRegistrationNumber.getText()
+                ));
             }
-        } catch (Exception e) {
+            Theme.successGif(AdminDashboardController.stage);
+            setCompanyDetails();
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
@@ -249,12 +269,13 @@ public class ManageCompanyController implements Initializable {
                 Platform.runLater(() -> {
                     if (Session.isSinhala()) {
                         lbl_main.setText("සමාගම යාවත්කාලීන කිරීම");
-                        btn_save.setText("යාවත්කාලීන කරන්න [F1]");
+                        btn_save.setText(" යාවත්කාලීන කරන්න [F1]");
                     } else {
                         lbl_main.setText("Update Company");
-                        btn_save.setText("Update [F1]");
+                        btn_save.setText(" Update [F1]");
                     }
                     txt_name.setText(company.getName());
+                    txt_userName.setText(company.getUserName());
                     txt_address.setText(company.getAddress());
                     txt_phoneNumber.setText(company.getPhoneNumber());
                     txt_email.setText(company.getEmail());
@@ -266,34 +287,32 @@ public class ManageCompanyController implements Initializable {
                 Platform.runLater(() -> {
                     if (Session.isSinhala()) {
                         lbl_main.setText("සමාගම නිර්මාණය කිරීම");
-                        btn_save.setText("නිර්මාණය කරන්න [F1]");
+                        btn_save.setText(" නිර්මාණය කරන්න [F1]");
                     } else {
                         lbl_main.setText("Create Company");
-                        btn_save.setText("Create [F1]");
+                        btn_save.setText(" Create [F1]");
                     }
-                    clearTextFields();
+                    txt_name.setText("");
+                    txt_userName.setText("");
+                    txt_address.setText("");
+                    txt_phoneNumber.setText("");
+                    txt_email.setText("");
+                    txt_website.setText("");
+                    txt_businessRegistrationNumber.setText("");
                     txt_name.requestFocus();
                 });
             }
-        } catch (Exception e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    private void clearTextFields() {
-        txt_name.setText("");
-        txt_address.setText("");
-        txt_phoneNumber.setText("");
-        txt_email.setText("");
-        txt_website.setText("");
-        txt_businessRegistrationNumber.setText("");
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        new RunLater(txt_name);
-        setColors();
         setLanguage();
+        setColors();
+        new RunLater(txt_name);
+        runLater();
         Theme.setChangeListeners(txt_name, txt_userName, txt_phoneNumber, txt_email, txt_website, txt_businessRegistrationNumber);
         Platform.runLater(() -> txt_address.textProperty().addListener((observableValue, s, t1) -> txt_address.setStyle("-fx-border-color: transparent")));
         new Thread(this::setCompanyDetails).start();
@@ -301,19 +320,38 @@ public class ManageCompanyController implements Initializable {
 
     private void setColors() {
         new Thread(() -> {
-            try {
-                Platform.runLater(() -> {
-                    /*Theme.setBackgroundColor("background", pane, region_menu);
-                    Theme.setBackgroundColor("success", region_back);
-                    Theme.setBackgroundColor("border", region_top, region_bottom, region_left, region_right);
-                    Theme.setTextFill("background", lbl_welcome, lbl_main, lbl_date, lbl_time);
-                    Theme.setTextFill("border", lbl_userName, btn_dashboard, btn_manageCompany, btn_manageAdmins, btn_changeTheme, btn_changePass, btn_lock);
-                    Theme.setTextFill("warning", btn_exit);
-                    Theme.setTextFill("font", lbl_shortcuts);*/
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Platform.runLater(() -> {
+                // background
+                Theme.setBackgroundColor("background", pane);
+                Theme.setBackgroundColor("success", btn_save);
+                Theme.setBackgroundColor("border", btn_refresh);
+                // text
+                Theme.setTextFill("background", btn_refresh, btn_save);
+                Theme.setTextFill("success", lbl_main);
+                Theme.setTextFill("font",
+                        lbl_name,
+                        lbl_userName,
+                        lbl_address,
+                        lbl_phoneNumber,
+                        lbl_email,
+                        lbl_website,
+                        lbl_businessRegistrationNumber
+                );
+                // icon
+                Theme.setIconFill("background", icon_refresh, icon_save);
+            });
         }).start();
+    }
+
+    private void runLater() {
+        Platform.runLater(() -> {
+            pane.getScene().setOnKeyPressed(event -> {
+                if (event.getCode().equals(KeyCode.F1)) {
+                    addOrUpdateCompanyDetails();
+                } else if (event.getCode().equals(KeyCode.F5)) {
+                    setCompanyDetails();
+                }
+            });
+        });
     }
 }

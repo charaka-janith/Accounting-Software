@@ -11,7 +11,7 @@ CONSTRAINT PRIMARY KEY(UserName)
 );
 
 INSERT INTO User(UserName, Password, UserType) VALUES('චරක','iSUqUJfX1CY=','admin');
-INSERT INTO User(UserName, Password, UserType) VALUES('charaka','g8jnkt0oArE=','admin');
+INSERT INTO User(UserName, Password, UserType) VALUES('samadi','g8jnkt0oArE=','admin');
 INSERT INTO User(UserName, Password, UserType) VALUES('lini','LmQoge4J6N6JJSpQl9fUJg==','admin');
 
 DROP TABLE IF EXISTS Config;
@@ -39,12 +39,12 @@ INSERT INTO Colors (Color, ColorCode) VALUES('warning','#a50000');
 DROP TABLE IF EXISTS Company;
 CREATE TABLE Company(
 Name VARCHAR (50) NOT NULL,
+UserName VARCHAR (20) NOT NULL,
 Address VARCHAR (100) NULL,
 PhoneNumber VARCHAR (20) NULL,
 Email VARCHAR (50) NULL,
 WebSite VARCHAR (60) NULL,
 BRN VARCHAR (20) NULL,
-CONSTRAINT PRIMARY KEY (Name)
+CONSTRAINT PRIMARY KEY (Name),
+FOREIGN KEY (UserName) REFERENCES User(UserName)
 );
-
-INSERT INTO Company (Name, Address, PhoneNumber, Email, WebSite, BRN) VALUES ('sample name','sample address','0123456789','samplemail@mail.samplesite','sample site','sample reg number');

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -84,21 +85,27 @@
             <Font size="14.0" />
          </font>
       </Label>
-        <JFXButton fx:id="btn_save" layoutX="528.0" layoutY="538.0" onAction="#btn_save_onAction" onKeyReleased="#btn_save_keyReleased" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #44BD32; -fx-background-radius: 5; -fx-border-radius: 5;" text="Save [F1]" textFill="WHITE">
+        <JFXButton fx:id="btn_save" layoutX="528.0" layoutY="538.0" onAction="#btn_save_onAction" onKeyReleased="#btn_save_keyReleased" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #44BD32; -fx-background-radius: 5; -fx-border-radius: 5;" text=" Save [F1]" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="13.0" />
             </font>
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_save" fill="WHITE" glyphName="SAVE" />
+         </graphic>
         </JFXButton>
-        <JFXButton fx:id="btn_refresh" layoutX="50.0" layoutY="538.0" onAction="#btn_refresh_onAction" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #1B1464; -fx-background-radius: 5; -fx-border-radius: 5;" text="Refresh [F5]" textFill="WHITE">
+        <JFXButton fx:id="btn_refresh" layoutX="50.0" layoutY="538.0" onAction="#btn_refresh_onAction" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #1B1464; -fx-background-radius: 5; -fx-border-radius: 5;" text=" Refresh [F5]" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="13.0" />
             </font>
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_refresh" fill="WHITE" glyphName="RETWEET" />
+         </graphic>
         </JFXButton>
     </children>
 </AnchorPane>
