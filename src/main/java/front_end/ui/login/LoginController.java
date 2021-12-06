@@ -40,8 +40,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class LoginController implements Initializable {
 
     public static Stage stage;
-    UserBO userBO = (UserBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.USER);
-    ConfigBO configBO = (ConfigBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.CONFIG);
+    private final UserBO userBO = (UserBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.USER);
+    private final ConfigBO configBO = (ConfigBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.CONFIG);
 
     @FXML
     private FontAwesomeIconView icon_date;
@@ -293,7 +293,7 @@ public class LoginController implements Initializable {
                     txt_pass.setPromptText("මුරපදය ඇතුළත් කරන්න");
                     btn_exit.setText(" අවලංගු කරන්න");
                     btn_login.setText(" පුරන්න");
-                    lbl_shortcuts.setText("ඊළඟ = Enter / ආපසු = Esc / පිටවීම = F5");
+                    lbl_shortcuts.setText("ඊළඟ = Enter / ආපසු = Esc / පිවිසුම = F1");
                 });
             }).start();
             toggleBtn_language.setSelected(true);
@@ -308,7 +308,7 @@ public class LoginController implements Initializable {
                     txt_pass.setPromptText("Enter Password");
                     btn_exit.setText(" Exit");
                     btn_login.setText(" Login");
-                    lbl_shortcuts.setText("Next = Enter / Back = Esc / Exit = F5");
+                    lbl_shortcuts.setText("Next = Enter / Back = Esc / Login = F1");
                 });
             }).start();
             toggleBtn_language.setSelected(false);
@@ -351,6 +351,7 @@ public class LoginController implements Initializable {
         Theme.setChangeListeners(txt_userName, txt_pass);
         Theme.scale(pane, true);
         new RunLater(txt_userName);
+        runLater();
         new PaneOpenAnim(pane);
         setFocusListeners();
         new Thread(() -> {
@@ -401,6 +402,16 @@ public class LoginController implements Initializable {
                 e.printStackTrace();
             }
         }).start();
+    }
+
+    private void runLater() {
+        Platform.runLater(() -> {
+            pane.getScene().setOnKeyReleased(event -> {
+                if (event.getCode().equals(KeyCode.F1)) {
+                    login();
+                }
+            });
+        });
     }
 
     public static void backToLogin(Stage primaryStage) throws IOException {
