@@ -10,8 +10,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
 
 public class SetPasswordController {
+
+    public static Stage stage;
 
     @FXML
     private JFXButton btn_exit;

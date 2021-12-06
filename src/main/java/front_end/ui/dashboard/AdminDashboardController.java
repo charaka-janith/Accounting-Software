@@ -268,7 +268,7 @@ public class AdminDashboardController implements Initializable {
 
     private void setColors() {
                 Platform.runLater(() -> {
-                    subPane.setStyle("-fx-effect: dropshadow(three-pass-box,#C9C9C98D, 20.0, 0.0, 0.0, 10.0);");
+                    subPane.setStyle("-fx-effect: dropshadow(three-pass-box," + Theme.background + ", 20.0, 0.0, 0.0, 10.0);");
                     // background
                     Theme.setBackgroundColor("background", pane, region_menu);
                     Theme.setBackgroundColor("success", region_back);

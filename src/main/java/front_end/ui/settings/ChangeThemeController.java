@@ -270,6 +270,7 @@ public class ChangeThemeController implements Initializable {
             if (!focused) {
                 String color = (String.valueOf(colorPicker_colorSuccess.getValue())).substring(2);
                 btn_success.setStyle("-fx-background-color:" + "#" + color);
+                lbl_success.setTextFill(Paint.valueOf("#" + color));
             }
         });
 

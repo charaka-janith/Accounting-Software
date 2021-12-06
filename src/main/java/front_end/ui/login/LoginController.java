@@ -161,16 +161,28 @@ public class LoginController implements Initializable {
         try {
             Session.setUser(userBO.searchUser(txt_userName.getText()));
             if (null == Session.getUser()) {
-                Platform.runLater(() -> {
-                    Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
-                    txt_pass.setText("");
-                    txt_userName.setText("");
-                    txt_userName.requestFocus();
-                    Theme.giveBorderWarning(txt_userName);
-                    Theme.giveBorderWarning(txt_pass);
-                });
+                loginError();
             } else {
-                if (txt_pass.getText().equals(Session.getUser().getPassword())) {
+                if (txt_pass.getText().equals("") && null == Session.getUser().getPassword()){
+                    Parent root = FXMLLoader.load(Objects.requireNonNull(SetPasswordController.class.getResource("SetPassword.fxml")));
+                    Scene scene = new Scene(root);
+                    SetPasswordController.stage = new Stage();
+                    SetPasswordController.stage.setScene(scene);
+                    SetPasswordController.stage.setMaximized(true);
+                    SetPasswordController.stage.setResizable(false);
+                    SetPasswordController.stage.initStyle(StageStyle.UNDECORATED);
+                    SetPasswordController.stage.show();
+                    Theme.setShade(SetPasswordController.stage);
+                    new Thread(() -> {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException ignored) {
+                        }
+                        Platform.runLater(() -> {
+                            stage.close();
+                        });
+                    }).start();
+                } else if (txt_pass.getText().equals(Session.getUser().getPassword())) {
                     try {
                         if (Session.getUser().getType().equals("admin")) {
                             Parent root = FXMLLoader.load(Objects.requireNonNull(AdminDashboardController.class.getResource("AdminDashboard.fxml")));
@@ -215,12 +227,7 @@ public class LoginController implements Initializable {
                         e.printStackTrace();
                     }
                 } else {
-                    Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
-                    txt_pass.setText("");
-                    txt_userName.setText("");
-                    txt_userName.requestFocus();
-                    Theme.giveBorderWarning(txt_userName);
-                    Theme.giveBorderWarning(txt_pass);
+                    loginError();
                 }
             }
         } catch (NullPointerException e) {
@@ -228,6 +235,28 @@ public class LoginController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void loginError () {
+        Platform.runLater(() -> {
+            Theme.giveAWarning(
+                    Session.isSinhala()
+                            ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ"
+                            : "Invalid Credentials",
+                    "",
+                    lbl_main,
+                    region_back,
+                    region_top,
+                    region_bottom,
+                    region_left,
+                    region_right
+            );
+            txt_pass.setText("");
+            txt_userName.setText("");
+            txt_userName.requestFocus();
+            Theme.giveBorderWarning(txt_userName);
+            Theme.giveBorderWarning(txt_pass);
+        });
     }
 
     @FXML
