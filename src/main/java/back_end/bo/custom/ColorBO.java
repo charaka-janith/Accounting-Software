@@ -8,4 +8,5 @@ import java.sql.SQLException;
 
 public interface ColorBO extends SuperBO {
     public ColorDTO searchColor(String color) throws SQLException, ClassNotFoundException;
+    public boolean updateColor (ColorDTO color) throws SQLException, ClassNotFoundException;
 }

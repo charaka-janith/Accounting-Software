@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
+import java.sql.SQLException;
+
 public class Session {
     public static Node imageSlider;
     private static UserDTO user;
@@ -27,7 +29,7 @@ public class Session {
         return sinhala;
     }
 
-    public static void setSinhala(boolean language) throws Exception {
+    public static void setSinhala(boolean language) throws SQLException, ClassNotFoundException {
         sinhala = language;
         bo.updateConfig(language ? new ConfigDTO(0, "sinhala") : new ConfigDTO(0, "english"));
     }

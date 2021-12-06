@@ -21,8 +21,8 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean delete(String s) {
-        return false;
+    public boolean delete(String userName) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate("DELETE FROM User WHERE UserName=?", userName);
     }
 
     @Override

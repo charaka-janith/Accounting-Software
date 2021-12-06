@@ -313,13 +313,11 @@ public class ManageCompanyController implements Initializable {
         setColors();
         new RunLater(txt_name);
         runLater();
-        Theme.setChangeListeners(txt_name, txt_userName, txt_phoneNumber, txt_email, txt_website, txt_businessRegistrationNumber);
-        Platform.runLater(() -> txt_address.textProperty().addListener((observableValue, s, t1) -> txt_address.setStyle("-fx-border-color: transparent")));
+        Theme.setChangeListeners(txt_name, txt_userName, txt_address, txt_phoneNumber, txt_email, txt_website, txt_businessRegistrationNumber);
         new Thread(this::setCompanyDetails).start();
     }
 
     private void setColors() {
-        new Thread(() -> {
             Platform.runLater(() -> {
                 // background
                 Theme.setBackgroundColor("background", pane);
@@ -340,7 +338,6 @@ public class ManageCompanyController implements Initializable {
                 // icon
                 Theme.setIconFill("background", icon_refresh, icon_save);
             });
-        }).start();
     }
 
     private void runLater() {

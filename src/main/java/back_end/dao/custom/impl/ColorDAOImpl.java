@@ -21,8 +21,12 @@ public class ColorDAOImpl implements ColorDAO {
     }
 
     @Override
-    public boolean update(Colors colors) {
-        return false;
+    public boolean update(Colors colors) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate(
+                "UPDATE Colors SET ColorCode=? WHERE Color=?",
+                colors.getColorCode(),
+                colors.getColor()
+        );
     }
 
     @Override

@@ -216,8 +216,9 @@ public class LoginController implements Initializable {
                     }
                 } else {
                     Theme.giveAWarning(Session.isSinhala() ? "පරිශීලක නාමය හෝ මුරපදය වලංගු නොවේ" : "Invalid Credentials", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
-                    Theme.giveBorderWarning(txt_userName);
-                    Theme.giveBorderWarning(txt_pass);
+                    txt_pass.setText("");
+                    txt_userName.setText("");
+                    txt_userName.requestFocus();
                     Theme.giveBorderWarning(txt_userName);
                     Theme.giveBorderWarning(txt_pass);
                 }
@@ -244,7 +245,7 @@ public class LoginController implements Initializable {
                 Session.setSinhala(!Session.isSinhala());
                 setLanguage();
             } catch (SQLException e) {
-                Theme.giveAWarning("Database config invalid", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
+                Theme.giveAWarning(Session.isSinhala() ? "දත්ත සමුදා වින්‍යාසය වලංගු නැත !" : "Database config invalid !", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -328,7 +329,7 @@ public class LoginController implements Initializable {
                 Session.setSinhala(configBO.searchConfig(0).getLanguage().equals("sinhala"));
                 setLanguage();
             } catch (SQLException e) {
-                Theme.giveAWarning("Database config invalid", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
+                Theme.giveAWarning(Session.isSinhala() ? "දත්ත සමුදා වින්‍යාසය වලංගු නැත !" : "Database config invalid !", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -350,7 +351,7 @@ public class LoginController implements Initializable {
                 Theme.initialize();
                 Platform.runLater(() -> {
                     // background
-                    Theme.setBackgroundColor("background", pane);
+                    Theme.setBackgroundColor("background", pane, region_ui);
                     Theme.setBackgroundColor("success", region_back, btn_login);
                     Theme.setBackgroundColor("border", region_front, region_top, region_bottom, region_left, region_right);
                     Theme.setBackgroundColor("warning", btn_exit);
@@ -366,7 +367,7 @@ public class LoginController implements Initializable {
                     Theme.setIconFill("font", icon_username, icon_pass);
                 });
             } catch (SQLException e) {
-                Theme.giveAWarning("Database config invalid", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
+                Theme.giveAWarning(Session.isSinhala() ? "දත්ත සමුදා වින්‍යාසය වලංගු නැත !" : "Database config invalid !", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
             } catch (Exception e) {
                 e.printStackTrace();
             }

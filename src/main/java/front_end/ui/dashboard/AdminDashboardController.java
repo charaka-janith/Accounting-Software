@@ -39,6 +39,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class AdminDashboardController implements Initializable {
 
     public static Stage stage;
+    public static String windowMsg;
     private int count;
 
     @FXML
@@ -143,9 +144,7 @@ public class AdminDashboardController implements Initializable {
             try {
                 Session.setSinhala(!Session.isSinhala());
                 setLanguage();
-            } catch (SQLException e) {
-                Theme.giveAWarning("Database config invalid", "", lbl_main, region_back, region_top, region_bottom, region_left, region_right);
-            } catch (Exception e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }).start();
@@ -224,7 +223,7 @@ public class AdminDashboardController implements Initializable {
         if (Session.isSinhala()) {
             new Thread(() -> Platform.runLater(() -> {
                 lbl_welcome.setText("ආයුබෝවන් " + Session.getUser().getName() + " !");
-                lbl_main.setText(" සුභ දිනයක් වේවා !");
+                lbl_main.setText("සුභ දිනයක් වේවා !");
                 btn_dashboard.setText(" උපකරණ පුවරුව [F2]");
                 btn_manageCompany.setText(" සමාගම් කළමනාකරණ [F3]");
                 btn_manageAdmins.setText(" පරිපාලක කළමනාකරණ [F6]");
@@ -234,6 +233,7 @@ public class AdminDashboardController implements Initializable {
                 btn_exit.setText(" පිටවීම");
             })).start();
             toggleBtn_language.setSelected(true);
+            windowMsg = "සුභ දිනයක් වේවා !";
         } else {
             new Thread(() -> Platform.runLater(() -> {
                 lbl_welcome.setText("Welcome " + Session.getUser().getName() + " !");
@@ -247,6 +247,7 @@ public class AdminDashboardController implements Initializable {
                 btn_exit.setText(" Exit");
             })).start();
             toggleBtn_language.setSelected(false);
+            windowMsg = "Have A Great Day !";
         }
     }
 
@@ -266,8 +267,6 @@ public class AdminDashboardController implements Initializable {
     }
 
     private void setColors() {
-        new Thread(() -> {
-            try {
                 Platform.runLater(() -> {
                     subPane.setStyle("-fx-effect: dropshadow(three-pass-box,#C9C9C98D, 20.0, 0.0, 0.0, 10.0);");
                     // background
@@ -301,10 +300,6 @@ public class AdminDashboardController implements Initializable {
                     );
                     Theme.setIconFill("warning", icon_exit);
                 });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
     }
 
     private void slideShow() {
@@ -374,8 +369,8 @@ public class AdminDashboardController implements Initializable {
                 switch (Session.getCurrent_subPane()) {
                     case "dashboard" -> lbl_shortcuts.setText("උපකරණ පුවරුව = F2 / සමාගම් කළමනාකරණ = F3 / පරිපාලක කළමනාකරණ = F6 / තේමාව වෙනස් කිරීම = F7 / මුරපදය වෙනස් කිරීම = F9 / අගුල = F8");
                     case "manageCompany", "changePass" -> lbl_shortcuts.setText("ඊළඟ = Enter / ආපසු = Esc / සුරකින්න = F1 / නැවුම් කරන්න = F5");
-                    case "manageAdmins" -> lbl_shortcuts.setText("Next = Enter / Next Row = Down / Previous Row = Up / Save = F1 / Refresh = F5");
-                    case "changeTheme" -> lbl_shortcuts.setText("Save = F1 / Reset = F5");
+                    case "manageAdmins" -> lbl_shortcuts.setText("ඊළඟ = Enter / ඊළඟ පේළිය = Down / පෙර පේළිය = Up / සුරකින්න = F1 / නැවුම් කරන්න = F5");
+                    case "changeTheme" -> lbl_shortcuts.setText("සුරකින්න = F1 / යළි පිහිටුවන්න = F5");
                 }
             } else {
                 switch (Session.getCurrent_subPane()) {

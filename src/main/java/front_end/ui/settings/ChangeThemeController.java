@@ -1,24 +1,35 @@
 package front_end.ui.settings;
 
+import back_end.bo.BOFactory;
+import back_end.bo.custom.ColorBO;
+import back_end.dto.ColorDTO;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
+import front_end.ui.dashboard.AdminDashboardController;
+import front_end.ui.login.LoginController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ChangeThemeController implements Initializable {
+
+    ColorBO colorBO = (ColorBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.COLOR);
 
     @FXML
     private FontAwesomeIconView icon_refresh;
@@ -90,49 +101,112 @@ public class ChangeThemeController implements Initializable {
     private Region region_border;
 
     @FXML
-    void btn_save_keyReleased() {
-
+    void btn_save_keyReleased(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            btn_defaults.requestFocus();
+        }
     }
 
     @FXML
-    void colorPicker_colorSuccess_keyReleased() {
-
+    void colorPicker_colorSuccess_keyReleased(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            colorPicker_colorFont.requestFocus();
+        }
     }
 
     @FXML
-    void colorPicker_colorBg_keyReleased() {
-
+    void colorPicker_colorBg_keyReleased(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            btn_save.requestFocus();
+        }
     }
 
     @FXML
-    void colorPicker_colorFont_keyReleased() {
-
+    void colorPicker_colorFont_keyReleased(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            colorPicker_colorBorder.requestFocus();
+        }
     }
 
     @FXML
-    void colorPicker_colorBorder_keyReleased() {
-
+    void colorPicker_colorBorder_keyReleased(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            colorPicker_colorBg.requestFocus();
+        }
     }
 
     @FXML
-    void colorPicker_colorWarning_keyReleased() {
-
+    void colorPicker_colorWarning_keyReleased(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            colorPicker_colorSuccess.requestFocus();
+        }
     }
 
 
     @FXML
     void btn_defaults_onAction() {
+        reset();
+    }
 
+    private void reset () {
+        try {
+            colorBO.updateColor(new ColorDTO("background", "#ffffff") );
+            colorBO.updateColor(new ColorDTO("success", "#44bd32") );
+            colorBO.updateColor(new ColorDTO("border", "#1B1464") );
+            colorBO.updateColor(new ColorDTO("font", "#999999") );
+            colorBO.updateColor(new ColorDTO("warning", "#a50000") );
+            LoginController.backToLogin(AdminDashboardController.stage);
+        } catch (SQLException | ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void btn_save_onAction() {
+        saveColors();
+    }
 
+    private void saveColors() {
+        try {
+            colorBO.updateColor(new ColorDTO("background", "#" + (String.valueOf(colorPicker_colorBg.getValue())).substring(2)));
+            colorBO.updateColor(new ColorDTO("success", "#" + (String.valueOf(colorPicker_colorSuccess.getValue())).substring(2)));
+            colorBO.updateColor(new ColorDTO("border", "#" + (String.valueOf(colorPicker_colorBorder.getValue())).substring(2)));
+            colorBO.updateColor(new ColorDTO("font", "#" + (String.valueOf(colorPicker_colorFont.getValue())).substring(2)));
+            colorBO.updateColor(new ColorDTO("warning", "#" + (String.valueOf(colorPicker_colorWarning.getValue())).substring(2)));
+            Theme.successGif(AdminDashboardController.stage);
+            new Thread(() -> {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ignored) {
+                }
+                Platform.runLater(() -> {
+                    try {
+                        LoginController.backToLogin(AdminDashboardController.stage);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }).start();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void colorButtons_onAction() {
+        lbl_success.setText("Warning");
+        region_bg.setStyle("-fx-background-color:" + "#" + (String.valueOf(colorPicker_colorWarning.getValue())).substring(2));
 
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+                Platform.runLater(() -> {
+                    lbl_success.setText("Success");
+                    region_bg.setStyle("-fx-background-color:" + "#" + (String.valueOf(colorPicker_colorBg.getValue())).substring(2));
+                });
+            } catch (InterruptedException ignored) {
+            }
+        }).start();
     }
 
     @FXML
@@ -165,6 +239,7 @@ public class ChangeThemeController implements Initializable {
         setLanguage();
         setColors();
         new RunLater(colorPicker_colorBg);
+        runLater();
         setFocusListeners();
     }
 
@@ -220,7 +295,7 @@ public class ChangeThemeController implements Initializable {
                 btn_border.setText("මායිම්");
                 btn_warning.setText("අනතුරු ඇඟවීම");
                 btn_success.setText("සාර්ථකයි");
-                btn_defaults.setText("පෙරනිමි [F5]");
+                btn_defaults.setText("යළි පිහිටුවන්න [F5]");
                 btn_save.setText(" සුරකින්න [F1]");
             })).start();
         } else {
@@ -243,22 +318,43 @@ public class ChangeThemeController implements Initializable {
     }
 
     private void setColors() {
-        new Thread(() -> {
-            try {
-                Theme.initialize();
-                Platform.runLater(() -> {
-                    // background
-//                    Theme.setBackgroundColor("background", pane);
-                    // text
-//                    Theme.setTextFill("background", lbl_main);
-                    // icon
-//                    Theme.setIconFill("background", icon_date, icon_time, icon_signIn, icon_exit);
-                });
-            } catch (SQLException e) {
-                Theme.giveAWarning("Database config invalid", "Have A Great Day !", Session.admin_mainLabel, Session.admin_regionBack, Session.admin_regionTop, Session.admin_regionBottom, Session.admin_regionLeft, Session.admin_regionRight);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
+        Platform.runLater(() -> {
+            // background
+            Theme.setBackgroundColor("background", pane, region_bg);
+            Theme.setBackgroundColor("success", btn_save, btn_success);
+            Theme.setBackgroundColor("border", region_border, btn_border);
+            Theme.setBackgroundColor("warning", btn_defaults, btn_warning);
+            // text
+            Theme.setTextFill("background", btn_defaults, btn_save, btn_border, btn_warning, btn_success);
+            Theme.setTextFill("success", lbl_main, lbl_success);
+            Theme.setTextFill("font",
+                    lbl_font,
+                    lbl_colorBg,
+                    lbl_colorBorder,
+                    lbl_colorFont,
+                    lbl_colorSuccess,
+                    lbl_colorWarning
+            );
+            // icon
+            Theme.setIconFill("background", icon_refresh, icon_save);
+            // pickers
+            colorPicker_colorBg.setValue(Color.valueOf(Theme.background));
+            colorPicker_colorBorder.setValue(Color.valueOf(Theme.border));
+            colorPicker_colorFont.setValue(Color.valueOf(Theme.font));
+            colorPicker_colorSuccess.setValue(Color.valueOf(Theme.success));
+            colorPicker_colorWarning.setValue(Color.valueOf(Theme.warning));
+        });
+    }
+
+    private void runLater() {
+        Platform.runLater(() -> {
+            pane.getScene().setOnKeyPressed(event -> {
+                if (event.getCode().equals(KeyCode.F1)) {
+                    saveColors();
+                } else if (event.getCode().equals(KeyCode.F5)) {
+                    reset();
+                }
+            });
+        });
     }
 }

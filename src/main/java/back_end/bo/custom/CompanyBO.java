@@ -7,8 +7,6 @@ import java.sql.SQLException;
 
 public interface CompanyBO extends SuperBO {
     public CompanyDTO getCompany() throws SQLException, ClassNotFoundException;
-
     public boolean addCompany(CompanyDTO company) throws SQLException, ClassNotFoundException;
-
     public boolean updateCompany(CompanyDTO company) throws SQLException, ClassNotFoundException;
 }

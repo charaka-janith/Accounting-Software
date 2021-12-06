@@ -30,6 +30,11 @@ public class UserBOImpl implements UserBO {
     }
 
     @Override
+    public boolean deleteUser(String userName) throws SQLException, ClassNotFoundException {
+        return dao.delete(userName);
+    }
+
+    @Override
     public UserDTO searchUser(String userName) throws SQLException, ClassNotFoundException, UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         User user = dao.search(userName);
         return null == user ? null : new UserDTO(
