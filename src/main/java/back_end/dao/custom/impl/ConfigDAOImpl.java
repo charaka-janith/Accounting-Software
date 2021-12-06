@@ -4,6 +4,7 @@ import back_end.dao.CrudUtil;
 import back_end.dao.custom.ConfigDAO;
 import back_end.entity.Config;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ConfigDAOImpl implements ConfigDAO {
@@ -13,12 +14,12 @@ public class ConfigDAOImpl implements ConfigDAO {
     }
 
     @Override
-    public boolean delete(Integer integer) throws Exception {
+    public boolean delete(Integer integer) {
         return false;
     }
 
     @Override
-    public boolean update(Config config) throws Exception {
+    public boolean update(Config config) throws SQLException, ClassNotFoundException {
         return CrudUtil.executeUpdate(
                 "UPDATE Config SET Language=? WHERE Id=?",
                 config.getLanguage(),
@@ -27,7 +28,7 @@ public class ConfigDAOImpl implements ConfigDAO {
     }
 
     @Override
-    public Config search(Integer id) throws Exception {
+    public Config search(Integer id) throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.executeQuery(
                 "SELECT * FROM Config WHERE Id=?",
                 id
@@ -43,7 +44,7 @@ public class ConfigDAOImpl implements ConfigDAO {
     }
 
     @Override
-    public ArrayList<Config> getAll() throws Exception {
+    public ArrayList<Config> getAll() {
         return null;
     }
 }

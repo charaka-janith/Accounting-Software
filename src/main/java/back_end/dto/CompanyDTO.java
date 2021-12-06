@@ -2,6 +2,7 @@ package back_end.dto;
 
 public class CompanyDTO {
     private String name;
+    private String userName;
     private String address;
     private String phoneNumber;
     private String email;
@@ -11,8 +12,9 @@ public class CompanyDTO {
     public CompanyDTO() {
     }
 
-    public CompanyDTO(String name, String address, String phoneNumber, String email, String webSite, String brn) {
+    public CompanyDTO(String name, String userName, String address, String phoneNumber, String email, String webSite, String brn) {
         this.name = name;
+        this.userName = userName;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -26,6 +28,14 @@ public class CompanyDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getAddress() {

@@ -30,7 +30,7 @@ public class UserBOImpl implements UserBO {
     }
 
     @Override
-    public UserDTO searchUser(String userName) throws Exception {
+    public UserDTO searchUser(String userName) throws SQLException, ClassNotFoundException, UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         User user = dao.search(userName);
         return null == user ? null : new UserDTO(
                 user.getUserName(),
@@ -40,7 +40,7 @@ public class UserBOImpl implements UserBO {
     }
 
     @Override
-    public boolean updateUser(UserDTO user) throws Exception {
+    public boolean updateUser(UserDTO user) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, SQLException, ClassNotFoundException {
         return dao.update(new User(
                 user.getName(),
                 null != user.getPassword() ? new TrippleDes().encrypt(user.getPassword()) : null,
@@ -60,10 +60,5 @@ public class UserBOImpl implements UserBO {
             ));
         }
         return allUsers;
-    }
-
-    @Override
-    public boolean updateUser(UserDTO user) throws Exception {
-        return dao.update(new User(user.getName(), new TrippleDes().encrypt(user.getPassword()), user.getType()));
     }
 }
