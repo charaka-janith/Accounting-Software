@@ -3,8 +3,7 @@ package front_end.ui.dashboard;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import front_end.ui.company.ReceiptController;
-import front_end.ui.settings.ChangePasswordController;
+import front_end.ui.company.VoucherController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,14 +11,29 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class CompanyDashboardController {
 
-    public static Stage stage;
+    @FXML
+    private JFXButton btn_accounts;
+
+    @FXML
+    private JFXButton btn_balance;
+
+    @FXML
+    private JFXButton btn_bankBook;
+
+    @FXML
+    private JFXButton btn_cashBook;
+
+    @FXML
+    private JFXButton btn_changePass;
+
+    @FXML
+    private JFXButton btn_changeTheme;
 
     @FXML
     private JFXButton btn_dashboard;
@@ -31,7 +45,28 @@ public class CompanyDashboardController {
     private JFXButton btn_lock;
 
     @FXML
+    private JFXButton btn_profitLoss;
+
+    @FXML
     private JFXButton btn_receipt;
+
+    @FXML
+    private JFXButton btn_voucher;
+
+    @FXML
+    private FontAwesomeIconView icon_balance;
+
+    @FXML
+    private FontAwesomeIconView icon_bankBook;
+
+    @FXML
+    private FontAwesomeIconView icon_cashBook;
+
+    @FXML
+    private FontAwesomeIconView icon_changePassword;
+
+    @FXML
+    private FontAwesomeIconView icon_changeTheme;
 
     @FXML
     private FontAwesomeIconView icon_dashboard;
@@ -43,13 +78,22 @@ public class CompanyDashboardController {
     private FontAwesomeIconView icon_exit;
 
     @FXML
+    private FontAwesomeIconView icon_ledgerAccts;
+
+    @FXML
     private FontAwesomeIconView icon_lock;
+
+    @FXML
+    private FontAwesomeIconView icon_profitLoss;
 
     @FXML
     private FontAwesomeIconView icon_receipt;
 
     @FXML
     private FontAwesomeIconView icon_time;
+
+    @FXML
+    private FontAwesomeIconView icon_voucher;
 
     @FXML
     private Label lbl_date;
@@ -97,13 +141,43 @@ public class CompanyDashboardController {
     private JFXToggleButton toggleBtn_language;
 
     @FXML
+    void btn_accounts_onAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btn_balance_onAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btn_bankBook_onAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btn_cashBook_onAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btn_changePass_onAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btn_changeTheme_onAction(ActionEvent event) {
+
+    }
+
+    @FXML
     void btn_dashboard_onAction(ActionEvent event) {
 
     }
 
     @FXML
     void btn_exit_onAction(ActionEvent event) {
-System.exit(0);
+
     }
 
     @FXML
@@ -117,11 +191,21 @@ System.exit(0);
     }
 
     @FXML
+    void btn_profitLoss_onAction(ActionEvent event) {
+
+    }
+
+    @FXML
     void btn_receipt_onAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btn_voucher_onAction(ActionEvent event) {
         subPane.getChildren().clear();
         try {
             subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(
-                    ReceiptController.class.getResource("Receipt.fxml")
+                    VoucherController.class.getResource("Voucher.fxml")
             )));
         } catch (IOException e) {
             e.printStackTrace();
@@ -132,5 +216,4 @@ System.exit(0);
     void toggleBtn_language_onAction(ActionEvent event) {
 
     }
-
 }

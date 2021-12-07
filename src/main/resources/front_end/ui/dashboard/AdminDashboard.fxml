@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #F4F7FC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.dashboard.AdminDashboardController">
+<AnchorPane fx:id="pane" maxHeight="768.0" maxWidth="1366.0" minHeight="768.0" minWidth="1366.0" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #F4F7FC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.dashboard.AdminDashboardController">
     <children>
       <Region fx:id="region_back" layoutX="106.0" layoutY="-747.0" prefHeight="1600.0" prefWidth="768.0" rotate="60.9" style="-fx-background-color: #44BD32;">
          <effect>
@@ -122,7 +122,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_userName" alignment="CENTER" layoutX="5.0" layoutY="155.0" prefHeight="50.0" prefWidth="250.0" text="name" textFill="#1b1464">
+      <Label fx:id="lbl_userName" alignment="CENTER" layoutX="5.0" layoutY="155.0" prefHeight="50.0" prefWidth="300.0" text="name" textFill="#1b1464">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>

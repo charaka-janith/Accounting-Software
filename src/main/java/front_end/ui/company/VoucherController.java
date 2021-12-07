@@ -1,13 +1,9 @@
 package front_end.ui.company;
 
-import back_end.bo.BOFactory;
-import back_end.bo.custom.ReceiptBO;
-import back_end.dto.ReceiptDTO;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
-import front_end.regex.RegexManager;
 import front_end.sessions.Session;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -23,14 +19,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
-import java.sql.SQLException;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class ReceiptController implements Initializable {
-
-    private final ReceiptBO receiptBO = (ReceiptBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.RECEIPT);
+public class VoucherController implements Initializable {
 
     @FXML
     private JFXButton btn_refresh;
@@ -95,29 +87,16 @@ public class ReceiptController implements Initializable {
 
     @FXML
     void btn_save_onAction(ActionEvent event) {
-        submitReceipt();
+        submit();
     }
 
-    private void submitReceipt() {
-        if (RegexManager.verify_number(txt_number.getText())) {
-            try {
-                receiptBO.addReceipt(new ReceiptDTO(
-                        Integer.parseInt(txt_number.getText()),
-                        datePicker_date.getValue(),
-                        txt_description.getText(),
-                        Integer.parseInt(txt_amount.getText())
-                ));
-            } catch (ParseException | SQLException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        } else {
+    private void submit() {
 
-        }
     }
 
     @FXML
     void cmb_ledger_onAction(ActionEvent event) {
-        submitReceipt();
+        submit();
     }
 
     @FXML
@@ -217,7 +196,7 @@ public class ReceiptController implements Initializable {
     private void setLanguage() {
         if (Session.isSinhala()) {
             new Thread(() -> Platform.runLater(() -> {
-                lbl_main.setText("කුවිතාන්සි එකතු කිරීම");
+                lbl_main.setText("වවුචර් එකතු කිරීම");
                 lbl_number.setText("අංකය");
                 txt_number.setPromptText("අංකය ඇතුලත් කරන්න");
                 lbl_date.setText("දිනය");
@@ -230,7 +209,7 @@ public class ReceiptController implements Initializable {
             })).start();
         } else {
             new Thread(() -> Platform.runLater(() -> {
-                lbl_main.setText("Add Receipt");
+                lbl_main.setText("Add Voucher");
                 lbl_number.setText("Number");
                 txt_number.setPromptText("Enter Number");
                 lbl_date.setText("Date");
@@ -248,7 +227,7 @@ public class ReceiptController implements Initializable {
         Platform.runLater(() -> {
             pane.getScene().setOnKeyPressed(event -> {
                 if (event.getCode().equals(KeyCode.F1)) {
-                    submitReceipt();
+                    submit();
                 } else if (event.getCode().equals(KeyCode.F5)) {
                     refresh();
                 }

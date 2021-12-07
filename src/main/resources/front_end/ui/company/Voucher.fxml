@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="638.0" prefWidth="1006.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.company.ReceiptController">
+<AnchorPane fx:id="pane" prefHeight="638.0" prefWidth="1006.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.company.VoucherController">
     <children>
-      <Label fx:id="lbl_main" alignment="CENTER" prefHeight="50.0" prefWidth="1006.0" text="Add Receipt" textAlignment="CENTER" textFill="#44bd32">
+      <Label fx:id="lbl_main" alignment="CENTER" prefHeight="50.0" prefWidth="1006.0" text="Add Voucher" textAlignment="CENTER" textFill="#44bd32">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

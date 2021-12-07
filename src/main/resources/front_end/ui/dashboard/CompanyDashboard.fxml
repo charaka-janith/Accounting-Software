@@ -51,7 +51,7 @@
       <Region fx:id="region_left" prefHeight="768.0" prefWidth="5.0" style="-fx-background-color: #1B1464;" />
       <Region fx:id="region_right" layoutX="1361.0" prefHeight="768.0" prefWidth="5.0" style="-fx-background-color: #1B1464;" />
       <Label fx:id="lbl_shortcuts" alignment="CENTER" layoutX="250.0" layoutY="723.0" prefHeight="40.0" prefWidth="1111.0" text="no shortcuts here" />
-      <JFXButton fx:id="btn_dashboard" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="255.0" onAction="#btn_dashboard_onAction" onKeyReleased="#btn_onKeyReleased" prefHeight="40.0" prefWidth="260.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text=" Dashboard [F2]" textAlignment="JUSTIFY" textFill="#1b1464">
+      <JFXButton fx:id="btn_dashboard" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="155.0" onAction="#btn_dashboard_onAction" onKeyReleased="#btn_onKeyReleased" prefHeight="40.0" prefWidth="260.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text=" Dashboard" textAlignment="JUSTIFY" textFill="#1b1464">
          <font>
             <Font size="14.0" />
          </font>
@@ -62,13 +62,13 @@
             <FontAwesomeIconView fx:id="icon_dashboard" fill="#1b1464" glyphName="HOME" />
          </graphic>
       </JFXButton>
-      <Line endX="103.0" fill="#797979" layoutX="107.0" layoutY="633.0" opacity="0.14" startX="-100.0" />
+      <Line endX="103.0" fill="#797979" layoutX="107.0" layoutY="655.0" opacity="0.14" startX="-100.0" />
       <Label fx:id="lbl_main" layoutX="330.0" layoutY="45.0" prefHeight="40.0" text="Have A Great Day !" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_userName" alignment="CENTER" layoutX="5.0" layoutY="155.0" prefHeight="50.0" prefWidth="250.0" text="name" textFill="#1b1464">
+      <Label fx:id="lbl_userName" alignment="CENTER" layoutX="5.0" layoutY="95.0" prefHeight="50.0" prefWidth="300.0" text="name" textFill="#1b1464">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
@@ -94,7 +94,7 @@
             <FontAwesomeIconView fx:id="icon_time" fill="WHITE" glyphName="CALENDAR_ALT" />
          </graphic>
       </Label>
-      <JFXButton fx:id="btn_receipt" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="305.0" onAction="#btn_receipt_onAction" onKeyReleased="#btn_onKeyReleased" prefHeight="40.0" prefWidth="260.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text=" Receipt [F3]" textAlignment="JUSTIFY" textFill="#1b1464">
+      <JFXButton fx:id="btn_receipt" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="205.0" onAction="#btn_receipt_onAction" onKeyReleased="#btn_onKeyReleased" prefHeight="40.0" prefWidth="260.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text=" Receipt [F2]" textAlignment="JUSTIFY" textFill="#1b1464">
          <font>
             <Font size="14.0" />
          </font>
@@ -102,7 +102,95 @@
             <Cursor fx:constant="HAND" />
          </cursor>
          <graphic>
-            <FontAwesomeIconView fx:id="icon_receipt" fill="#1b1464" glyphName="FILE_ALT" />
+            <FontAwesomeIconView fx:id="icon_receipt" fill="#1b1464" glyphName="CREDIT_CARD_ALT" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_voucher" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="255.0" onAction="#btn_voucher_onAction" onKeyReleased="#btn_onKeyReleased" prefHeight="40.0" prefWidth="260.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text=" Voucher [F3]" textAlignment="JUSTIFY" textFill="#1b1464">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_voucher" fill="#1b1464" glyphName="CREDIT_CARD" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_cashBook" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="305.0" onAction="#btn_cashBook_onAction" onKeyReleased="#btn_onKeyReleased" prefHeight="40.0" prefWidth="260.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text=" Cash Book [F6]" textAlignment="JUSTIFY" textFill="#1b1464">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_cashBook" fill="#1b1464" glyphName="BOOK" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_bankBook" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="355.0" onAction="#btn_bankBook_onAction" onKeyReleased="#btn_onKeyReleased" prefHeight="40.0" prefWidth="260.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text=" Bank Book [F7]" textAlignment="JUSTIFY" textFill="#1b1464">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_bankBook" fill="#1b1464" glyphName="FILE" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_accounts" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="405.0" onAction="#btn_accounts_onAction" onKeyReleased="#btn_onKeyReleased" prefHeight="40.0" prefWidth="260.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text=" Ledger Accounts [F9]" textAlignment="JUSTIFY" textFill="#1b1464">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_ledgerAccts" fill="#1b1464" glyphName="LIST_ALT" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_profitLoss" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="455.0" onAction="#btn_profitLoss_onAction" onKeyReleased="#btn_onKeyReleased" prefHeight="40.0" prefWidth="260.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text=" Profit and Loss [F10]" textAlignment="JUSTIFY" textFill="#1b1464">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_profitLoss" fill="#1b1464" glyphName="SERVER" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_balance" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="505.0" onAction="#btn_balance_onAction" onKeyReleased="#btn_onKeyReleased" prefHeight="40.0" prefWidth="260.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text=" Trial Balance [F11]" textAlignment="JUSTIFY" textFill="#1b1464">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_balance" fill="#1b1464" glyphName="DATABASE" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_changeTheme" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="555.0" onAction="#btn_changeTheme_onAction" onKeyReleased="#btn_onKeyReleased" prefHeight="40.0" prefWidth="260.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text=" Change Theme [F12]" textFill="#1b1464">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_changeTheme" fill="#1b1464" glyphName="PAINT_BRUSH" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_changePass" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="605.0" onAction="#btn_changePass_onAction" onKeyReleased="#btn_onKeyReleased" prefHeight="40.0" prefWidth="260.0" ripplerFill="#9a9a9a" style="-fx-border-radius: 5; -fx-background-radius: 5;" text=" Change Password" textAlignment="JUSTIFY" textFill="#1b1464">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_changePassword" fill="#1b1464" glyphName="KEY" />
          </graphic>
       </JFXButton>
     </children>
