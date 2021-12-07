@@ -194,10 +194,10 @@ public class Theme {
             @Override
             public void handle(ActionEvent event) {
                 if (Session.isSinhala()) {
-                    date.setText(" දිනය : " + new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
+                    date.setText(" දිනය : " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
                     time.setText(" වේලාව : " + new SimpleDateFormat("hh:mm:ss a").format(new Date()));
                 } else {
-                    date.setText(" Date : " + new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
+                    date.setText(" Date : " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
                     time.setText(" Time : " + new SimpleDateFormat("hh:mm:ss a").format(new Date()));
                 }
             }

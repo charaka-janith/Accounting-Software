@@ -9,7 +9,7 @@ import back_end.entity.Company;
 import java.sql.SQLException;
 
 public class CompanyBOImpl implements CompanyBO {
-    CompanyDAO dao = (CompanyDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOFactoryTypes.COMPANY);
+    private final CompanyDAO dao = (CompanyDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOFactoryTypes.COMPANY);
 
     @Override
     public CompanyDTO getCompany() throws SQLException, ClassNotFoundException {
@@ -43,8 +43,8 @@ public class CompanyBOImpl implements CompanyBO {
     }
 
     @Override
-    public boolean updateCompany(CompanyDTO company) throws SQLException, ClassNotFoundException {
-        return dao.update(new Company(
+    public boolean updateCompany(CompanyDTO company, String oldUsername) throws SQLException, ClassNotFoundException {
+        return dao.updateCompany(new Company(
                 company.getName(),
                 company.getUserName(),
                 company.getAddress(),
@@ -52,6 +52,6 @@ public class CompanyBOImpl implements CompanyBO {
                 company.getEmail(),
                 company.getWebSite(),
                 company.getBrn()
-        ));
+        ), oldUsername);
     }
 }

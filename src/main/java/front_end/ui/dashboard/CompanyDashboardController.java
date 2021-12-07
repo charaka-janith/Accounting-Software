@@ -1,29 +1,28 @@
 package front_end.ui.dashboard;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXToggleButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import front_end.ui.company.ReceiptController;
+import front_end.ui.settings.ChangePasswordController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class CompanyDashboardController {
 
     public static Stage stage;
 
     @FXML
-    private JFXButton btn_changePass;
-
-    @FXML
-    private JFXButton btn_changeTheme;
-
-    @FXML
-    private JFXButton btn_createCompany;
-
-    @FXML
-    private JFXButton btn_editCompany;
+    private JFXButton btn_dashboard;
 
     @FXML
     private JFXButton btn_exit;
@@ -32,10 +31,28 @@ public class CompanyDashboardController {
     private JFXButton btn_lock;
 
     @FXML
-    private JFXButton btn_manageAdmins;
+    private JFXButton btn_receipt;
 
     @FXML
-    private ImageView imageView;
+    private FontAwesomeIconView icon_dashboard;
+
+    @FXML
+    private FontAwesomeIconView icon_date;
+
+    @FXML
+    private FontAwesomeIconView icon_exit;
+
+    @FXML
+    private FontAwesomeIconView icon_lock;
+
+    @FXML
+    private FontAwesomeIconView icon_receipt;
+
+    @FXML
+    private FontAwesomeIconView icon_time;
+
+    @FXML
+    private Label lbl_date;
 
     @FXML
     private Label lbl_main;
@@ -44,13 +61,28 @@ public class CompanyDashboardController {
     private Label lbl_shortcuts;
 
     @FXML
+    private Label lbl_time;
+
+    @FXML
+    private Label lbl_userName;
+
+    @FXML
+    private Label lbl_welcome;
+
+    @FXML
     private AnchorPane pane;
+
+    @FXML
+    private Region region_back;
 
     @FXML
     private Region region_bottom;
 
     @FXML
     private Region region_left;
+
+    @FXML
+    private Region region_menu;
 
     @FXML
     private Region region_right;
@@ -62,28 +94,16 @@ public class CompanyDashboardController {
     private AnchorPane subPane;
 
     @FXML
-    void btn_changePass_onAction(ActionEvent event) {
-
-    }
+    private JFXToggleButton toggleBtn_language;
 
     @FXML
-    void btn_changeTheme_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btn_createCompany_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btn_editCompany_onAction(ActionEvent event) {
+    void btn_dashboard_onAction(ActionEvent event) {
 
     }
 
     @FXML
     void btn_exit_onAction(ActionEvent event) {
-
+System.exit(0);
     }
 
     @FXML
@@ -92,7 +112,24 @@ public class CompanyDashboardController {
     }
 
     @FXML
-    void btn_manageAdmins_onAction(ActionEvent event) {
+    void btn_onKeyReleased(KeyEvent event) {
+
+    }
+
+    @FXML
+    void btn_receipt_onAction(ActionEvent event) {
+        subPane.getChildren().clear();
+        try {
+            subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(
+                    ReceiptController.class.getResource("Receipt.fxml")
+            )));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void toggleBtn_language_onAction(ActionEvent event) {
 
     }
 

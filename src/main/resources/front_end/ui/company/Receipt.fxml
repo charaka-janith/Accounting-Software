@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="638.0" prefWidth="1006.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.company.ReceiptController">
+    <children>
+      <Label fx:id="lbl_main" alignment="CENTER" prefHeight="50.0" prefWidth="1006.0" text="Add Receipt" textAlignment="CENTER" textFill="#44bd32">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_number" layoutX="50.0" layoutY="60.0" prefHeight="25.0" text="Number" textFill="#999999">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_number" layoutX="50.0" layoutY="90.0" onAction="#txt_number_onAction" onKeyReleased="#txt_number_onKeyReleased" prefHeight="30.0" prefWidth="120.0" promptText="Enter Number" style="-fx-border-radius: 2;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lbl_date" layoutX="50.0" layoutY="140.0" prefHeight="25.0" text="Date" textFill="#999999">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="datePicker_date" layoutX="50.0" layoutY="170.0" onAction="#datePicker_date_onAction" onKeyReleased="#datePicker_date_onKeyReleased" prefHeight="30.0" prefWidth="200.0" />
+      <Label fx:id="lbl_description" layoutX="50.0" layoutY="220.0" prefHeight="25.0" text="Description" textFill="#999999">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_description" layoutX="50.0" layoutY="250.0" onAction="#txt_description_onAction" onKeyReleased="#txt_description_onKeyReleased" prefHeight="30.0" prefWidth="906.0" promptText="Enter Description" style="-fx-border-radius: 2;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lbl_amount" layoutX="50.0" layoutY="300.0" prefHeight="25.0" text="Amount" textFill="#999999">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_amount" layoutX="50.0" layoutY="330.0" onAction="#txt_amount_onAction" onKeyReleased="#txt_amount_onKeyReleased" prefHeight="30.0" prefWidth="200.0" promptText="Enter Amount" style="-fx-border-radius: 2;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+        <JFXButton fx:id="btn_save" layoutX="528.0" layoutY="538.0" onAction="#btn_save_onAction" onKeyReleased="#btn_save_keyReleased" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #44BD32; -fx-background-radius: 5; -fx-border-radius: 5;" text=" Add [F1]" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_save" fill="WHITE" glyphName="SAVE" />
+         </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btn_refresh" layoutX="50.0" layoutY="538.0" onAction="#btn_refresh_onAction" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #1B1464; -fx-background-radius: 5; -fx-border-radius: 5;" text=" Refresh [F5]" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_refresh" fill="WHITE" glyphName="RETWEET" />
+         </graphic>
+        </JFXButton>
+    </children>
+</AnchorPane>

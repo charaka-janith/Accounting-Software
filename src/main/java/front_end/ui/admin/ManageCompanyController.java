@@ -86,7 +86,6 @@ public class ManageCompanyController implements Initializable {
     @FXML
     private TextField txt_website;
 
-    //    ..........................................Key Events........................................
     @FXML
     void txt_name_keyReleased(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
@@ -143,7 +142,6 @@ public class ManageCompanyController implements Initializable {
         }
     }
 
-    //    ..........................................Action Events........................................
     @FXML
     void txt_name_onAction() {
         txt_userName.requestFocus();
@@ -243,7 +241,7 @@ public class ManageCompanyController implements Initializable {
                         txt_email.getText(),
                         txt_website.getText(),
                         txt_businessRegistrationNumber.getText()
-                ));
+                ), company.getUserName());
             } else {
                 companyBO.addCompany(new CompanyDTO(
                         txt_name.getText(),

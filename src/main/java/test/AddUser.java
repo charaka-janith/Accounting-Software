@@ -3,7 +3,6 @@ package test;
 import back_end.bo.BOFactory;
 import back_end.bo.custom.UserBO;
 import back_end.dto.UserDTO;
-
 import java.sql.SQLIntegrityConstraintViolationException;
 
 public class AddUser {

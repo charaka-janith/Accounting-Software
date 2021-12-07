@@ -1,9 +1,6 @@
 package back_end.bo;
 
-import back_end.bo.custom.impl.ColorBOImpl;
-import back_end.bo.custom.impl.CompanyBOImpl;
-import back_end.bo.custom.impl.ConfigBOImpl;
-import back_end.bo.custom.impl.UserBOImpl;
+import back_end.bo.custom.impl.*;
 
 public class BOFactory {
 
@@ -20,7 +17,7 @@ public class BOFactory {
     }
 
     public enum BOTypes {
-        USER, CONFIG, COLOR, COMPANY;
+        USER, CONFIG, COLOR, COMPANY, RECEIPT;
     }
 
     public SuperBO getBO(BOTypes types) {
@@ -29,6 +26,7 @@ public class BOFactory {
             case CONFIG -> new ConfigBOImpl();
             case COLOR -> new ColorBOImpl();
             case COMPANY -> new CompanyBOImpl();
+            case RECEIPT -> new ReceiptBOImpl();
         };
     }
 
