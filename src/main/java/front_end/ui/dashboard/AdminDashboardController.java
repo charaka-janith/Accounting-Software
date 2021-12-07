@@ -148,7 +148,7 @@ public class AdminDashboardController implements Initializable {
                 e.printStackTrace();
             }
         }).start();
-        handleAllButtons(Session.getCurrent_subPane());
+        handleButtons(Session.getCurrent_subPane());
     }
 
     private void setErrorInputs() {
@@ -162,17 +162,17 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     void btn_changePass_onAction() {
-        handleAllButtons("changePass");
+        handleButtons("changePass");
     }
 
     @FXML
     void btn_changeTheme_onAction() {
-        handleAllButtons("changeTheme");
+        handleButtons("changeTheme");
     }
 
     @FXML
     void btn_dashboard_onAction() {
-        handleAllButtons("dashboard");
+        handleButtons("dashboard");
     }
 
     @FXML
@@ -204,12 +204,12 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     void btn_manageAdmins_onAction() {
-        handleAllButtons("manageAdmins");
+        handleButtons("manageAdmins");
     }
 
     @FXML
     void btn_manageCompany_onAction() {
-        handleAllButtons("manageCompany");
+        handleButtons("manageCompany");
     }
 
     @FXML
@@ -319,7 +319,7 @@ public class AdminDashboardController implements Initializable {
         timeline.play();
     }
 
-    private void handleAllButtons(String btnName) {
+    private void handleButtons(String btnName) {
         subPane.getChildren().clear();
         switch (btnName) {
             case "dashboard" -> {
@@ -389,13 +389,13 @@ public class AdminDashboardController implements Initializable {
             slideShow();
             pane.getScene().setOnKeyReleased(event -> {
                 if (event.getCode().equals(KeyCode.F2)) {
-                    handleAllButtons("dashboard");
+                    handleButtons("dashboard");
                 } else if (event.getCode().equals(KeyCode.F3)) {
-                    handleAllButtons("manageCompany");
+                    handleButtons("manageCompany");
                 } else if (event.getCode().equals(KeyCode.F6)) {
-                    handleAllButtons("manageAdmins");
+                    handleButtons("manageAdmins");
                 } else if (event.getCode().equals(KeyCode.F7)) {
-                    handleAllButtons("changeTheme");
+                    handleButtons("changeTheme");
                 } else if (event.getCode().equals(KeyCode.F8)) {
                     try {
                         LoginController.backToLogin(stage);
@@ -403,7 +403,7 @@ public class AdminDashboardController implements Initializable {
                         e.printStackTrace();
                     }
                 } else if (event.getCode().equals(KeyCode.F9)) {
-                    handleAllButtons("changePass");
+                    handleButtons("changePass");
                 }
             });
         });

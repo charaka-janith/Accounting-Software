@@ -108,7 +108,8 @@ public class CompanyDAOImpl implements CompanyDAO {
                 company.getWebSite(),
                 company.getBrn()
         );
-        userDAO.delete(oldUsername);
+        if (!company.getUserName().equals(oldUsername))
+            userDAO.delete(oldUsername);
         return updated;
     }
 }

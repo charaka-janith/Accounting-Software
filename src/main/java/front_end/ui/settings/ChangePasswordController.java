@@ -9,6 +9,7 @@ import front_end.anim.RunLater;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
 import front_end.ui.dashboard.AdminDashboardController;
+import front_end.ui.dashboard.CompanyDashboardController;
 import front_end.ui.login.LoginController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -133,7 +134,7 @@ public class ChangePasswordController implements Initializable {
                     Session.isSinhala()
                             ? "වැරදි මුරපදයක්, කරුණාකර නැවත උත්සාහ කරන්න !"
                             : "Incorrect Password, Please try again !",
-                    AdminDashboardController.windowMsg,
+                    Session.getUser().getType().equals("admin") ? AdminDashboardController.windowMsg : CompanyDashboardController.windowMsg,
                     Session.admin_mainLabel,
                     Session.admin_regionBack,
                     Session.admin_regionTop,
@@ -157,7 +158,7 @@ public class ChangePasswordController implements Initializable {
                             userDTO.setPassword(txt_newPass.getText());
                             boolean updated = userBO.updateUser(userDTO);
                             if (updated) {
-                                Theme.successGif(AdminDashboardController.stage);
+                                Theme.successGif(Session.getUser().getType().equals("admin") ? AdminDashboardController.stage : CompanyDashboardController.stage);
                                 new Thread(() -> {
                                     try {
                                         Thread.sleep(1000);
@@ -165,7 +166,7 @@ public class ChangePasswordController implements Initializable {
                                     }
                                     Platform.runLater(() -> {
                                         try {
-                                            LoginController.backToLogin(AdminDashboardController.stage);
+                                            LoginController.backToLogin(Session.getUser().getType().equals("admin") ? AdminDashboardController.stage : CompanyDashboardController.stage);
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
@@ -182,7 +183,7 @@ public class ChangePasswordController implements Initializable {
                                 Session.isSinhala()
                                         ? "නව මුරපද නොගැලපේ, කරුණාකර නැවත උත්සාහ කරන්න !"
                                         : "New Passwords don't match, Please try again !",
-                                AdminDashboardController.windowMsg,
+                                Session.getUser().getType().equals("admin") ? AdminDashboardController.windowMsg : CompanyDashboardController.windowMsg,
                                 Session.admin_mainLabel,
                                 Session.admin_regionBack,
                                 Session.admin_regionTop,
@@ -200,7 +201,7 @@ public class ChangePasswordController implements Initializable {
                             Session.isSinhala()
                                     ? "නව මුරපද හිස් නොවිය යුතුය, කරුණාකර නැවත උත්සාහ කරන්න !"
                                     : "New Passwords shouldn't be empty, Please try again !",
-                            AdminDashboardController.windowMsg,
+                            Session.getUser().getType().equals("admin") ? AdminDashboardController.windowMsg : CompanyDashboardController.windowMsg,
                             Session.admin_mainLabel,
                             Session.admin_regionBack,
                             Session.admin_regionTop,
@@ -218,7 +219,7 @@ public class ChangePasswordController implements Initializable {
                         Session.isSinhala()
                                 ? "නව මුරපද වත්මන් මුරපදයට සමාන නොවිය යුතුය, කරුණාකර නැවත උත්සාහ කරන්න !"
                                 : "New Passwords shouldn't be the same as current password, Please try again !",
-                        AdminDashboardController.windowMsg,
+                        Session.getUser().getType().equals("admin") ? AdminDashboardController.windowMsg : CompanyDashboardController.windowMsg,
                         Session.admin_mainLabel,
                         Session.admin_regionBack,
                         Session.admin_regionTop,
@@ -283,7 +284,7 @@ public class ChangePasswordController implements Initializable {
 
     private void setFocusListeners() {
         txt_currentPass.focusedProperty().addListener((observableValue, aBoolean, focused) -> {
-            if (!focused && txt_currentPass.getText().equals("")) {
+            if (!focused && !txt_currentPass.getText().equals("")) {
                 checkCurrentPassword();
             }
         });

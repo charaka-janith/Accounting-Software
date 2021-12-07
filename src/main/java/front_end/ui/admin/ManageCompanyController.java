@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class ManageCompanyController implements Initializable {
 
-    CompanyBO companyBO = (CompanyBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.COMPANY);
+    private final CompanyBO companyBO = (CompanyBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.COMPANY);
 
     @FXML
     private JFXButton btn_save;

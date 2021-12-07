@@ -9,6 +9,7 @@ import front_end.anim.RunLater;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
 import front_end.ui.dashboard.AdminDashboardController;
+import front_end.ui.dashboard.CompanyDashboardController;
 import front_end.ui.login.LoginController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -155,7 +156,7 @@ public class ChangeThemeController implements Initializable {
             colorBO.updateColor(new ColorDTO("border", "#1B1464") );
             colorBO.updateColor(new ColorDTO("font", "#999999") );
             colorBO.updateColor(new ColorDTO("warning", "#a50000") );
-            LoginController.backToLogin(AdminDashboardController.stage);
+            LoginController.backToLogin(Session.getUser().getType().equals("admin") ? AdminDashboardController.stage : CompanyDashboardController.stage);
         } catch (SQLException | ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
@@ -173,7 +174,7 @@ public class ChangeThemeController implements Initializable {
             colorBO.updateColor(new ColorDTO("border", "#" + (String.valueOf(colorPicker_colorBorder.getValue())).substring(2)));
             colorBO.updateColor(new ColorDTO("font", "#" + (String.valueOf(colorPicker_colorFont.getValue())).substring(2)));
             colorBO.updateColor(new ColorDTO("warning", "#" + (String.valueOf(colorPicker_colorWarning.getValue())).substring(2)));
-            Theme.successGif(AdminDashboardController.stage);
+            Theme.successGif(Session.getUser().getType().equals("admin") ? AdminDashboardController.stage : CompanyDashboardController.stage);
             new Thread(() -> {
                 try {
                     Thread.sleep(1000);
@@ -181,7 +182,7 @@ public class ChangeThemeController implements Initializable {
                 }
                 Platform.runLater(() -> {
                     try {
-                        LoginController.backToLogin(AdminDashboardController.stage);
+                        LoginController.backToLogin(Session.getUser().getType().equals("admin") ? AdminDashboardController.stage : CompanyDashboardController.stage);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
