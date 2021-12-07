@@ -7,15 +7,21 @@ import front_end.ui.company.VoucherController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class CompanyDashboardController {
+public class CompanyDashboardController implements Initializable {
+
+    public static Stage stage;
 
     @FXML
     private JFXButton btn_accounts;
@@ -214,6 +220,11 @@ public class CompanyDashboardController {
 
     @FXML
     void toggleBtn_language_onAction(ActionEvent event) {
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 }
