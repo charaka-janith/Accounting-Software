@@ -10,7 +10,7 @@ import back_end.entity.Company;
 import java.sql.SQLException;
 
 public class ColorBOImpl implements ColorBO {
-    ColorDAO dao = (ColorDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOFactoryTypes.COLORS);
+    private final ColorDAO dao = (ColorDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOFactoryTypes.COLORS);
 
     @Override
     public ColorDTO searchColor(String color) throws SQLException, ClassNotFoundException {

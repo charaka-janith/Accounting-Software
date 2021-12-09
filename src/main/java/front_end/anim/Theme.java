@@ -21,9 +21,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -118,6 +116,28 @@ public class Theme {
             for (TextField textField :
                     textFields) {
                 textField.textProperty().addListener((observableValue, s, t1) -> textField.setStyle("-fx-border-color: transparent"));
+            }
+        });
+    }
+
+    public static void setChangeListeners(ComboBox... comboBoxes) {
+        Platform.runLater(() -> {
+            for (ComboBox comboBox :
+                    comboBoxes) {
+                comboBox.setButtonCell(new ListCell<String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty) ;
+                        if (empty || item == null) {
+                            setText(comboBox.getPromptText());
+                        } else {
+                            setText(item);
+                        }
+                    }
+                });
+                comboBox.setOnAction(event -> {
+                    comboBox.setStyle("-fx-border-color: transparent");
+                });
             }
         });
     }

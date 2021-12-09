@@ -17,7 +17,7 @@ public class BOFactory {
     }
 
     public enum BOTypes {
-        USER, CONFIG, COLOR, COMPANY, RECEIPT;
+        USER, CONFIG, COLOR, COMPANY, RECEIPT, VOUCHER, LEDGER;
     }
 
     public SuperBO getBO(BOTypes types) {
@@ -27,6 +27,8 @@ public class BOFactory {
             case COLOR -> new ColorBOImpl();
             case COMPANY -> new CompanyBOImpl();
             case RECEIPT -> new ReceiptBOImpl();
+            case VOUCHER -> new VoucherBOImpl();
+            case LEDGER -> new LedgerBOImpl();
         };
     }
 

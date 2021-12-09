@@ -9,6 +9,7 @@ import front_end.anim.PaneOpenAnim;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
+import front_end.ui.company.LedgersController;
 import front_end.ui.company.ReceiptController;
 import front_end.ui.company.VoucherController;
 import front_end.ui.login.LoginController;
@@ -165,7 +166,7 @@ public class CompanyDashboardController implements Initializable {
 
     @FXML
     void btn_accounts_onAction(ActionEvent event) {
-
+        handle_buttons("ledger");
     }
 
     @FXML
@@ -307,6 +308,17 @@ public class CompanyDashboardController implements Initializable {
                     e.printStackTrace();
                 }
             }
+            case "ledger" -> {
+                btn_accounts.requestFocus();
+                try {
+                    subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(
+                            LedgersController.class.getResource("Ledgers.fxml")
+                    )));
+                    Session.setCurrent_subPane("ledger");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             case "changeTheme" -> {
                 btn_changeTheme.requestFocus();
                 try {
@@ -404,8 +416,8 @@ public class CompanyDashboardController implements Initializable {
             new Thread(() -> Platform.runLater(() -> {
                 lbl_main.setText("සුභ දිනයක් වේවා !");
                 btn_dashboard.setText(" උපකරණ පුවරුව");
-                btn_receipt.setText(" Receipt [F2]");
-                btn_voucher.setText(" Voucher [F3]");
+                btn_receipt.setText(" කුවිතාන්සි [F2]");
+                btn_voucher.setText(" වවුචර් [F3]");
                 btn_cashBook.setText(" Cash Book [F6]");
                 btn_bankBook.setText(" Bank Book [F7]");
                 btn_accounts.setText(" Ledger Accounts [F9]");
@@ -467,6 +479,8 @@ public class CompanyDashboardController implements Initializable {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                } else if (event.getCode().equals(KeyCode.F9)) {
+                    handle_buttons("ledger");
                 } else if (event.getCode().equals(KeyCode.F12)) {
                     handle_buttons("changeTheme");
                 }

@@ -2,16 +2,16 @@ package back_end.dto;
 
 import java.time.LocalDate;
 
-public class ReceiptDTO {
+public class VoucherDTO {
     private int number;
     private int ledger;
     private LocalDate date;
     private String description;
     private int amount;
 
-    public ReceiptDTO() {}
+    public VoucherDTO() {}
 
-    public ReceiptDTO(int number, int ledger, LocalDate date, String description, int amount) {
+    public VoucherDTO(int number, int ledger, LocalDate date, String description, int amount) {
         this.number = number;
         this.ledger = ledger;
         this.date = date;

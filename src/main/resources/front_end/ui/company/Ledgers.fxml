@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="638.0" prefWidth="1006.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.company.LedgersController">
+    <children>
+      <Label fx:id="lbl_main" alignment="CENTER" prefHeight="50.0" prefWidth="1006.0" text="Ledger Accounts List" textAlignment="CENTER" textFill="#44bd32">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_acctName" layoutX="528.0" layoutY="423.0" prefHeight="25.0" text="Account Name" textFill="#999999">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_acctName" layoutX="528.0" layoutY="453.0" onAction="#txt_acctName_onAction" onKeyReleased="#txt_acctName_onKeyReleased" prefHeight="30.0" prefWidth="428.0" promptText="Enter Account Name" style="-fx-border-radius: 2;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TableView fx:id="tbl_ledgerAcct" editable="true" layoutX="50.0" layoutY="60.0" prefHeight="328.0" prefWidth="906.0" style="-fx-background-color: transparent;">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Account" />
+          <TableColumn prefWidth="75.0" text="Go To" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <JFXButton fx:id="btn_create" layoutX="528.0" layoutY="538.0" onAction="#btn_create_onAction" onKeyReleased="#btn_create_keyReleased" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #44BD32; -fx-background-radius: 5; -fx-border-radius: 5;" text=" Create Ledger [F1]" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_save" fill="WHITE" glyphName="SAVE" />
+         </graphic>
+      </JFXButton>
+        <JFXButton fx:id="btn_refresh" layoutX="50.0" layoutY="538.0" onAction="#btn_refresh_onAction" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #1B1464; -fx-background-radius: 5; -fx-border-radius: 5;" text=" Refresh [F5]" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+         <graphic>
+            <FontAwesomeIconView fx:id="icon_refresh" fill="WHITE" glyphName="RETWEET" />
+         </graphic>
+        </JFXButton>
+    </children>
+</AnchorPane>

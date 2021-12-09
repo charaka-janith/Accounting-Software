@@ -2,15 +2,16 @@ package back_end.entity;
 
 public class Receipt {
     private int number;
+    private int ledger;
     private String date;
     private String description;
     private int amount;
 
-    public Receipt() {
-    }
+    public Receipt() {}
 
-    public Receipt(int number, String date, String description, int amount) {
+    public Receipt(int number, int ledger, String date, String description, int amount) {
         this.number = number;
+        this.ledger = ledger;
         this.date = date;
         this.description = description;
         this.amount = amount;
@@ -22,6 +23,14 @@ public class Receipt {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public int getLedger() {
+        return ledger;
+    }
+
+    public void setLedger(int ledger) {
+        this.ledger = ledger;
     }
 
     public String getDate() {

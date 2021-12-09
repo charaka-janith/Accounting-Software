@@ -17,7 +17,7 @@ public class DAOFactory {
     }
 
     public enum DAOFactoryTypes {
-        USER, CONFIG, COLORS, COMPANY, RECEIPT;
+        USER, CONFIG, COLORS, COMPANY, RECEIPT, VOUCHER, LEDGER;
     }
 
     public SuperDAO getDAO(DAOFactoryTypes types) {
@@ -27,6 +27,8 @@ public class DAOFactory {
             case COLORS -> new ColorDAOImpl();
             case COMPANY -> new CompanyDAOImpl();
             case RECEIPT -> new ReceiptDAOImpl();
+            case VOUCHER -> new VoucherDAOImpl();
+            case LEDGER -> new LedgerDAOImpl();
         };
 
     }

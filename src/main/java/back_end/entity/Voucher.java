@@ -1,17 +1,15 @@
-package back_end.dto;
+package back_end.entity;
 
-import java.time.LocalDate;
-
-public class ReceiptDTO {
+public class Voucher {
     private int number;
     private int ledger;
-    private LocalDate date;
+    private String date;
     private String description;
     private int amount;
 
-    public ReceiptDTO() {}
+    public Voucher() {}
 
-    public ReceiptDTO(int number, int ledger, LocalDate date, String description, int amount) {
+    public Voucher(int number, int ledger, String date, String description, int amount) {
         this.number = number;
         this.ledger = ledger;
         this.date = date;
@@ -35,11 +33,11 @@ public class ReceiptDTO {
         this.ledger = ledger;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

@@ -22,7 +22,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txt_number" layoutX="50.0" layoutY="90.0" onAction="#txt_number_onAction" onKeyReleased="#txt_number_onKeyReleased" prefHeight="30.0" prefWidth="120.0" promptText="Enter Number" style="-fx-border-radius: 2;">
+      <TextField fx:id="txt_number" layoutX="50.0" layoutY="90.0" onKeyReleased="#txt_number_onKeyReleased" prefHeight="30.0" prefWidth="120.0" promptText="Enter Number" style="-fx-border-radius: 2;">
          <font>
             <Font size="14.0" />
          </font>
@@ -32,7 +32,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <DatePicker fx:id="datePicker_date" layoutX="50.0" layoutY="170.0" onAction="#datePicker_date_onAction" onKeyReleased="#datePicker_date_onKeyReleased" prefHeight="30.0" prefWidth="200.0" />
+      <DatePicker fx:id="datePicker_date" layoutX="50.0" layoutY="170.0" onKeyReleased="#datePicker_date_onKeyReleased" prefHeight="28.0" prefWidth="200.0" />
       <Label fx:id="lbl_description" layoutX="50.0" layoutY="220.0" prefHeight="25.0" text="Description" textFill="#999999">
          <font>
             <Font size="14.0" />
@@ -43,12 +43,13 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label fx:id="lbl_amount" layoutX="50.0" layoutY="300.0" prefHeight="25.0" text="Amount" textFill="#999999">
+      <Label fx:id="lbl_amount" layoutX="50.0" layoutY="380.0" prefHeight="25.0" text="Amount" textFill="#999999">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txt_amount" layoutX="50.0" layoutY="330.0" onAction="#txt_amount_onAction" onKeyReleased="#txt_amount_onKeyReleased" prefHeight="30.0" prefWidth="200.0" promptText="Enter Amount" style="-fx-border-radius: 2;">
+      <ComboBox fx:id="cmb_ledger" layoutX="50.0" layoutY="330.0" onKeyReleased="#cmb_ledger_onKeyReleased" prefHeight="28.0" prefWidth="428.0" promptText="Ledger Account" />
+      <TextField fx:id="txt_amount" layoutX="50.0" layoutY="410.0" onAction="#txt_amount_onAction" onKeyReleased="#txt_amount_onKeyReleased" prefHeight="30.0" prefWidth="200.0" promptText="Enter Amount" style="-fx-border-radius: 2;">
          <font>
             <Font size="14.0" />
          </font>
@@ -75,11 +76,10 @@
             <FontAwesomeIconView fx:id="icon_refresh" fill="WHITE" glyphName="RETWEET" />
          </graphic>
         </JFXButton>
-      <Label fx:id="lbl_ledger" layoutX="50.0" layoutY="380.0" prefHeight="25.0" text="Ledger Account" textFill="#999999">
+      <Label fx:id="lbl_ledger" layoutX="50.0" layoutY="300.0" prefHeight="25.0" text="Ledger Account" textFill="#999999">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cmb_ledger" editable="true" layoutX="50.0" layoutY="410.0" onAction="#cmb_ledger_onAction" onKeyReleased="#cmb_ledger_onKeyReleased" prefHeight="30.0" prefWidth="428.0" promptText="Ledger Account" />
     </children>
 </AnchorPane>
