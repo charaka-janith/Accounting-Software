@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="638.0" prefWidth="1006.0"
+            style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17"
+            fx:controller="front_end.ui.company.CashBookController">
+    <children>
+        <Label fx:id="lbl_main" alignment="CENTER" prefHeight="50.0" prefWidth="1006.0" text="Cash Book"
+               textAlignment="CENTER" textFill="#44bd32">
+            <font>
+                <Font name="System Bold" size="20.0"/>
+            </font>
+        </Label>
+        <TableView fx:id="tbl_cashBook" editable="true" layoutX="50.0" layoutY="160.0" prefHeight="428.0"
+                   prefWidth="906.0" style="-fx-background-color: transparent;">
+            <columns>
+                <TableColumn prefWidth="75.0" text="Date"/>
+                <TableColumn prefWidth="75.0" text="Number"/>
+                <TableColumn prefWidth="75.0" text="Description"/>
+                <TableColumn prefWidth="75.0" text="Credit"/>
+                <TableColumn prefWidth="75.0" text="Debit"/>
+                <TableColumn prefWidth="75.0" text="Balance"/>
+                <TableColumn prefWidth="75.0" text="Ledger"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+        <Label fx:id="lbl_startDate" layoutX="50.0" layoutY="60.0" prefHeight="25.0" text="Start Date"
+               textFill="#999999">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <DatePicker fx:id="datePicker_startDate" layoutX="50.0" layoutY="90.0"
+                    onKeyReleased="#datePicker_startDate_onKeyReleased" prefHeight="28.0" prefWidth="200.0"/>
+        <Label fx:id="lbl_endDate" layoutX="300.0" layoutY="60.0" prefHeight="25.0" text="End Date" textFill="#999999">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <DatePicker fx:id="datePicker_endDate" layoutX="300.0" layoutY="90.0"
+                    onKeyReleased="#datePicker_endDate_onKeyReleased" prefHeight="28.0" prefWidth="200.0"/>
+        <JFXButton fx:id="btn_search" layoutX="550.0" layoutY="90.0" onAction="#btn_search_onAction"
+                   onKeyReleased="#btn_search_onKeyReleased" prefHeight="30.0" prefWidth="406.0"
+                   style="-fx-background-color: #44BD32; -fx-background-radius: 5; -fx-border-radius: 5;"
+                   text=" Search [F1]" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0"/>
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+            <graphic>
+                <FontAwesomeIconView fx:id="icon_save" fill="WHITE" glyphName="SEARCH"/>
+            </graphic>
+        </JFXButton>
+    </children>
+</AnchorPane>

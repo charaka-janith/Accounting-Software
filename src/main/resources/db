@@ -75,3 +75,14 @@ Amount INT,
 CONSTRAINT PRIMARY KEY (Number),
 FOREIGN KEY (Ledger) REFERENCES Ledger(Id) ON DELETE CASCADE
 );
+
+SELECT Date, Number, Description, Amount, Name, tbl
+FROM (
+         SELECT Date, Number, Description, Amount, Ledger, 'receipt' as tbl
+         FROM Receipt
+         UNION ALL
+         SELECT Date, Number, Description, Amount, Ledger, 'voucher' as tbl
+         FROM Voucher
+     ) as RV, Ledger
+WHERE Ledger.Id = RV.Ledger
+ORDER BY Date, Number;
