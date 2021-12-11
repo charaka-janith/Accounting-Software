@@ -14,6 +14,7 @@ import front_end.ui.dashboard.AdminDashboardController;
 import front_end.ui.dashboard.CompanyDashboardController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -156,87 +157,23 @@ public class LoginController implements Initializable {
         login();
     }
 
-    private void login() {
-        try {
-            Session.setUser(userBO.searchUser(txt_userName.getText()));
-            if (null == Session.getUser()) {
-                loginError();
-            } else {
-                if (txt_pass.getText().equals("") && null == Session.getUser().getPassword()){
-                    Parent root = FXMLLoader.load(Objects.requireNonNull(SetPasswordController.class.getResource("SetPassword.fxml")));
-                    Scene scene = new Scene(root);
-                    SetPasswordController.stage = new Stage();
-                    SetPasswordController.stage.setScene(scene);
-                    SetPasswordController.stage.setMaximized(true);
-                    SetPasswordController.stage.setResizable(false);
-                    SetPasswordController.stage.initStyle(StageStyle.UNDECORATED);
-                    SetPasswordController.stage.show();
-                    Theme.setShade(SetPasswordController.stage);
-                    new Thread(() -> {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException ignored) {
-                        }
-                        Platform.runLater(() -> {
-                            stage.close();
-                        });
-                    }).start();
-                } else if (txt_pass.getText().equals(Session.getUser().getPassword())) {
-                    try {
-                        if (Session.getUser().getType().equals("admin")) {
-                            Parent root = FXMLLoader.load(Objects.requireNonNull(AdminDashboardController.class.getResource("AdminDashboard.fxml")));
-                            Scene scene = new Scene(root);
-                            AdminDashboardController.stage = new Stage();
-                            AdminDashboardController.stage.setScene(scene);
-                            AdminDashboardController.stage.setMaximized(true);
-                            AdminDashboardController.stage.setResizable(false);
-                            AdminDashboardController.stage.initStyle(StageStyle.UNDECORATED);
-                            AdminDashboardController.stage.show();
-                            Theme.setShade(AdminDashboardController.stage);
-                            new Thread(() -> {
-                                try {
-                                    Thread.sleep(1000);
-                                } catch (InterruptedException ignored) {
-                                }
-                                Platform.runLater(() -> {
-                                    stage.close();
-                                });
-                            }).start();
-                        } else {
-                            Parent root = FXMLLoader.load(Objects.requireNonNull(CompanyDashboardController.class.getResource("CompanyDashboard.fxml")));
-                            Scene scene = new Scene(root);
-                            CompanyDashboardController.stage = new Stage();
-                            CompanyDashboardController.stage.setScene(scene);
-                            CompanyDashboardController.stage.setMaximized(true);
-                            CompanyDashboardController.stage.setResizable(false);
-                            CompanyDashboardController.stage.initStyle(StageStyle.UNDECORATED);
-                            CompanyDashboardController.stage.show();
-                            Theme.setShade(CompanyDashboardController.stage);
-                            new Thread(() -> {
-                                try {
-                                    Thread.sleep(2000);
-                                } catch (InterruptedException ignored) {
-                                }
-                                Platform.runLater(() -> {
-                                    stage.close();
-                                });
-                            }).start();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    loginError();
-                }
-            }
-        } catch (NullPointerException e) {
-            Session.setUser(null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static void backToLogin(Stage primaryStage) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(LoginController.class.getResource("Login.fxml")));
+        Session.getIdleMonitor().unregister(stage.getScene(), Event.ANY);
+        Scene scene = new Scene(root);
+        Session.getIdleMonitor().register(scene, Event.ANY);
+        stage = new Stage();
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setResizable(false);
+        stage.setMaximized(true);
+        stage.requestFocus();
+        stage.show();
+        Theme.setShade(stage);
+        primaryStage.close();
     }
 
-    private void loginError () {
+    private void loginError() {
         Platform.runLater(() -> {
             Theme.giveAWarning(
                     Session.isSinhala()
@@ -413,17 +350,89 @@ public class LoginController implements Initializable {
         });
     }
 
-    public static void backToLogin(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(LoginController.class.getResource("Login.fxml")));
-        Scene scene = new Scene(root);
-        stage = new Stage();
-        stage.setScene(scene);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setResizable(false);
-        stage.setMaximized(true);
-        stage.requestFocus();
-        stage.show();
-        Theme.setShade(stage);
-        primaryStage.close();
+    private void login() {
+        try {
+            Session.setUser(userBO.searchUser(txt_userName.getText()));
+            if (null == Session.getUser()) {
+                loginError();
+            } else {
+                if (txt_pass.getText().equals("") && null == Session.getUser().getPassword()) {
+                    Parent root = FXMLLoader.load(Objects.requireNonNull(SetPasswordController.class.getResource("SetPassword.fxml")));
+                    Session.getIdleMonitor().unregister(stage.getScene(), Event.ANY);
+                    Scene scene = new Scene(root);
+                    Session.getIdleMonitor().register(scene, Event.ANY);
+                    SetPasswordController.stage = new Stage();
+                    SetPasswordController.stage.setScene(scene);
+                    SetPasswordController.stage.setMaximized(true);
+                    SetPasswordController.stage.setResizable(false);
+                    SetPasswordController.stage.initStyle(StageStyle.UNDECORATED);
+                    SetPasswordController.stage.show();
+                    Theme.setShade(SetPasswordController.stage);
+                    new Thread(() -> {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException ignored) {
+                        }
+                        Platform.runLater(() -> {
+                            stage.close();
+                        });
+                    }).start();
+                } else if (txt_pass.getText().equals(Session.getUser().getPassword())) {
+                    try {
+                        if (Session.getUser().getType().equals("admin")) {
+                            Parent root = FXMLLoader.load(Objects.requireNonNull(AdminDashboardController.class.getResource("AdminDashboard.fxml")));
+                            Session.getIdleMonitor().unregister(stage.getScene(), Event.ANY);
+                            Scene scene = new Scene(root);
+                            Session.getIdleMonitor().register(scene, Event.ANY);
+                            AdminDashboardController.stage = new Stage();
+                            AdminDashboardController.stage.setScene(scene);
+                            AdminDashboardController.stage.setMaximized(true);
+                            AdminDashboardController.stage.setResizable(false);
+                            AdminDashboardController.stage.initStyle(StageStyle.UNDECORATED);
+                            AdminDashboardController.stage.show();
+                            Theme.setShade(AdminDashboardController.stage);
+                            new Thread(() -> {
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException ignored) {
+                                }
+                                Platform.runLater(() -> {
+                                    stage.close();
+                                });
+                            }).start();
+                        } else {
+                            Parent root = FXMLLoader.load(Objects.requireNonNull(CompanyDashboardController.class.getResource("CompanyDashboard.fxml")));
+                            Session.getIdleMonitor().unregister(stage.getScene(), Event.ANY);
+                            Scene scene = new Scene(root);
+                            Session.getIdleMonitor().register(scene, Event.ANY);
+                            CompanyDashboardController.stage = new Stage();
+                            CompanyDashboardController.stage.setScene(scene);
+                            CompanyDashboardController.stage.setMaximized(true);
+                            CompanyDashboardController.stage.setResizable(false);
+                            CompanyDashboardController.stage.initStyle(StageStyle.UNDECORATED);
+                            CompanyDashboardController.stage.show();
+                            Theme.setShade(CompanyDashboardController.stage);
+                            new Thread(() -> {
+                                try {
+                                    Thread.sleep(2000);
+                                } catch (InterruptedException ignored) {
+                                }
+                                Platform.runLater(() -> {
+                                    stage.close();
+                                });
+                            }).start();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    loginError();
+                }
+            }
+        } catch (NullPointerException e) {
+            Session.setUser(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

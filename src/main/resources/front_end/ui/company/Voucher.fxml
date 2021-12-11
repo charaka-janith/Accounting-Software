@@ -22,10 +22,12 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txt_number" layoutX="50.0" layoutY="90.0" onKeyReleased="#txt_number_onKeyReleased" prefHeight="30.0" prefWidth="120.0" promptText="Enter Number" style="-fx-border-radius: 2;">
-         <font>
-            <Font size="14.0" />
-         </font>
+      <TextField fx:id="txt_number" alignment="CENTER" layoutX="50.0" layoutY="90.0"
+                 onKeyReleased="#txt_number_onKeyReleased" prefHeight="30.0" prefWidth="200.0" promptText="Enter Number"
+                 style="-fx-border-radius: 2;">
+          <font>
+              <Font size="14.0"/>
+          </font>
       </TextField>
       <Label fx:id="lbl_date" layoutX="50.0" layoutY="140.0" prefHeight="25.0" text="Date" textFill="#999999">
          <font>
@@ -49,11 +51,13 @@
          </font>
       </Label>
       <ComboBox fx:id="cmb_ledger" layoutX="50.0" layoutY="330.0" onKeyReleased="#cmb_ledger_onKeyReleased" prefHeight="28.0" prefWidth="428.0" promptText="Ledger Account" />
-      <TextField fx:id="txt_amount" layoutX="50.0" layoutY="410.0" onAction="#txt_amount_onAction" onKeyReleased="#txt_amount_onKeyReleased" prefHeight="30.0" prefWidth="200.0" promptText="Enter Amount" style="-fx-border-radius: 2;">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </TextField>
+        <TextField fx:id="txt_amount" alignment="CENTER" layoutX="50.0" layoutY="410.0" onAction="#txt_amount_onAction"
+                   onKeyReleased="#txt_amount_onKeyReleased" prefHeight="30.0" prefWidth="200.0"
+                   promptText="Enter Amount" style="-fx-border-radius: 2;">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </TextField>
         <JFXButton fx:id="btn_save" layoutX="528.0" layoutY="538.0" onAction="#btn_save_onAction" onKeyReleased="#btn_save_keyReleased" prefHeight="50.0" prefWidth="428.0" style="-fx-background-color: #44BD32; -fx-background-radius: 5; -fx-border-radius: 5;" text=" Add [F1]" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="13.0" />

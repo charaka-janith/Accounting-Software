@@ -2,17 +2,11 @@ package back_end.bo.custom.impl;
 
 import back_end.bo.custom.ReceiptBO;
 import back_end.dao.DAOFactory;
-import back_end.dao.custom.CompanyDAO;
 import back_end.dao.custom.ReceiptDAO;
-import back_end.dto.LedgerDTO;
 import back_end.dto.ReceiptDTO;
-import back_end.entity.Company;
-import back_end.entity.Ledger;
 import back_end.entity.Receipt;
 
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 public class ReceiptBOImpl implements ReceiptBO {

@@ -5,8 +5,10 @@ import back_end.config.TrippleDes;
 import back_end.dao.DAOFactory;
 import back_end.dao.custom.QueryDAO;
 import back_end.dto.CashBookDTO;
+import back_end.dto.LedgerDTO;
 import back_end.dto.UserDTO;
 import back_end.entity.CashBook;
+import back_end.entity.Ledger;
 import back_end.entity.User;
 
 import java.sql.SQLException;
@@ -31,5 +33,21 @@ public class QueryBOImpl implements QueryBO {
             ));
         }
         return cashBook;
+    }
+
+    @Override
+    public ArrayList<LedgerDTO> get_Ledger(LocalDate start, LocalDate end, String ledger_name) throws SQLException, ClassNotFoundException {
+        ArrayList<Ledger> dao_ledger = dao.getLedger(start.toString(), end.toString(), ledger_name);
+        ArrayList<LedgerDTO> ledger = new ArrayList<>();
+        for (Ledger row : dao_ledger) {
+            ledger.add(new LedgerDTO(
+                    LocalDate.parse(row.getDate()),
+                    row.getNumber(),
+                    row.getDescription(),
+                    row.getAmount(),
+                    row.getTable()
+            ));
+        }
+        return ledger;
     }
 }

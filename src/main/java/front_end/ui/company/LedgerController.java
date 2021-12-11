@@ -1,19 +1,25 @@
+
 package front_end.ui.company;
 
 import back_end.bo.BOFactory;
+import back_end.bo.custom.LedgerBO;
 import back_end.bo.custom.QueryBO;
 import back_end.dto.CashBookDTO;
+import back_end.dto.LedgerDTO;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import front_end.anim.PaneOpenAnim;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
 import front_end.tm.CashBookTM;
+import front_end.tm.LedgerTM;
 import front_end.ui.dashboard.CompanyDashboardController;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -23,6 +29,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.DateTimeException;
@@ -30,11 +37,20 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-public class CashBookController implements Initializable {
+public class LedgerController implements Initializable {
 
+    public static String ledger_name;
     private final QueryBO queryBO = (QueryBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.QUERY);
+    private final LedgerBO ledgerBO = (LedgerBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.LEDGER);
+    @FXML
+    private JFXButton btn_delete;
+
+    @FXML
+    private JFXButton btn_goBack;
 
     @FXML
     private JFXButton btn_search;
@@ -44,6 +60,12 @@ public class CashBookController implements Initializable {
 
     @FXML
     private DatePicker datePicker_startDate;
+
+    @FXML
+    private FontAwesomeIconView icon_delete;
+
+    @FXML
+    private FontAwesomeIconView icon_goBack;
 
     @FXML
     private FontAwesomeIconView icon_save;
@@ -61,7 +83,70 @@ public class CashBookController implements Initializable {
     private AnchorPane pane;
 
     @FXML
-    private TableView<CashBookTM> tbl_cashBook;
+    private TableView<LedgerTM> tbl_ledger;
+
+    @FXML
+    void btn_delete_onAction(ActionEvent event) {
+        exit_popup();
+    }
+
+    private void exit_popup() {
+        AtomicBoolean b = new AtomicBoolean(false);
+        Platform.runLater(() -> {
+            b.set(Theme.confirmPopup(
+                    Session.isSinhala() ? "ඔබට මැකීමට අවශ්ය බව විශ්වාසද ?" : "Are you sure you want to Delete ?",
+                    CompanyDashboardController.stage
+            ));
+            if (b.get()) {
+                try {
+                    boolean deleted = ledgerBO.delete_ledger(ledgerBO.search_byName(ledger_name).getId());
+                    if (deleted) {
+                        Theme.successGif(CompanyDashboardController.stage);
+                        new Thread(() -> {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException ignored) {
+                            }
+                            Platform.runLater(this::goBack);
+                        }).start();
+                    }
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @FXML
+    void btn_delete_onKeyReleased(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            btn_goBack.requestFocus();
+        }
+    }
+
+    @FXML
+    void btn_goBack_onAction(ActionEvent event) {
+        goBack();
+    }
+
+    private void goBack() {
+        Session.getSubPane().getChildren().clear();
+        try {
+            Session.getSubPane().getChildren().add(FXMLLoader.load(Objects.requireNonNull(
+                    LedgersController.class.getResource("Ledgers.fxml")
+            )));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        new PaneOpenAnim(Session.getSubPane());
+    }
+
+    @FXML
+    void btn_goBack_onKeyReleased(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            btn_search.requestFocus();
+        }
+    }
 
     @FXML
     void btn_search_onAction(ActionEvent event) {
@@ -71,14 +156,7 @@ public class CashBookController implements Initializable {
     @FXML
     void btn_search_onKeyReleased(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
-            tbl_cashBook.requestFocus();
-        }
-    }
-
-    @FXML
-    void datePicker_startDate_onKeyReleased(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.ESCAPE)) {
-            btn_search.requestFocus();
+            btn_goBack.requestFocus();
         }
     }
 
@@ -86,6 +164,13 @@ public class CashBookController implements Initializable {
     void datePicker_endDate_onKeyReleased(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
             datePicker_startDate.requestFocus();
+        }
+    }
+
+    @FXML
+    void datePicker_startDate_onKeyReleased(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            btn_search.requestFocus();
         }
     }
 
@@ -100,20 +185,18 @@ public class CashBookController implements Initializable {
     }
 
     private void initTable() {
-        tbl_cashBook.getColumns().get(0).setStyle("-fx-alignment: CENTER;");
-        tbl_cashBook.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("date"));
-        tbl_cashBook.getColumns().get(1).setStyle("-fx-alignment: CENTER;");
-        tbl_cashBook.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("number"));
-        tbl_cashBook.getColumns().get(2).setStyle("-fx-alignment: CENTER;");
-        tbl_cashBook.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("description"));
-        tbl_cashBook.getColumns().get(3).setStyle("-fx-alignment: CENTER_RIGHT;");
-        tbl_cashBook.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("credit"));
-        tbl_cashBook.getColumns().get(4).setStyle("-fx-alignment: CENTER_RIGHT;");
-        tbl_cashBook.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("debit"));
-        tbl_cashBook.getColumns().get(5).setStyle("-fx-alignment: CENTER_RIGHT;");
-        tbl_cashBook.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("balance"));
-        tbl_cashBook.getColumns().get(6).setStyle("-fx-alignment: CENTER;");
-        tbl_cashBook.getColumns().get(6).setCellValueFactory(new PropertyValueFactory<>("ledger"));
+        tbl_ledger.getColumns().get(0).setStyle("-fx-alignment: CENTER;");
+        tbl_ledger.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("date"));
+        tbl_ledger.getColumns().get(1).setStyle("-fx-alignment: CENTER;");
+        tbl_ledger.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("number"));
+        tbl_ledger.getColumns().get(2).setStyle("-fx-alignment: CENTER;");
+        tbl_ledger.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("description"));
+        tbl_ledger.getColumns().get(3).setStyle("-fx-alignment: CENTER_RIGHT;");
+        tbl_ledger.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("credit"));
+        tbl_ledger.getColumns().get(4).setStyle("-fx-alignment: CENTER_RIGHT;");
+        tbl_ledger.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("debit"));
+        tbl_ledger.getColumns().get(5).setStyle("-fx-alignment: CENTER_RIGHT;");
+        tbl_ledger.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("balance"));
         datePicker_startDate.setValue(YearMonth.now().atDay(1));
         datePicker_endDate.setValue(YearMonth.now().atEndOfMonth());
         new Thread(() -> {
@@ -129,8 +212,8 @@ public class CashBookController implements Initializable {
         new Thread(() -> {
             Platform.runLater(() -> {
                 int balance = 0;
-                ArrayList<CashBookDTO> cashBook = null;
-                ArrayList<CashBookTM> rowList = new ArrayList<>();
+                ArrayList<LedgerDTO> ledger = null;
+                ArrayList<LedgerTM> rowList = new ArrayList<>();
                 try {
                     LocalDate startDate;
                     LocalDate endDate;
@@ -170,29 +253,28 @@ public class CashBookController implements Initializable {
                         );
                         return;
                     }
-                    cashBook = queryBO.get_Cashbook(startDate, endDate);
+                    ledger = queryBO.get_Ledger(startDate, endDate, ledger_name);
                 } catch (SQLException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-                assert cashBook != null;
-                for (CashBookDTO book :
-                        cashBook) {
-                    if (book.getTable().equals("receipt")) {
-                        balance = balance + book.getAmount();
+                assert ledger != null;
+                for (LedgerDTO row :
+                        ledger) {
+                    if (row.getTable().equals("receipt")) {
+                        balance = balance + row.getAmount();
                     } else {
-                        balance = balance - book.getAmount();
+                        balance = balance - row.getAmount();
                     }
-                    rowList.add(new CashBookTM(
-                            book.getDate().toString(),
-                            book.getNumber(),
-                            book.getDescription(),
-                            book.getTable().equals("receipt") ? Integer.toString(book.getAmount()) : "-",
-                            book.getTable().equals("voucher") ? Integer.toString(book.getAmount()) : "-",
-                            balance,
-                            book.getLedger()
+                    rowList.add(new LedgerTM(
+                            row.getDate().toString(),
+                            row.getNumber(),
+                            row.getDescription(),
+                            row.getTable().equals("receipt") ? Integer.toString(row.getAmount()) : "-",
+                            row.getTable().equals("voucher") ? Integer.toString(row.getAmount()) : "-",
+                            balance
                     ));
                 }
-                tbl_cashBook.setItems(FXCollections.observableArrayList(rowList));
+                tbl_ledger.setItems(FXCollections.observableArrayList(rowList));
             });
         }).start();
     }
@@ -200,31 +282,33 @@ public class CashBookController implements Initializable {
     private void setLanguage() {
         if (Session.isSinhala()) {
             new Thread(() -> Platform.runLater(() -> {
-                lbl_main.setText("මුදල් පොත");
+                lbl_main.setText(ledger_name);
                 lbl_startDate.setText("ආරම්භක දිනය");
                 lbl_endDate.setText("අවසාන දිනය");
                 btn_search.setText(" සොයන්න [F1]");
-                tbl_cashBook.getColumns().get(0).setText("දිනය");
-                tbl_cashBook.getColumns().get(1).setText("අංකය");
-                tbl_cashBook.getColumns().get(2).setText("විස්තර");
-                tbl_cashBook.getColumns().get(3).setText("බැර");
-                tbl_cashBook.getColumns().get(4).setText("හර");
-                tbl_cashBook.getColumns().get(5).setText("ශේෂය");
-                tbl_cashBook.getColumns().get(6).setText("ලෙජරය");
+                btn_goBack.setText(" ආපසු යන්න [F4]");
+                btn_delete.setText(" ලෙජරය මකන්න");
+                tbl_ledger.getColumns().get(0).setText("දිනය");
+                tbl_ledger.getColumns().get(1).setText("අංකය");
+                tbl_ledger.getColumns().get(2).setText("විස්තර");
+                tbl_ledger.getColumns().get(3).setText("බැර");
+                tbl_ledger.getColumns().get(4).setText("හර");
+                tbl_ledger.getColumns().get(5).setText("ශේෂය");
             })).start();
         } else {
             new Thread(() -> Platform.runLater(() -> {
-                lbl_main.setText("Cash Book");
+                lbl_main.setText(ledger_name);
                 lbl_startDate.setText("Start Date");
                 lbl_endDate.setText("End Date");
                 btn_search.setText(" Search [F1]");
-                tbl_cashBook.getColumns().get(0).setText("Date");
-                tbl_cashBook.getColumns().get(1).setText("Number");
-                tbl_cashBook.getColumns().get(2).setText("Description");
-                tbl_cashBook.getColumns().get(3).setText("Credit");
-                tbl_cashBook.getColumns().get(4).setText("Debit");
-                tbl_cashBook.getColumns().get(5).setText("Balance");
-                tbl_cashBook.getColumns().get(6).setText("Ledger");
+                btn_goBack.setText(" Go Back [F4]");
+                btn_delete.setText(" Delete Ledger");
+                tbl_ledger.getColumns().get(0).setText("Date");
+                tbl_ledger.getColumns().get(1).setText("Number");
+                tbl_ledger.getColumns().get(2).setText("Description");
+                tbl_ledger.getColumns().get(3).setText("Credit");
+                tbl_ledger.getColumns().get(4).setText("Debit");
+                tbl_ledger.getColumns().get(5).setText("Balance");
             })).start();
         }
     }
@@ -234,12 +318,14 @@ public class CashBookController implements Initializable {
             // background
             Theme.setBackgroundColor("background", pane);
             Theme.setBackgroundColor("success", btn_search);
+            Theme.setBackgroundColor("warning", btn_delete);
+            Theme.setBackgroundColor("border", btn_goBack);
             // text
-            Theme.setTextFill("background", btn_search);
+            Theme.setTextFill("background", btn_search, btn_delete, btn_goBack);
             Theme.setTextFill("success", lbl_main);
             Theme.setTextFill("font", lbl_startDate, lbl_endDate);
             // icon
-            Theme.setIconFill("background", icon_save);
+            Theme.setIconFill("background", icon_save, icon_delete, icon_goBack);
         });
     }
 
@@ -261,6 +347,8 @@ public class CashBookController implements Initializable {
             pane.getScene().setOnKeyPressed(event -> {
                 if (event.getCode().equals(KeyCode.F1)) {
                     setTable();
+                } else if (event.getCode().equals(KeyCode.F4)) {
+                    goBack();
                 }
             });
         });

@@ -6,11 +6,13 @@ import back_end.dto.ConfigDTO;
 import back_end.dto.UserDTO;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 
 import java.sql.SQLException;
 
 public class Session {
+    private static IdleMonitor idleMonitor;
     public static Node imageSlider;
     private static UserDTO user;
     private static boolean sinhala = false;
@@ -24,6 +26,23 @@ public class Session {
     public static Region admin_regionRight;
     // sub pane
     private static String current_subPane;
+    private static AnchorPane subPane;
+
+    public static IdleMonitor getIdleMonitor() {
+        return idleMonitor;
+    }
+
+    public static void setIdleMonitor(IdleMonitor idleMonitor) {
+        Session.idleMonitor = idleMonitor;
+    }
+
+    public static AnchorPane getSubPane() {
+        return subPane;
+    }
+
+    public static void setSubPane(AnchorPane subPane) {
+        Session.subPane = subPane;
+    }
 
     public static boolean isSinhala() {
         return sinhala;

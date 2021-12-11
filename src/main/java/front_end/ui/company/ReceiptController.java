@@ -3,7 +3,7 @@ package front_end.ui.company;
 import back_end.bo.BOFactory;
 import back_end.bo.custom.LedgerBO;
 import back_end.bo.custom.ReceiptBO;
-import back_end.dto.LedgerDTO;
+import back_end.dto.LedgersDTO;
 import back_end.dto.ReceiptDTO;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -278,7 +278,7 @@ public class ReceiptController implements Initializable {
         new Thread(() -> {
             Platform.runLater(() -> {
                 cmb_ledger.getItems().clear();
-                ArrayList<LedgerDTO> allLedgers = null;
+                ArrayList<LedgersDTO> allLedgers = null;
                 try {
                     allLedgers = ledgerBO.getAll();
                 } catch (SQLException | ClassNotFoundException e) {
@@ -300,7 +300,7 @@ public class ReceiptController implements Initializable {
                             Session.admin_regionRight
                     );
                 } else {
-                    for (LedgerDTO ledger :
+                    for (LedgersDTO ledger :
                             allLedgers) {
                         cmb_ledger.getItems().add(ledger.getName());
                     }

@@ -273,6 +273,7 @@ public class CompanyDashboardController implements Initializable {
         runLater();
         new PaneOpenAnim(pane);
         setErrorInputs();
+        Session.setSubPane(subPane);
     }
 
     private void handle_buttons(String btnName) {

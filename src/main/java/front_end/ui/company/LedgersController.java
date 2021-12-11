@@ -2,9 +2,10 @@ package front_end.ui.company;
 
 import back_end.bo.BOFactory;
 import back_end.bo.custom.LedgerBO;
-import back_end.dto.LedgerDTO;
+import back_end.dto.LedgersDTO;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import front_end.anim.PaneOpenAnim;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
@@ -14,6 +15,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -26,10 +28,12 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LedgersController implements Initializable {
@@ -93,7 +97,7 @@ public class LedgersController implements Initializable {
         } else {
             boolean added = false;
             try {
-                added = ledgerBO.addLedger(new LedgerDTO(
+                added = ledgerBO.addLedger(new LedgersDTO(
                         0, txt_acctName.getText()
                 ));
             } catch (SQLIntegrityConstraintViolationException e) {
@@ -146,7 +150,13 @@ public class LedgersController implements Initializable {
     private void setLanguage() {
         if (Session.isSinhala()) {
             new Thread(() -> Platform.runLater(() -> {
-                lbl_main.setText("පරිපාලක කළමනාකරණය කිරීම");
+                lbl_main.setText("ලෙජර් ගිණුම් ලැයිස්තුව");
+                lbl_acctName.setText("ගිණුමේ නම");
+                txt_acctName.setPromptText("ගිණුමේ නම ඇතුලත් කරන්න");
+                tbl_ledgerAcct.getColumns().get(0).setText("ගිණුම");
+                tbl_ledgerAcct.getColumns().get(1).setText("විවෘත කරන්න");
+                btn_create.setText(" ලෙජරය සාදන්න [F1]");
+                btn_refresh.setText(" නැවුම් කරන්න [F5]");
             })).start();
         } else {
             new Thread(() -> Platform.runLater(() -> {
@@ -208,7 +218,7 @@ public class LedgersController implements Initializable {
     }
 
     private void setTable() {
-        ArrayList<LedgerDTO> allLedgers = null;
+        ArrayList<LedgersDTO> allLedgers = null;
         ArrayList<LedgersTM> rowList = new ArrayList<>();
         try {
             allLedgers = ledgerBO.getAll();
@@ -216,7 +226,7 @@ public class LedgersController implements Initializable {
             e.printStackTrace();
         }
         assert allLedgers != null;
-        for (LedgerDTO ledger :
+        for (LedgersDTO ledger :
                 allLedgers) {
             JFXButton btn_goTo = new JFXButton(Session.isSinhala() ? "ලෙජරය විවෘත කරන්න" : "Open the Ledger");
             btn_goTo.setStyle("-fx-background-color: " + Theme.success);
@@ -227,7 +237,16 @@ public class LedgersController implements Initializable {
                 btn_goTo.arm();
             });
             btn_goTo.setOnAction((ActionEvent event) -> {
-                System.out.println("LedgersController.setTable");
+                LedgerController.ledger_name = ledger.getName();
+                Session.getSubPane().getChildren().clear();
+                try {
+                    Session.getSubPane().getChildren().add(FXMLLoader.load(Objects.requireNonNull(
+                            LedgerController.class.getResource("Ledger.fxml")
+                    )));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                new PaneOpenAnim(Session.getSubPane());
             });
             rowList.add(new LedgersTM(
                     ledger.getName(),
