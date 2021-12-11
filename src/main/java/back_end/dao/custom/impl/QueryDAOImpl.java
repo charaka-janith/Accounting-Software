@@ -20,12 +20,12 @@ public class QueryDAOImpl implements QueryDAO {
         ResultSet rst = CrudUtil.executeQuery(
                 "SELECT Date, Number, Description, Amount, Name, tbl\n" +
                         "FROM (\n" +
-                        "         SELECT Date, Number, Description, Amount, Ledger, 'receipt' as tbl\n" +
-                        "         FROM Receipt WHERE (Date BETWEEN ? AND ?)\n" +
-                        "         UNION ALL\n" +
-                        "         SELECT Date, Number, Description, Amount, Ledger, 'voucher' as tbl\n" +
-                        "         FROM Voucher WHERE (Date BETWEEN ? AND ?)\n" +
-                        "     ) as RV, Ledger\n" +
+                        "    SELECT Date, Number, Description, Amount, Ledger, 'receipt' as tbl\n" +
+                        "    FROM Receipt WHERE (Date BETWEEN ? AND ?) && Cheque = 0\n" +
+                        "    UNION ALL\n" +
+                        "    SELECT Date, Number, Description, Amount, Ledger, 'voucher' as tbl\n" +
+                        "    FROM Voucher WHERE (Date BETWEEN ? AND ?) && Cheque = 0\n" +
+                        "    ) as RV, Ledger\n" +
                         "WHERE Ledger.Id = RV.Ledger\n" +
                         "ORDER BY Date, Number",
                 start, end, start, end
@@ -39,6 +39,36 @@ public class QueryDAOImpl implements QueryDAO {
                     rst.getInt("Amount"),
                     rst.getString("Name"),
                     rst.getString("tbl")
+            ));
+        }
+        return bookList;
+    }
+
+    @Override
+    public ArrayList<BankBook> get_bankBook(String start, String end) throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.executeQuery(
+                "SELECT Date, Number, Description, Amount, Cheque, Name, tbl\n" +
+                        "FROM (\n" +
+                        "    SELECT Date, Number, Description, Amount, Ledger, Cheque, 'receipt' as tbl\n" +
+                        "    FROM Receipt WHERE (Date BETWEEN ? AND ?) && Cheque != 0\n" +
+                        "    UNION ALL\n" +
+                        "    SELECT Date, Number, Description, Amount, Ledger, Cheque, 'voucher' as tbl\n" +
+                        "    FROM Voucher WHERE (Date BETWEEN ? AND ?) && Cheque != 0\n" +
+                        "    ) as RV, Ledger\n" +
+                        "WHERE Ledger.Id = RV.Ledger\n" +
+                        "ORDER BY Date, Number",
+                start, end, start, end
+        );
+        ArrayList<BankBook> bookList = new ArrayList<>();
+        while (rst.next()) {
+            bookList.add(new BankBook(
+                    rst.getString("Date"),
+                    rst.getInt("Number"),
+                    rst.getString("Description"),
+                    rst.getInt("Amount"),
+                    rst.getString("Name"),
+                    rst.getString("tbl"),
+                    rst.getInt("Cheque")
             ));
         }
         return bookList;

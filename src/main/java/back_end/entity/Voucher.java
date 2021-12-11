@@ -6,15 +6,17 @@ public class Voucher {
     private String date;
     private String description;
     private int amount;
+    private int cheque_number;
 
     public Voucher() {}
 
-    public Voucher(int number, int ledger, String date, String description, int amount) {
+    public Voucher(int number, int ledger, String date, String description, int amount, int cheque_number) {
         this.number = number;
         this.ledger = ledger;
         this.date = date;
         this.description = description;
         this.amount = amount;
+        this.cheque_number = cheque_number;
     }
 
     public int getNumber() {
@@ -55,5 +57,13 @@ public class Voucher {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public int getCheque_number() {
+        return cheque_number;
+    }
+
+    public void setCheque_number(int cheque_number) {
+        this.cheque_number = cheque_number;
     }
 }

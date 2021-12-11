@@ -4,9 +4,11 @@ import back_end.bo.custom.QueryBO;
 import back_end.config.TrippleDes;
 import back_end.dao.DAOFactory;
 import back_end.dao.custom.QueryDAO;
+import back_end.dto.BankBookDTO;
 import back_end.dto.CashBookDTO;
 import back_end.dto.LedgerDTO;
 import back_end.dto.UserDTO;
+import back_end.entity.BankBook;
 import back_end.entity.CashBook;
 import back_end.entity.Ledger;
 import back_end.entity.User;
@@ -33,6 +35,24 @@ public class QueryBOImpl implements QueryBO {
             ));
         }
         return cashBook;
+    }
+
+    @Override
+    public ArrayList<BankBookDTO> get_Bankbook(LocalDate start, LocalDate end) throws SQLException, ClassNotFoundException {
+        ArrayList<BankBook> dao_bankBook = dao.get_bankBook(start.toString(), end.toString());
+        ArrayList<BankBookDTO> bankBook = new ArrayList<>();
+        for (BankBook book : dao_bankBook) {
+            bankBook.add(new BankBookDTO(
+                    LocalDate.parse(book.getDate()),
+                    book.getNumber(),
+                    book.getDescription(),
+                    book.getAmount(),
+                    book.getLedger(),
+                    book.getTable(),
+                    book.getCheque()
+            ));
+        }
+        return bankBook;
     }
 
     @Override

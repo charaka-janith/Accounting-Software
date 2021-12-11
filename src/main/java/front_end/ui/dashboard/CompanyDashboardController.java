@@ -9,10 +9,7 @@ import front_end.anim.PaneOpenAnim;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
-import front_end.ui.company.CashBookController;
-import front_end.ui.company.LedgersController;
-import front_end.ui.company.ReceiptController;
-import front_end.ui.company.VoucherController;
+import front_end.ui.company.*;
 import front_end.ui.login.LoginController;
 import front_end.ui.settings.ChangePasswordController;
 import front_end.ui.settings.ChangeThemeController;
@@ -177,7 +174,7 @@ public class CompanyDashboardController implements Initializable {
 
     @FXML
     void btn_bankBook_onAction(ActionEvent event) {
-
+        handle_buttons("bankBook");
     }
 
     @FXML
@@ -321,6 +318,17 @@ public class CompanyDashboardController implements Initializable {
                     e.printStackTrace();
                 }
             }
+            case "bankBook" -> {
+                btn_bankBook.requestFocus();
+                try {
+                    subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(
+                            BankBookController.class.getResource("BankBook.fxml")
+                    )));
+                    Session.setCurrent_subPane("bankBook");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             case "ledger" -> {
                 btn_accounts.requestFocus();
                 try {
@@ -432,7 +440,7 @@ public class CompanyDashboardController implements Initializable {
                 btn_receipt.setText(" කුවිතාන්සි [F2]");
                 btn_voucher.setText(" වවුචර් [F3]");
                 btn_cashBook.setText(" මුදල් පොත [F6]");
-                btn_bankBook.setText(" Bank Book [F7]");
+                btn_bankBook.setText(" බැංකු පොත [F7]");
                 btn_accounts.setText(" ලෙජර් ගිණුම් [F9]");
                 btn_profitLoss.setText(" Profit and Loss [F10]");
                 btn_balance.setText(" Trial Balance [F11]");
@@ -488,6 +496,8 @@ public class CompanyDashboardController implements Initializable {
                     handle_buttons("voucher");
                 } else if (event.getCode().equals(KeyCode.F6)) {
                     handle_buttons("cashBook");
+                } else if (event.getCode().equals(KeyCode.F7)) {
+                    handle_buttons("bankBook");
                 } else if (event.getCode().equals(KeyCode.F8)) {
                     try {
                         LoginController.backToLogin(stage);

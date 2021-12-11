@@ -8,15 +8,17 @@ public class ReceiptDTO {
     private LocalDate date;
     private String description;
     private int amount;
+    private int cheque_number;
 
     public ReceiptDTO() {}
 
-    public ReceiptDTO(int number, int ledger, LocalDate date, String description, int amount) {
+    public ReceiptDTO(int number, int ledger, LocalDate date, String description, int amount, int cheque_number) {
         this.number = number;
         this.ledger = ledger;
         this.date = date;
         this.description = description;
         this.amount = amount;
+        this.cheque_number = cheque_number;
     }
 
     public int getNumber() {
@@ -57,5 +59,13 @@ public class ReceiptDTO {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public int getCheque_number() {
+        return cheque_number;
+    }
+
+    public void setCheque_number(int cheque_number) {
+        this.cheque_number = cheque_number;
     }
 }

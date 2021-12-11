@@ -14,12 +14,13 @@ public class VoucherDAOImpl implements VoucherDAO {
     @Override
     public boolean add(Voucher voucher) throws SQLException, ClassNotFoundException {
         return CrudUtil.executeUpdate(
-                "INSERT INTO Voucher(Number, Ledger, Date, Description, Amount) VALUES(?,?,?,?,?)",
+                "INSERT INTO Voucher(Number, Ledger, Date, Description, Amount, Cheque) VALUES(?,?,?,?,?,?)",
                 voucher.getNumber(),
                 voucher.getLedger(),
                 voucher.getDate(),
                 voucher.getDescription(),
-                voucher.getAmount()
+                voucher.getAmount(),
+                voucher.getCheque_number()
         );
     }
 
@@ -31,12 +32,13 @@ public class VoucherDAOImpl implements VoucherDAO {
     @Override
     public boolean update(Voucher voucher) throws SQLException, ClassNotFoundException {
         return CrudUtil.executeUpdate(
-                "UPDATE Voucher SET Ledger=?,Date=?,Description=?,Amount=? WHERE Number=?",
+                "UPDATE Voucher SET Ledger=?,Date=?,Description=?,Amount=?,Cheque=? WHERE Number=?",
                 voucher.getLedger(),
                 voucher.getDate(),
                 voucher.getDescription(),
                 voucher.getAmount(),
-                voucher.getNumber()
+                voucher.getNumber(),
+                voucher.getCheque_number()
         );
     }
 
@@ -53,7 +55,8 @@ public class VoucherDAOImpl implements VoucherDAO {
                     rst.getInt("Ledger"),
                     rst.getString("Date"),
                     rst.getString("Description"),
-                    rst.getInt("Amount")
+                    rst.getInt("Amount"),
+                    rst.getInt("Cheque")
             );
         }
         return voucher;

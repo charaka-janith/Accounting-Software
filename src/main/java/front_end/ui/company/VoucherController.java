@@ -58,6 +58,9 @@ public class VoucherController implements Initializable {
     private Label lbl_amount;
 
     @FXML
+    private Label lbl_cheque;
+
+    @FXML
     private Label lbl_date;
 
     @FXML
@@ -79,6 +82,9 @@ public class VoucherController implements Initializable {
     private TextField txt_amount;
 
     @FXML
+    private TextField txt_cheque;
+
+    @FXML
     private TextField txt_description;
 
     @FXML
@@ -95,6 +101,7 @@ public class VoucherController implements Initializable {
         datePicker_date.setValue(LocalDate.now());
         txt_description.setText("");
         txt_amount.setText("");
+        txt_cheque.setText("");
         cmb_ledger.getSelectionModel().clearSelection();
         cmb_ledger.setPromptText(Session.isSinhala() ? "ලෙජර් ගිණුම" : "Ledger Account");
     }
@@ -102,7 +109,7 @@ public class VoucherController implements Initializable {
     @FXML
     void btn_save_keyReleased(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
-            btn_refresh.requestFocus();
+            txt_cheque.requestFocus();
         }
     }
 
@@ -117,36 +124,93 @@ public class VoucherController implements Initializable {
                 LocalDate parsedDate = LocalDate.parse(datePicker_date.getEditor().getText(), DateTimeFormatter.ofPattern("M/d/yyyy"));
                 if (null != cmb_ledger.getSelectionModel().getSelectedItem()) {
                     if (RegexManager.verify_amount(txt_amount.getText())) {
-                        try {
-                            boolean saved;
-                            if (null != voucherBo.searchVoucher(Integer.parseInt(txt_number.getText()))) {
-                                saved = voucherBo.updateVoucher(new VoucherDTO(
-                                        Integer.parseInt(txt_number.getText()),
-                                        ledgerBO.search_byName(cmb_ledger.getValue()).getId(),
-                                        parsedDate,
-                                        txt_description.getText(),
-                                        Integer.parseInt(txt_amount.getText())
-                                ));
+                        if (txt_cheque.getText().equals("")) {
+                            try {
+                                boolean saved;
+                                if (null != voucherBo.searchVoucher(Integer.parseInt(txt_number.getText()))) {
+                                    saved = voucherBo.updateVoucher(new VoucherDTO(
+                                            Integer.parseInt(txt_number.getText()),
+                                            ledgerBO.search_byName(cmb_ledger.getValue()).getId(),
+                                            parsedDate,
+                                            txt_description.getText(),
+                                            Integer.parseInt(txt_amount.getText()),
+                                            0
+                                    ));
+                                } else {
+                                    saved = voucherBo.addVoucher(new VoucherDTO(
+                                            Integer.parseInt(txt_number.getText()),
+                                            ledgerBO.search_byName(cmb_ledger.getValue()).getId(),
+                                            parsedDate,
+                                            txt_description.getText(),
+                                            Integer.parseInt(txt_amount.getText()),
+                                            0
+                                    ));
+                                }
+                                if (saved) {
+                                    Theme.successGif(CompanyDashboardController.stage);
+                                    new Thread(() -> {
+                                        try {
+                                            Thread.sleep(1000);
+                                        } catch (InterruptedException ignored) {
+                                        }
+                                        Platform.runLater(this::refresh);
+                                    }).start();
+                                }
+                            } catch (SQLException | ClassNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            if (RegexManager.verify_number(txt_cheque.getText())) {
+                                try {
+                                    boolean saved;
+                                    if (null != voucherBo.searchVoucher(Integer.parseInt(txt_number.getText()))) {
+                                        saved = voucherBo.updateVoucher(new VoucherDTO(
+                                                Integer.parseInt(txt_number.getText()),
+                                                ledgerBO.search_byName(cmb_ledger.getValue()).getId(),
+                                                parsedDate,
+                                                txt_description.getText(),
+                                                Integer.parseInt(txt_amount.getText()),
+                                                Integer.parseInt(txt_cheque.getText())
+                                        ));
+                                    } else {
+                                        saved = voucherBo.addVoucher(new VoucherDTO(
+                                                Integer.parseInt(txt_number.getText()),
+                                                ledgerBO.search_byName(cmb_ledger.getValue()).getId(),
+                                                parsedDate,
+                                                txt_description.getText(),
+                                                Integer.parseInt(txt_amount.getText()),
+                                                Integer.parseInt(txt_cheque.getText())
+                                        ));
+                                    }
+                                    if (saved) {
+                                        Theme.successGif(CompanyDashboardController.stage);
+                                        new Thread(() -> {
+                                            try {
+                                                Thread.sleep(1000);
+                                            } catch (InterruptedException ignored) {
+                                            }
+                                            Platform.runLater(this::refresh);
+                                        }).start();
+                                    }
+                                } catch (SQLException | ClassNotFoundException e) {
+                                    e.printStackTrace();
+                                }
                             } else {
-                                saved = voucherBo.addVoucher(new VoucherDTO(
-                                        Integer.parseInt(txt_number.getText()),
-                                        ledgerBO.search_byName(cmb_ledger.getValue()).getId(),
-                                        parsedDate,
-                                        txt_description.getText(),
-                                        Integer.parseInt(txt_amount.getText())
-                                ));
+                                Theme.giveBorderWarning(txt_cheque);
+                                txt_cheque.requestFocus();
+                                Theme.giveAWarning(
+                                        Session.isSinhala()
+                                                ? "චෙක්පත් අංකය වලංගු නොවේ, කරුණාකර නැවත උත්සාහ කරන්න !"
+                                                : "Invalid Cheque Number, Please try again !",
+                                        CompanyDashboardController.windowMsg,
+                                        Session.admin_mainLabel,
+                                        Session.admin_regionBack,
+                                        Session.admin_regionTop,
+                                        Session.admin_regionBottom,
+                                        Session.admin_regionLeft,
+                                        Session.admin_regionRight
+                                );
                             }
-                            if (saved) {
-                                Theme.successGif(CompanyDashboardController.stage);
-                                new Thread(() -> {
-                                    try {
-                                        Thread.sleep(1000);
-                                    } catch (InterruptedException ignored) {}
-                                    Platform.runLater(this::refresh);
-                                }).start();
-                            }
-                        } catch (SQLException | ClassNotFoundException e) {
-                            e.printStackTrace();
                         }
                     } else {
                         Theme.giveBorderWarning(txt_amount);
@@ -230,13 +294,25 @@ public class VoucherController implements Initializable {
 
     @FXML
     void txt_amount_onAction(ActionEvent event) {
-        submit();
+        txt_cheque.requestFocus();
     }
 
     @FXML
     void txt_amount_onKeyReleased(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
             cmb_ledger.requestFocus();
+        }
+    }
+
+    @FXML
+    void txt_cheque_onAction(ActionEvent event) {
+        submit();
+    }
+
+    @FXML
+    void txt_cheque_onKeyReleased(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            txt_amount.requestFocus();
         }
     }
 
@@ -256,7 +332,7 @@ public class VoucherController implements Initializable {
     void txt_number_onKeyReleased(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
             btn_save.requestFocus();
-        } else if (event.getCode().equals(KeyCode.ENTER)){
+        } else if (event.getCode().equals(KeyCode.ENTER)) {
             datePicker_date.requestFocus();
         }
     }
@@ -267,7 +343,7 @@ public class VoucherController implements Initializable {
         setColors();
         new RunLater(txt_number);
         runLater();
-        Theme.setChangeListeners(txt_number, txt_description, txt_amount);
+        Theme.setChangeListeners(txt_number, txt_description, txt_amount, txt_cheque);
         Theme.setChangeListeners(cmb_ledger);
         setFocusListeners();
         setSupplementaryListeners();
@@ -428,7 +504,9 @@ public class VoucherController implements Initializable {
                     lbl_number,
                     lbl_date,
                     lbl_description,
-                    lbl_amount
+                    lbl_amount,
+                    lbl_cheque,
+                    lbl_ledger
             );
             // icon
             Theme.setIconFill("background", icon_refresh, icon_save);
@@ -448,6 +526,8 @@ public class VoucherController implements Initializable {
                 txt_amount.setPromptText("මුදල ඇතුල් කරන්න");
                 lbl_ledger.setText("ලෙජර් ගිණුම");
                 cmb_ledger.setPromptText("ලෙජර් ගිණුම");
+                lbl_cheque.setText("චෙක්පත් අංකය");
+                txt_cheque.setPromptText("චෙක්පත් අංකය");
                 btn_save.setText(" ඇතුල් කරන්න [F1]");
                 btn_refresh.setText(" නැවුම් කරන්න [F5]");
             })).start();
@@ -463,6 +543,8 @@ public class VoucherController implements Initializable {
                 txt_amount.setPromptText("Enter Amount");
                 lbl_ledger.setText("Ledger Account");
                 cmb_ledger.setPromptText("Ledger Account");
+                lbl_cheque.setText("Cheque Number");
+                txt_cheque.setPromptText("Enter Cheque Number");
                 btn_save.setText(" Add [F1]");
                 btn_refresh.setText(" Refresh [F5]");
             })).start();

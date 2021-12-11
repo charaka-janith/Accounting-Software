@@ -2,7 +2,6 @@ package back_end.dao.custom.impl;
 
 import back_end.dao.CrudUtil;
 import back_end.dao.custom.ReceiptDAO;
-import back_end.entity.Config;
 import back_end.entity.Receipt;
 
 import java.sql.ResultSet;
@@ -13,12 +12,13 @@ public class ReceiptDAOImpl implements ReceiptDAO {
     @Override
     public boolean add(Receipt receipt) throws SQLException, ClassNotFoundException {
         return CrudUtil.executeUpdate(
-                "INSERT INTO Receipt(Number, Ledger, Date, Description, Amount) VALUES(?,?,?,?,?)",
+                "INSERT INTO Receipt(Number, Ledger, Date, Description, Amount, Cheque) VALUES(?,?,?,?,?,?)",
                 receipt.getNumber(),
-receipt.getLedger(),
+                receipt.getLedger(),
                 receipt.getDate(),
                 receipt.getDescription(),
-                receipt.getAmount()
+                receipt.getAmount(),
+                receipt.getCheque_number()
         );
     }
 
@@ -30,12 +30,13 @@ receipt.getLedger(),
     @Override
     public boolean update(Receipt receipt) throws SQLException, ClassNotFoundException {
         return CrudUtil.executeUpdate(
-                "UPDATE Receipt SET Ledger=?,Date=?,Description=?,Amount=? WHERE Number=?",
+                "UPDATE Receipt SET Ledger=?,Date=?,Description=?,Amount=?,Cheque=? WHERE Number=?",
                 receipt.getLedger(),
                 receipt.getDate(),
                 receipt.getDescription(),
                 receipt.getAmount(),
-                receipt.getNumber()
+                receipt.getNumber(),
+                receipt.getCheque_number()
         );
     }
 
@@ -52,7 +53,8 @@ receipt.getLedger(),
                     rst.getInt("Ledger"),
                     rst.getString("Date"),
                     rst.getString("Description"),
-                    rst.getInt("Amount")
+                    rst.getInt("Amount"),
+                    rst.getInt("Cheque")
             );
         }
         return receipt;

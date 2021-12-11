@@ -23,7 +23,8 @@ public class VoucherBOImpl implements VoucherBO {
                 voucher.getLedger(),
                 voucher.getDate().toString(),
                 voucher.getDescription(),
-                voucher.getAmount()
+                voucher.getAmount(),
+                voucher.getCheque_number()
         ));
     }
 
@@ -35,7 +36,8 @@ public class VoucherBOImpl implements VoucherBO {
                 voucher.getLedger(),
                 LocalDate.parse(voucher.getDate()),
                 voucher.getDescription(),
-                voucher.getAmount()
+                voucher.getAmount(),
+                voucher.getCheque_number()
         ) : null;
     }
 
@@ -46,7 +48,8 @@ public class VoucherBOImpl implements VoucherBO {
                 voucher.getLedger(),
                 voucher.getDate().toString(),
                 voucher.getDescription(),
-                voucher.getAmount()
+                voucher.getAmount(),
+                voucher.getCheque_number()
         ));
     }
 }

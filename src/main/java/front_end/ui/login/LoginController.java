@@ -228,7 +228,7 @@ public class LoginController implements Initializable {
                     lbl_pass.setText(" මුරපදය");
                     txt_pass.setPromptText("මුරපදය ඇතුළත් කරන්න");
                     btn_exit.setText(" අවලංගු කරන්න");
-                    btn_login.setText(" පුරන්න");
+                    btn_login.setText(" පුරන්න [F1]");
                     lbl_shortcuts.setText("ඊළඟ = Enter / ආපසු = Esc / පිවිසුම = F1");
                 });
             }).start();
@@ -243,7 +243,7 @@ public class LoginController implements Initializable {
                     lbl_pass.setText(" Password");
                     txt_pass.setPromptText("Enter Password");
                     btn_exit.setText(" Exit");
-                    btn_login.setText(" Login");
+                    btn_login.setText(" Login [F1]");
                     lbl_shortcuts.setText("Next = Enter / Back = Esc / Login = F1");
                 });
             }).start();

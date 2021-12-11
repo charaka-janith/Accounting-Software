@@ -245,6 +245,20 @@ public class ManageAdminsController implements Initializable {
                 btn_delete.arm();
             });
             btn_delete.setOnAction((ActionEvent event) -> {
+                if (Session.getUser().getName().equals(admin.getName())) {
+                    Theme.giveAWarning(
+                            Session.isSinhala()
+                                    ? "ඔබට ලොග් වී ඇති ගිණුම මකා දැමිය නොහැක !"
+                                    : "You can't delete the logged in account !",
+                            AdminDashboardController.windowMsg,
+                            Session.admin_mainLabel,
+                            Session.admin_regionBack,
+                            Session.admin_regionTop,
+                            Session.admin_regionBottom,
+                            Session.admin_regionLeft,
+                            Session.admin_regionRight
+                    );
+                } else {
                     AtomicBoolean b = new AtomicBoolean(false);
                     Platform.runLater(() -> {
                         b.set(Theme.confirmPopup(
@@ -264,6 +278,7 @@ public class ManageAdminsController implements Initializable {
                             }
                         }
                     });
+                }
             });
             rowList.add(new AdminTM(
                     admin.getName(),

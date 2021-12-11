@@ -61,6 +61,7 @@ Ledger INT NOT NULL,
 Date DATE,
 Description VARCHAR (100),
 Amount INT,
+Cheque INT,
 CONSTRAINT PRIMARY KEY (Number),
 FOREIGN KEY (Ledger) REFERENCES Ledger(Id) ON DELETE CASCADE
 );
@@ -72,6 +73,7 @@ Ledger INT NOT NULL,
 Date DATE,
 Description VARCHAR (100),
 Amount INT,
+Cheque INT,
 CONSTRAINT PRIMARY KEY (Number),
 FOREIGN KEY (Ledger) REFERENCES Ledger(Id) ON DELETE CASCADE
 );

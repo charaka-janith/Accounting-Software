@@ -289,7 +289,7 @@ public class SetPasswordController implements Initializable {
                     lbl_pass.setText(" නව මුරපදය නැවත");
                     txt_pass2.setPromptText("නව මුරපදය නැවත ඇතුළත් කරන්න");
                     btn_exit.setText(" අවලංගු කරන්න");
-                    btn_login.setText(" ඉදිරියට යන්න");
+                    btn_login.setText(" ඉදිරියට යන්න [F1]");
                     lbl_shortcuts.setText("ඊළඟ = Enter / ආපසු = Esc / ඉදිරියට යන්න = F1");
                 });
             }).start();
@@ -304,7 +304,7 @@ public class SetPasswordController implements Initializable {
                     lbl_pass.setText(" Repeat New Password");
                     txt_pass2.setPromptText("Re - Enter New Password");
                     btn_exit.setText(" Exit");
-                    btn_login.setText(" Proceed");
+                    btn_login.setText(" Proceed [F1]");
                     lbl_shortcuts.setText("Next = Enter / Back = Esc / Proceed = F1");
                 });
             }).start();

@@ -19,7 +19,8 @@ public class ReceiptBOImpl implements ReceiptBO {
                 receipt.getLedger(),
                 receipt.getDate().toString(),
                 receipt.getDescription(),
-                receipt.getAmount()
+                receipt.getAmount(),
+                receipt.getCheque_number()
         ));
     }
 
@@ -31,7 +32,8 @@ public class ReceiptBOImpl implements ReceiptBO {
                 receipt.getLedger(),
                 LocalDate.parse(receipt.getDate()),
                 receipt.getDescription(),
-                receipt.getAmount()
+                receipt.getAmount(),
+                receipt.getCheque_number()
         ) : null;
     }
 
@@ -42,7 +44,8 @@ public class ReceiptBOImpl implements ReceiptBO {
                 receipt.getLedger(),
                 receipt.getDate().toString(),
                 receipt.getDescription(),
-                receipt.getAmount()
+                receipt.getAmount(),
+                receipt.getCheque_number()
         ));
     }
 }
