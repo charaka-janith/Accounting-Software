@@ -4,6 +4,7 @@ import back_end.bo.BOFactory;
 import back_end.bo.custom.UserBO;
 import back_end.dto.UserDTO;
 import com.jfoenix.controls.JFXButton;
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
@@ -115,6 +116,19 @@ public class ManageAdminsController implements Initializable {
                         null,
                         "admin"
                 ));
+            } catch (MysqlDataTruncation e) {
+                Theme.giveAWarning(
+                        Session.isSinhala()
+                                ? "පරිශීලක නාමය දිග වැඩියි !"
+                                : "Username is too long !",
+                        AdminDashboardController.windowMsg,
+                        Session.admin_mainLabel,
+                        Session.admin_regionBack,
+                        Session.admin_regionTop,
+                        Session.admin_regionBottom,
+                        Session.admin_regionLeft,
+                        Session.admin_regionRight
+                );
             } catch (SQLIntegrityConstraintViolationException e) {
                 Theme.giveBorderWarning(txt_userName);
                 Theme.giveAWarning(

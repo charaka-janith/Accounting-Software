@@ -114,7 +114,6 @@ public class QueryDAOImpl implements QueryDAO {
                     ledger.getId()
             );
             while (rst.next()) {
-                System.out.println(rst.getInt("Amount"));
                 balance = rst.getInt("Amount");
             }
             ResultSet rst2 = CrudUtil.executeQuery(
