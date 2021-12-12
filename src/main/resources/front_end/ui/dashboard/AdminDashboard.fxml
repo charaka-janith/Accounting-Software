@@ -5,7 +5,6 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.MotionBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,10 +14,8 @@
 
 <AnchorPane fx:id="pane" maxHeight="768.0" maxWidth="1366.0" minHeight="768.0" minWidth="1366.0" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #F4F7FC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.ui.dashboard.AdminDashboardController">
     <children>
-      <Region fx:id="region_back" layoutX="106.0" layoutY="-747.0" prefHeight="1600.0" prefWidth="768.0" rotate="60.9" style="-fx-background-color: #44BD32;">
-         <effect>
-            <MotionBlur />
-         </effect></Region>
+      <Region fx:id="region_back" layoutX="106.0" layoutY="-747.0" prefHeight="1600.0" prefWidth="768.0" rotate="60.9"
+              style="-fx-background-color: #44BD32;"/>
       <Region fx:id="region_menu" layoutX="5.0" layoutY="85.0" prefHeight="678.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" />
         <JFXButton fx:id="btn_lock" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="663.0" onAction="#btn_lock_onAction" onKeyReleased="#btn_onKeyReleased" prefHeight="40.0" prefWidth="260.0" ripplerFill="#9a9a9a" style="-fx-background-radius: 0; -fx-border-radius: 5;" text=" Lock [F8]" textFill="#1b1464">
             <font>

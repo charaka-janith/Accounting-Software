@@ -1,25 +1,21 @@
-
 package front_end.ui.company;
 
 import back_end.bo.BOFactory;
-import back_end.bo.custom.LedgerBO;
 import back_end.bo.custom.QueryBO;
 import back_end.dto.CashBookDTO;
-import back_end.dto.LedgerDTO;
+import back_end.dto.TrialBalanceDTO;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import front_end.anim.PaneOpenAnim;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
 import front_end.sessions.Session;
 import front_end.tm.CashBookTM;
-import front_end.tm.LedgerTM;
+import front_end.tm.TrialBalanceTM;
 import front_end.ui.dashboard.CompanyDashboardController;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -29,7 +25,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.DateTimeException;
@@ -37,20 +32,11 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-public class LedgerController implements Initializable {
+public class TrialBalanceController implements Initializable {
 
-    public static String ledger_name;
     private final QueryBO queryBO = (QueryBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.QUERY);
-    private final LedgerBO ledgerBO = (LedgerBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.LEDGER);
-    @FXML
-    private JFXButton btn_delete;
-
-    @FXML
-    private JFXButton btn_goBack;
 
     @FXML
     private JFXButton btn_search;
@@ -60,12 +46,6 @@ public class LedgerController implements Initializable {
 
     @FXML
     private DatePicker datePicker_startDate;
-
-    @FXML
-    private FontAwesomeIconView icon_delete;
-
-    @FXML
-    private FontAwesomeIconView icon_goBack;
 
     @FXML
     private FontAwesomeIconView icon_save;
@@ -83,70 +63,7 @@ public class LedgerController implements Initializable {
     private AnchorPane pane;
 
     @FXML
-    private TableView<LedgerTM> tbl_ledger;
-
-    @FXML
-    void btn_delete_onAction(ActionEvent event) {
-        exit_popup();
-    }
-
-    private void exit_popup() {
-        AtomicBoolean b = new AtomicBoolean(false);
-        Platform.runLater(() -> {
-            b.set(Theme.confirmPopup(
-                    Session.isSinhala() ? "ඔබට මැකීමට අවශ්ය බව විශ්වාසද ?" : "Are you sure you want to Delete ?",
-                    CompanyDashboardController.stage
-            ));
-            if (b.get()) {
-                try {
-                    boolean deleted = ledgerBO.delete_ledger(ledgerBO.search_byName(ledger_name).getId());
-                    if (deleted) {
-                        Theme.successGif(CompanyDashboardController.stage);
-                        new Thread(() -> {
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException ignored) {
-                            }
-                            Platform.runLater(this::goBack);
-                        }).start();
-                    }
-                } catch (SQLException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    @FXML
-    void btn_delete_onKeyReleased(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.ESCAPE)) {
-            btn_goBack.requestFocus();
-        }
-    }
-
-    @FXML
-    void btn_goBack_onAction(ActionEvent event) {
-        goBack();
-    }
-
-    private void goBack() {
-        Session.getSubPane().getChildren().clear();
-        try {
-            Session.getSubPane().getChildren().add(FXMLLoader.load(Objects.requireNonNull(
-                    LedgersController.class.getResource("Ledgers.fxml")
-            )));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        new PaneOpenAnim(Session.getSubPane());
-    }
-
-    @FXML
-    void btn_goBack_onKeyReleased(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.ESCAPE)) {
-            btn_search.requestFocus();
-        }
-    }
+    private TableView<TrialBalanceTM> tbl;
 
     @FXML
     void btn_search_onAction(ActionEvent event) {
@@ -156,7 +73,7 @@ public class LedgerController implements Initializable {
     @FXML
     void btn_search_onKeyReleased(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
-            btn_goBack.requestFocus();
+            tbl.requestFocus();
         }
     }
 
@@ -185,18 +102,14 @@ public class LedgerController implements Initializable {
     }
 
     private void initTable() {
-        tbl_ledger.getColumns().get(0).setStyle("-fx-alignment: CENTER;");
-        tbl_ledger.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("date"));
-        tbl_ledger.getColumns().get(1).setStyle("-fx-alignment: CENTER;");
-        tbl_ledger.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("number"));
-        tbl_ledger.getColumns().get(2).setStyle("-fx-alignment: CENTER;");
-        tbl_ledger.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("description"));
-        tbl_ledger.getColumns().get(3).setStyle("-fx-alignment: CENTER_RIGHT;");
-        tbl_ledger.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("credit"));
-        tbl_ledger.getColumns().get(4).setStyle("-fx-alignment: CENTER_RIGHT;");
-        tbl_ledger.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("debit"));
-        tbl_ledger.getColumns().get(5).setStyle("-fx-alignment: CENTER_RIGHT;");
-        tbl_ledger.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("balance"));
+        tbl.getColumns().get(0).setStyle("-fx-alignment: CENTER;");
+        tbl.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("ledger"));
+        tbl.getColumns().get(1).setStyle("-fx-alignment: CENTER;");
+        tbl.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("description"));
+        tbl.getColumns().get(2).setStyle("-fx-alignment: CENTER_RIGHT;");
+        tbl.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("debit"));
+        tbl.getColumns().get(3).setStyle("-fx-alignment: CENTER_RIGHT;");
+        tbl.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("credit"));
         datePicker_startDate.setValue(YearMonth.now().atDay(1));
         datePicker_endDate.setValue(YearMonth.now().atEndOfMonth());
         new Thread(() -> {
@@ -211,9 +124,8 @@ public class LedgerController implements Initializable {
     private void setTable() {
         new Thread(() -> {
             Platform.runLater(() -> {
-                int balance = 0;
-                ArrayList<LedgerDTO> ledger = null;
-                ArrayList<LedgerTM> rowList = new ArrayList<>();
+                ArrayList<TrialBalanceDTO> trialBalanceDTOS = null;
+                ArrayList<TrialBalanceTM> rowList = new ArrayList<>();
                 try {
                     LocalDate startDate;
                     LocalDate endDate;
@@ -253,28 +165,21 @@ public class LedgerController implements Initializable {
                         );
                         return;
                     }
-                    ledger = queryBO.get_Ledger(startDate, endDate, ledger_name);
+                    trialBalanceDTOS = queryBO.getTrialBalance(startDate, endDate);
                 } catch (SQLException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-                assert ledger != null;
-                for (LedgerDTO row :
-                        ledger) {
-                    if (row.getTable().equals("voucher")) {
-                        balance = balance + row.getAmount();
-                    } else {
-                        balance = balance - row.getAmount();
-                    }
-                    rowList.add(new LedgerTM(
-                            row.getDate().toString(),
-                            row.getNumber(),
-                            row.getDescription(),
-                            row.getTable().equals("voucher") ? Integer.toString(row.getAmount()) : "-",
-                            row.getTable().equals("receipt") ? Integer.toString(row.getAmount()) : "-",
-                            balance
+                assert trialBalanceDTOS != null;
+                for (TrialBalanceDTO balanceDTO :
+                        trialBalanceDTOS) {
+                    rowList.add(new TrialBalanceTM(
+                            Integer.toString(balanceDTO.getLedger()),
+                            balanceDTO.getDescription(),
+                            0 > balanceDTO.getAmount() ? Integer.toString(Math.abs(balanceDTO.getAmount())) : "-",
+                            0 < balanceDTO.getAmount() ? Integer.toString(balanceDTO.getAmount()) : "-"
                     ));
                 }
-                tbl_ledger.setItems(FXCollections.observableArrayList(rowList));
+                tbl.setItems(FXCollections.observableArrayList(rowList));
             });
         }).start();
     }
@@ -282,33 +187,25 @@ public class LedgerController implements Initializable {
     private void setLanguage() {
         if (Session.isSinhala()) {
             new Thread(() -> Platform.runLater(() -> {
-                lbl_main.setText(ledger_name);
+                lbl_main.setText("ශේෂ පිරික්සුම");
                 lbl_startDate.setText("ආරම්භක දිනය");
                 lbl_endDate.setText("අවසාන දිනය");
                 btn_search.setText(" සොයන්න [F1]");
-                btn_goBack.setText(" ආපසු යන්න [F4]");
-                btn_delete.setText(" ලෙජරය මකන්න");
-                tbl_ledger.getColumns().get(0).setText("දිනය");
-                tbl_ledger.getColumns().get(1).setText("අංකය");
-                tbl_ledger.getColumns().get(2).setText("විස්තර");
-                tbl_ledger.getColumns().get(3).setText("බැර");
-                tbl_ledger.getColumns().get(4).setText("හර");
-                tbl_ledger.getColumns().get(5).setText("ශේෂය");
+                tbl.getColumns().get(0).setText("ලෙජරය");
+                tbl.getColumns().get(1).setText("විස්තර");
+                tbl.getColumns().get(2).setText("හර");
+                tbl.getColumns().get(3).setText("බැර");
             })).start();
         } else {
             new Thread(() -> Platform.runLater(() -> {
-                lbl_main.setText(ledger_name);
+                lbl_main.setText("Trial Balance");
                 lbl_startDate.setText("Start Date");
                 lbl_endDate.setText("End Date");
                 btn_search.setText(" Search [F1]");
-                btn_goBack.setText(" Go Back [F4]");
-                btn_delete.setText(" Delete Ledger");
-                tbl_ledger.getColumns().get(0).setText("Date");
-                tbl_ledger.getColumns().get(1).setText("Number");
-                tbl_ledger.getColumns().get(2).setText("Description");
-                tbl_ledger.getColumns().get(3).setText("Credit");
-                tbl_ledger.getColumns().get(4).setText("Debit");
-                tbl_ledger.getColumns().get(5).setText("Balance");
+                tbl.getColumns().get(0).setText("Ledger");
+                tbl.getColumns().get(1).setText("Description");
+                tbl.getColumns().get(2).setText("Debit");
+                tbl.getColumns().get(3).setText("Credit");
             })).start();
         }
     }
@@ -318,14 +215,12 @@ public class LedgerController implements Initializable {
             // background
             Theme.setBackgroundColor("background", pane);
             Theme.setBackgroundColor("success", btn_search);
-            Theme.setBackgroundColor("warning", btn_delete);
-            Theme.setBackgroundColor("border", btn_goBack);
             // text
-            Theme.setTextFill("background", btn_search, btn_delete, btn_goBack);
+            Theme.setTextFill("background", btn_search);
             Theme.setTextFill("success", lbl_main);
             Theme.setTextFill("font", lbl_startDate, lbl_endDate);
             // icon
-            Theme.setIconFill("background", icon_save, icon_delete, icon_goBack);
+            Theme.setIconFill("background", icon_save);
         });
     }
 
@@ -347,8 +242,6 @@ public class LedgerController implements Initializable {
             pane.getScene().setOnKeyPressed(event -> {
                 if (event.getCode().equals(KeyCode.F1)) {
                     setTable();
-                } else if (event.getCode().equals(KeyCode.F4)) {
-                    goBack();
                 }
             });
         });

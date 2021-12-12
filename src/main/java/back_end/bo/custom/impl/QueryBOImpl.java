@@ -4,20 +4,15 @@ import back_end.bo.custom.QueryBO;
 import back_end.config.TrippleDes;
 import back_end.dao.DAOFactory;
 import back_end.dao.custom.QueryDAO;
-import back_end.dto.BankBookDTO;
-import back_end.dto.CashBookDTO;
-import back_end.dto.LedgerDTO;
-import back_end.dto.UserDTO;
-import back_end.entity.BankBook;
-import back_end.entity.CashBook;
-import back_end.entity.Ledger;
-import back_end.entity.User;
+import back_end.dto.*;
+import back_end.entity.*;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class QueryBOImpl implements QueryBO {
+
     private final QueryDAO dao = (QueryDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOFactoryTypes.QUERY);
 
     @Override
@@ -69,5 +64,19 @@ public class QueryBOImpl implements QueryBO {
             ));
         }
         return ledger;
+    }
+
+    @Override
+    public ArrayList<TrialBalanceDTO> getTrialBalance(LocalDate start, LocalDate end) throws SQLException, ClassNotFoundException {
+        ArrayList<TrialBalance> dao_balance = dao.getTrialBalance(start.toString(), end.toString());
+        ArrayList<TrialBalanceDTO> balanceList = new ArrayList<>();
+        for (TrialBalance row : dao_balance) {
+            balanceList.add(new TrialBalanceDTO(
+                    row.getLedger(),
+                    row.getDescription(),
+                    row.getAmount()
+            ));
+        }
+        return balanceList;
     }
 }

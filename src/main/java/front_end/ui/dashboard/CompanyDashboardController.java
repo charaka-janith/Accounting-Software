@@ -169,7 +169,7 @@ public class CompanyDashboardController implements Initializable {
 
     @FXML
     void btn_balance_onAction(ActionEvent event) {
-
+        handle_buttons("trialBalance");
     }
 
     @FXML
@@ -340,6 +340,17 @@ public class CompanyDashboardController implements Initializable {
                     e.printStackTrace();
                 }
             }
+            case "trialBalance" -> {
+                btn_balance.requestFocus();
+                try {
+                    subPane.getChildren().add(FXMLLoader.load(Objects.requireNonNull(
+                            TrialBalanceController.class.getResource("TrialBalance.fxml")
+                    )));
+                    Session.setCurrent_subPane("trialBalance");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             case "changeTheme" -> {
                 btn_changeTheme.requestFocus();
                 try {
@@ -443,7 +454,7 @@ public class CompanyDashboardController implements Initializable {
                 btn_bankBook.setText(" බැංකු පොත [F7]");
                 btn_accounts.setText(" ලෙජර් ගිණුම් [F9]");
                 btn_profitLoss.setText(" Profit and Loss [F10]");
-                btn_balance.setText(" Trial Balance [F11]");
+                btn_balance.setText(" ශේෂ පිරික්සුම [F11]");
                 btn_changeTheme.setText(" තේමාව වෙනස් කිරීම [F12]");
                 btn_changePass.setText(" මුරපදය වෙනස් කිරීම");
                 btn_lock.setText(" අගුල [F8]");
@@ -506,6 +517,8 @@ public class CompanyDashboardController implements Initializable {
                     }
                 } else if (event.getCode().equals(KeyCode.F9)) {
                     handle_buttons("ledger");
+                } else if (event.getCode().equals(KeyCode.F11)) {
+                    handle_buttons("trialBalance");
                 } else if (event.getCode().equals(KeyCode.F12)) {
                     handle_buttons("changeTheme");
                 }

@@ -4,6 +4,7 @@ import back_end.bo.BOFactory;
 import back_end.bo.custom.CompanyBO;
 import back_end.dto.CompanyDTO;
 import com.jfoenix.controls.JFXButton;
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import front_end.anim.RunLater;
 import front_end.anim.Theme;
@@ -232,29 +233,44 @@ public class ManageCompanyController implements Initializable {
     private void addOrUpdateCompanyDetails() {
         try {
             CompanyDTO company = companyBO.getCompany();
-            if (null != company) {
-                companyBO.updateCompany(new CompanyDTO(
-                        txt_name.getText(),
-                        txt_userName.getText(),
-                        txt_address.getText(),
-                        txt_phoneNumber.getText(),
-                        txt_email.getText(),
-                        txt_website.getText(),
-                        txt_businessRegistrationNumber.getText()
-                ), company.getUserName());
-            } else {
-                companyBO.addCompany(new CompanyDTO(
-                        txt_name.getText(),
-                        txt_userName.getText(),
-                        txt_address.getText(),
-                        txt_phoneNumber.getText(),
-                        txt_email.getText(),
-                        txt_website.getText(),
-                        txt_businessRegistrationNumber.getText()
-                ));
+            try {
+                if (null != company) {
+                    companyBO.updateCompany(new CompanyDTO(
+                            txt_name.getText(),
+                            txt_userName.getText(),
+                            txt_address.getText(),
+                            txt_phoneNumber.getText(),
+                            txt_email.getText(),
+                            txt_website.getText(),
+                            txt_businessRegistrationNumber.getText()
+                    ), company.getUserName());
+                } else {
+                    companyBO.addCompany(new CompanyDTO(
+                            txt_name.getText(),
+                            txt_userName.getText(),
+                            txt_address.getText(),
+                            txt_phoneNumber.getText(),
+                            txt_email.getText(),
+                            txt_website.getText(),
+                            txt_businessRegistrationNumber.getText()
+                    ));
+                }
+                Theme.successGif(AdminDashboardController.stage);
+                setCompanyDetails();
+            } catch (MysqlDataTruncation e) {
+                Theme.giveAWarning(
+                        Session.isSinhala()
+                                ? "පරිශීලක නාමය දිග වැඩියි !"
+                                : "Username is too long !",
+                        AdminDashboardController.windowMsg,
+                        Session.admin_mainLabel,
+                        Session.admin_regionBack,
+                        Session.admin_regionTop,
+                        Session.admin_regionBottom,
+                        Session.admin_regionLeft,
+                        Session.admin_regionRight
+                );
             }
-            Theme.successGif(AdminDashboardController.stage);
-            setCompanyDetails();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

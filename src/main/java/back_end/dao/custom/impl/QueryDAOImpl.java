@@ -101,4 +101,33 @@ public class QueryDAOImpl implements QueryDAO {
         }
         return ledgerList;
     }
+
+    @Override
+    public ArrayList<TrialBalance> getTrialBalance(String start, String end) throws SQLException, ClassNotFoundException {
+        ArrayList<Ledgers> all_ledgers = ledgerDAO.getAll();
+        ArrayList<TrialBalance> balanceList = new ArrayList<>();
+        for (Ledgers ledger :
+                all_ledgers) {
+            int balance = 0;
+            ResultSet rst = CrudUtil.executeQuery(
+                    "SELECT SUM(Amount) as Amount FROM Receipt WHERE Ledger = ?",
+                    ledger.getId()
+            );
+            while (rst.next()) {
+                System.out.println(rst.getInt("Amount"));
+                balance = rst.getInt("Amount");
+            }
+            ResultSet rst2 = CrudUtil.executeQuery(
+                    "SELECT SUM(Amount) as Amount FROM Voucher WHERE Ledger = ?",
+                    ledger.getId()
+            );
+            while (rst2.next()) {
+                balance = balance - rst2.getInt("Amount");
+            }
+            balanceList.add(new TrialBalance(
+                    ledger.getId(), ledger.getName(), balance
+            ));
+        }
+        return balanceList;
+    }
 }
