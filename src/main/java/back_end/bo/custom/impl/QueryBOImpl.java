@@ -79,4 +79,14 @@ public class QueryBOImpl implements QueryBO {
         }
         return balanceList;
     }
+
+    @Override
+    public int getCashBalance(LocalDate start, LocalDate end) throws SQLException, ClassNotFoundException {
+        return dao.getCashBalance(start.toString(), end.toString());
+    }
+
+    @Override
+    public int getBankBalance(LocalDate start, LocalDate end) throws SQLException, ClassNotFoundException {
+        return dao.getBankBalance(start.toString(), end.toString());
+    }
 }

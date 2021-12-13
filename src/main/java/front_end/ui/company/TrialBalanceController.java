@@ -126,6 +126,8 @@ public class TrialBalanceController implements Initializable {
             Platform.runLater(() -> {
                 ArrayList<TrialBalanceDTO> trialBalanceDTOS = null;
                 ArrayList<TrialBalanceTM> rowList = new ArrayList<>();
+                int cashBalance = 0;
+                int bankBalance = 0;
                 try {
                     LocalDate startDate;
                     LocalDate endDate;
@@ -166,6 +168,8 @@ public class TrialBalanceController implements Initializable {
                         return;
                     }
                     trialBalanceDTOS = queryBO.getTrialBalance(startDate, endDate);
+                    cashBalance = queryBO.getCashBalance(startDate, endDate);
+                    bankBalance = queryBO.getBankBalance(startDate, endDate);
                 } catch (SQLException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -175,10 +179,47 @@ public class TrialBalanceController implements Initializable {
                     rowList.add(new TrialBalanceTM(
                             Integer.toString(balanceDTO.getLedger()),
                             balanceDTO.getDescription(),
-                            0 > balanceDTO.getAmount() ? Integer.toString(Math.abs(balanceDTO.getAmount())) : "-",
-                            0 < balanceDTO.getAmount() ? Integer.toString(balanceDTO.getAmount()) : "-"
+                            0 > balanceDTO.getAmount() ? Integer.toString(Math.abs(balanceDTO.getAmount())) : "",
+                            0 < balanceDTO.getAmount() ? Integer.toString(balanceDTO.getAmount()) : ""
                     ));
                 }
+                rowList.add(new TrialBalanceTM(
+                        "",
+                        "Cash Book",
+                        0 < cashBalance ? Integer.toString(cashBalance) : "",
+                        0 > cashBalance ? Integer.toString(Math.abs(cashBalance)) : ""
+                ));
+                rowList.add(new TrialBalanceTM(
+                        "",
+                        "Bank Book",
+                        0 < bankBalance ? Integer.toString(bankBalance) : "",
+                        0 > bankBalance ? Integer.toString(Math.abs(bankBalance)) : ""
+                ));
+                int credit = 0;
+                int debit = 0;
+                for (TrialBalanceTM balance :
+                        rowList) {
+                    try {
+                        credit += Integer.parseInt(balance.getCredit());
+                    } catch (NumberFormatException ignore) {
+                    }
+                    try {
+                        debit += Integer.parseInt(balance.getDebit());
+                    } catch (NumberFormatException ignore) {
+                    }
+                }
+                rowList.add(new TrialBalanceTM(
+                        "",
+                        "",
+                        "-",
+                        "-"
+                ));
+                rowList.add(new TrialBalanceTM(
+                        "",
+                        "Total",
+                        Integer.toString(debit),
+                        Integer.toString(credit)
+                ));
                 tbl.setItems(FXCollections.observableArrayList(rowList));
             });
         }).start();

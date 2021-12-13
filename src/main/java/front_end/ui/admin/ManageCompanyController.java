@@ -2,7 +2,9 @@ package front_end.ui.admin;
 
 import back_end.bo.BOFactory;
 import back_end.bo.custom.CompanyBO;
+import back_end.bo.custom.UserBO;
 import back_end.dto.CompanyDTO;
+import back_end.dto.UserDTO;
 import com.jfoenix.controls.JFXButton;
 import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -18,14 +20,24 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
 public class ManageCompanyController implements Initializable {
 
     private final CompanyBO companyBO = (CompanyBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.COMPANY);
+    private final UserBO userBO = (UserBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.USER);
 
     @FXML
     private JFXButton btn_save;
@@ -234,29 +246,52 @@ public class ManageCompanyController implements Initializable {
         try {
             CompanyDTO company = companyBO.getCompany();
             try {
-                if (null != company) {
-                    companyBO.updateCompany(new CompanyDTO(
-                            txt_name.getText(),
-                            txt_userName.getText(),
-                            txt_address.getText(),
-                            txt_phoneNumber.getText(),
-                            txt_email.getText(),
-                            txt_website.getText(),
-                            txt_businessRegistrationNumber.getText()
-                    ), company.getUserName());
-                } else {
-                    companyBO.addCompany(new CompanyDTO(
-                            txt_name.getText(),
-                            txt_userName.getText(),
-                            txt_address.getText(),
-                            txt_phoneNumber.getText(),
-                            txt_email.getText(),
-                            txt_website.getText(),
-                            txt_businessRegistrationNumber.getText()
-                    ));
+                ArrayList<UserDTO> allAdmins = userBO.getAllAdmins();
+                boolean is_admin = false;
+                for (UserDTO user :
+                        allAdmins) {
+                    if (txt_userName.getText().equals(user.getName())) {
+                        is_admin = true;
+                    }
                 }
-                Theme.successGif(AdminDashboardController.stage);
-                setCompanyDetails();
+                if (is_admin) {
+                    Theme.giveAWarning(
+                            Session.isSinhala()
+                                    ? "පරිශීලක නාමය දැනටමත් පවතී, කරුණාකර වෙනත් පරිශීලක නාමයක් උත්සාහ කරන්න !"
+                                    : "Username already exists, Please try another Username !",
+                            AdminDashboardController.windowMsg,
+                            Session.admin_mainLabel,
+                            Session.admin_regionBack,
+                            Session.admin_regionTop,
+                            Session.admin_regionBottom,
+                            Session.admin_regionLeft,
+                            Session.admin_regionRight
+                    );
+                } else {
+                    if (null != company) {
+                        companyBO.updateCompany(new CompanyDTO(
+                                txt_name.getText(),
+                                txt_userName.getText(),
+                                txt_address.getText(),
+                                txt_phoneNumber.getText(),
+                                txt_email.getText(),
+                                txt_website.getText(),
+                                txt_businessRegistrationNumber.getText()
+                        ), company.getUserName());
+                    } else {
+                        companyBO.addCompany(new CompanyDTO(
+                                txt_name.getText(),
+                                txt_userName.getText(),
+                                txt_address.getText(),
+                                txt_phoneNumber.getText(),
+                                txt_email.getText(),
+                                txt_website.getText(),
+                                txt_businessRegistrationNumber.getText()
+                        ));
+                    }
+                    Theme.successGif(AdminDashboardController.stage);
+                    setCompanyDetails();
+                }
             } catch (MysqlDataTruncation e) {
                 Theme.giveAWarning(
                         Session.isSinhala()
@@ -270,6 +305,8 @@ public class ManageCompanyController implements Initializable {
                         Session.admin_regionLeft,
                         Session.admin_regionRight
                 );
+            } catch (UnsupportedEncodingException | NoSuchPaddingException | IllegalBlockSizeException | NoSuchAlgorithmException | InvalidKeySpecException | BadPaddingException | InvalidKeyException e) {
+                e.printStackTrace();
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

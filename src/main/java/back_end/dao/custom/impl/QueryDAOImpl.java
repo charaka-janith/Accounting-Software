@@ -110,15 +110,15 @@ public class QueryDAOImpl implements QueryDAO {
                 all_ledgers) {
             int balance = 0;
             ResultSet rst = CrudUtil.executeQuery(
-                    "SELECT SUM(Amount) as Amount FROM Receipt WHERE Ledger = ?",
-                    ledger.getId()
+                    "SELECT SUM(Amount) as Amount FROM Receipt WHERE Ledger = ? && (Date BETWEEN ? AND ?)",
+                    ledger.getId(), start, end
             );
             while (rst.next()) {
                 balance = rst.getInt("Amount");
             }
             ResultSet rst2 = CrudUtil.executeQuery(
-                    "SELECT SUM(Amount) as Amount FROM Voucher WHERE Ledger = ?",
-                    ledger.getId()
+                    "SELECT SUM(Amount) as Amount FROM Voucher WHERE Ledger = ? && (Date BETWEEN ? AND ?)",
+                    ledger.getId(), start, end
             );
             while (rst2.next()) {
                 balance = balance - rst2.getInt("Amount");
@@ -128,5 +128,47 @@ public class QueryDAOImpl implements QueryDAO {
             ));
         }
         return balanceList;
+    }
+
+    @Override
+    public int getCashBalance(String start, String end) throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.executeQuery(
+                "SELECT ((\n" +
+                        "            SELECT SUM(Amount)\n" +
+                        "            FROM Receipt\n" +
+                        "            WHERE Cheque = 0 && (Date BETWEEN ? AND ?)\n" +
+                        "        ) - (\n" +
+                        "            SELECT SUM(Amount)\n" +
+                        "            FROM Voucher\n" +
+                        "            WHERE Cheque = 0 && (Date BETWEEN ? AND ?)\n" +
+                        "        )) as Amount",
+                start, end, start, end
+        );
+        int balance = 0;
+        while (rst.next()) {
+            balance = rst.getInt("Amount");
+        }
+        return balance;
+    }
+
+    @Override
+    public int getBankBalance(String start, String end) throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.executeQuery(
+                "SELECT ((\n" +
+                        "            SELECT SUM(Amount)\n" +
+                        "            FROM Receipt\n" +
+                        "            WHERE Cheque != 0 && (Date BETWEEN ? AND ?)\n" +
+                        "        ) - (\n" +
+                        "            SELECT SUM(Amount)\n" +
+                        "            FROM Voucher\n" +
+                        "            WHERE Cheque != 0 && (Date BETWEEN ? AND ?)\n" +
+                        "        )) as Amount",
+                start, end, start, end
+        );
+        int balance = 0;
+        while (rst.next()) {
+            balance = rst.getInt("Amount");
+        }
+        return balance;
     }
 }
